@@ -49,12 +49,11 @@ inova/
 ## 🎨 Design System (Cores Inova)
 
 ```css
---inova-blue:       #004D95      /* Primária - ações principais, headers */
---inova-blue-hover: #003A70      /* Hover estados primários */
---inova-blue-light: #EBF3FA      /* Fundos sutis, badges */
---inova-yellow:     #F4B41A      /* Secundária - CTAs destaque, warnings */
---inova-yellow-hover:#D99E10     /* Hover estados secundários */
---inova-yellow-light:#FEF9E7     /* Fundos sutis amarelo */
+--inova-blue:       #004D95     
+--inova-blue-hover: #003A70      
+--inova-yellow:     #F4B41A      
+--inova-yellow-hover:#D99E10     
+--inova-yellow-light:#FEF9E7   
 ```
 
 - **Modo:** Apenas **Light Mode** implementado (preparado para dark mode via `tailwind.config.darkMode: 'class'`)

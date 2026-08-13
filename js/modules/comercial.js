@@ -1,20 +1,13 @@
-/**
- * Módulo Comercial / CRM
- * Kanban, SAC, Relacionamentos
- */
 
-/**
- * Renderiza todo o módulo comercial
- */
+
+
 function renderComercial() {
   renderKanban();
   renderSACTable();
   renderRelacionamentosGrid();
 }
 
-/**
- * Renderiza Kanban do CRM
- */
+
 function renderKanban() {
   const stages = ['prospeccao', 'contato', 'proposta', 'fechado'];
 
@@ -39,9 +32,7 @@ function renderKanban() {
   });
 }
 
-/**
- * Renderiza tabela SAC
- */
+
 function renderSACTable() {
   const tbody = document.getElementById('tbl-sac-body');
   if (!tbody) return;
@@ -60,9 +51,7 @@ function renderSACTable() {
   `).join('');
 }
 
-/**
- * Renderiza grid de relacionamentos
- */
+
 function renderRelacionamentosGrid() {
   const grid = document.getElementById('relacionamento-grid');
   if (!grid) return;
@@ -79,17 +68,14 @@ function renderRelacionamentosGrid() {
   `).join('');
 }
 
-/**
- * Alterna sub-aba do comercial
- * @param {string} sub - 'crm' | 'sac' | 'relacionamento'
- */
+
 function setComSubTab(sub) {
   ['crm', 'sac', 'relacionamento'].forEach(s => {
     document.getElementById(`sub-com-${s}`).classList.add('hidden');
   });
   document.getElementById(`sub-com-${sub}`).classList.remove('hidden');
 
-  // Atualizar botões
+  
   const buttons = {
     crm: 'btn-com-crm',
     sac: 'btn-com-sac',
@@ -106,9 +92,7 @@ function setComSubTab(sub) {
   });
 }
 
-/**
- * Abre modal para nova oportunidade
- */
+
 function openNewLeadModal() {
   const cliente = prompt('Nome da empresa/lead comercial:');
   const valor = prompt('Valor estimado do negócio (R$):', '25000');
@@ -126,10 +110,7 @@ function openNewLeadModal() {
   }
 }
 
-/**
- * Move lead para próxima etapa do funil
- * @param {string} id - ID do lead
- */
+
 function moverEtapaLead(id) {
   const lead = window.AppState.state.crmLeads.find(l => l.id === id);
   if (lead) {
@@ -141,9 +122,7 @@ function moverEtapaLead(id) {
   }
 }
 
-/**
- * Abre modal para novo ticket SAC
- */
+
 function openNewTicketModal() {
   const cliente = prompt('Nome do Cliente solicitante SAC:');
   const assunto = prompt('Descreva o assunto/problema do atendimento SAC:');
@@ -161,10 +140,7 @@ function openNewTicketModal() {
   }
 }
 
-/**
- * Resolve ticket SAC
- * @param {string} id - ID do ticket
- */
+
 function resolverTicket(id) {
   const ticket = window.AppState.state.sacTickets.find(t => t.id === id);
   if (ticket) {
@@ -174,7 +150,7 @@ function resolverTicket(id) {
   }
 }
 
-// Exportar para uso global
+
 window.ComercialModule = {
   renderComercial,
   setComSubTab,

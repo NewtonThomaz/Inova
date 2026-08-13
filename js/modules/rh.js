@@ -1,11 +1,6 @@
-/**
- * Módulo Recursos Humanos
- * Vagas, Demissões, Férias (com calculadora), Folha de Pagamento
- */
 
-/**
- * Renderiza todo o módulo RH
- */
+
+
 function renderRH() {
   renderVagasGrid();
   renderDemissoesTable();
@@ -13,9 +8,7 @@ function renderRH() {
   renderFolhaTable();
 }
 
-/**
- * Renderiza grid de vagas
- */
+
 function renderVagasGrid() {
   const grid = document.getElementById('rh-vagas-grid');
   if (!grid) return;
@@ -35,9 +28,7 @@ function renderVagasGrid() {
   `).join('');
 }
 
-/**
- * Renderiza tabela de demissões
- */
+
 function renderDemissoesTable() {
   const tbody = document.getElementById('tbl-demissoes-body');
   if (!tbody) return;
@@ -55,9 +46,7 @@ function renderDemissoesTable() {
   `).join('');
 }
 
-/**
- * Renderiza tabela de férias
- */
+
 function renderFeriasTable() {
   const tbody = document.getElementById('tbl-ferias-body');
   if (!tbody) return;
@@ -75,9 +64,7 @@ function renderFeriasTable() {
   `).join('');
 }
 
-/**
- * Renderiza tabela de folha de pagamento
- */
+
 function renderFolhaTable() {
   const tbody = document.getElementById('tbl-folha-body');
   if (!tbody) return;
@@ -98,17 +85,14 @@ function renderFolhaTable() {
   `).join('');
 }
 
-/**
- * Alterna sub-aba do RH
- * @param {string} sub - 'contratacoes' | 'demissoes' | 'ferias' | 'folha'
- */
+
 function setRhSubTab(sub) {
   ['contratacoes', 'demissoes', 'ferias', 'folha'].forEach(s => {
     document.getElementById(`sub-rh-${s}`).classList.add('hidden');
   });
   document.getElementById(`sub-rh-${sub}`).classList.remove('hidden');
 
-  // Atualizar botões
+  
   const buttons = {
     contratacoes: 'btn-rh-contratacoes',
     demissoes: 'btn-rh-demissoes',
@@ -126,9 +110,7 @@ function setRhSubTab(sub) {
   });
 }
 
-/**
- * Calculadora de férias CLT
- */
+
 function calcularFeriasSimulacao() {
   const salario = parseFloat(document.getElementById('calc-salario').value) || 0;
   const dias = parseInt(document.getElementById('calc-dias').value);
@@ -150,14 +132,7 @@ function calcularFeriasSimulacao() {
   window.AppHelpers.showToast('Cálculo de Férias CLT Inova recalculado!');
 }
 
-/**
- * Abre modal de holerite
- * @param {string} nome - Nome do colaborador
- * @param {string} cargo - Cargo
- * @param {number} bruto - Salário bruto
- * @param {number} descontos - Descontos
- * @param {number} liquido - Salário líquido
- */
+
 function verHolerite(nome, cargo, bruto, descontos, liquido) {
   document.getElementById('holerite-nome').textContent = nome;
   document.getElementById('holerite-cargo').textContent = cargo;
@@ -168,16 +143,12 @@ function verHolerite(nome, cargo, bruto, descontos, liquido) {
   document.getElementById('holerite-modal').classList.remove('hidden');
 }
 
-/**
- * Fecha modal de holerite
- */
+
 function closeHoleriteModal() {
   document.getElementById('holerite-modal').classList.add('hidden');
 }
 
-/**
- * Abre modal para nova vaga
- */
+
 function openNewVagaModal() {
   const titulo = prompt('Título do Cargo / Vaga de Emprego:');
   const depto = prompt('Departamento (ex: Tecnologia, RH, Comercial):', 'Tecnologia');
@@ -195,9 +166,7 @@ function openNewVagaModal() {
   }
 }
 
-/**
- * Abre modal para nova demissão
- */
+
 function openNewDemissaoModal() {
   const colaborador = prompt('Nome do colaborador para desligamento:');
   const motivo = prompt('Motivo do desligamento:', 'Acordo Trabalhista');
@@ -215,7 +184,7 @@ function openNewDemissaoModal() {
   }
 }
 
-// Exportar para uso global
+
 window.RHModule = {
   renderRH,
   setRhSubTab,

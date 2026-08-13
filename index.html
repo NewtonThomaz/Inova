@@ -5,36 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inova - Sistema Integrado de Gestão ERP DevOps</title>
 
-  <!-- Tailwind CSS -->
+  
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Font Awesome Icons -->
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Google Fonts Inter -->
+  
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Tailwind Config (Design Tokens Inova) -->
+  
   <script src="css/tailwind-config.js"></script>
 
-  <!-- Custom CSS -->
+  
   <link rel="stylesheet" href="css/custom.css">
 </head>
 <body class="h-full font-sans antialiased bg-slate-100 text-slate-800 custom-scrollbar flex flex-col">
 
-  <!-- Toast Notification -->
+  
   <div id="toast" class="fixed top-5 right-5 z-50 transform -translate-y-10 opacity-0 pointer-events-none transition-all duration-300 ease-in-out bg-emerald-600 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 border border-emerald-500">
     <i id="toast-icon" class="fas fa-check-circle text-xl"></i>
     <span id="toast-message" class="text-sm font-medium">Ação realizada com sucesso!</span>
   </div>
 
-  <!-- AUTH CONTAINER (Login/Register) -->
+  
   <div id="auth-container" class="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-slate-100 via-sky-50 to-amber-50">
     <div class="w-full max-w-md bg-white p-8 rounded-2xl border border-slate-200 shadow-xl relative overflow-hidden">
       <div class="absolute -top-12 -left-12 w-36 h-36 bg-inova-blue/10 rounded-full blur-2xl"></div>
       <div class="absolute -bottom-12 -right-12 w-36 h-36 bg-inova-yellow/20 rounded-full blur-2xl"></div>
 
-      <!-- App Header Logo Inova -->
+      
       <div class="text-center mb-8 relative z-10 flex flex-col items-center">
         <div class="mb-3 flex items-center justify-center">
           <img src="img/icon.png" alt="Inova Logo" class="h-16 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('fallback-logo-login').style.display='flex';">
@@ -46,7 +46,7 @@
         <p class="text-xs text-slate-500 font-medium mt-0.5">Plataforma ERP DevOps de Gestão Empresarial</p>
       </div>
 
-      <!-- LOGIN FORM -->
+      
       <div id="login-form" class="space-y-4 relative z-10">
         <h2 class="text-base font-semibold text-slate-700 border-b border-slate-100 pb-2 flex items-center justify-between">
           <span>Acessar Sistema</span>
@@ -83,7 +83,7 @@
         </p>
       </div>
 
-      <!-- REGISTER FORM -->
+      
       <div id="register-form" class="space-y-4 relative z-10 hidden">
         <h2 class="text-base font-semibold text-slate-700 border-b border-slate-100 pb-2">Criar Nova Conta Corporativa</h2>
         <div>
@@ -117,13 +117,13 @@
     </div>
   </div>
 
-  <!-- MAIN APPLICATION -->
+  
   <div id="main-app" class="hidden min-h-screen flex flex-col md:flex-row bg-slate-100">
 
-    <!-- SIDEBAR NAVIGATION -->
+    
     <aside class="w-full md:w-64 bg-white border-r border-slate-200 flex flex-col justify-between shrink-0 shadow-sm">
       <div>
-        <!-- Sidebar Logo -->
+        
         <div class="p-5 border-b border-slate-100 flex items-center justify-between">
           <div class="flex items-center gap-3">
             <img src="img/icon.png" alt="Inova Logo" class="h-10 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('fallback-logo-side').style.display='flex';">
@@ -137,13 +137,13 @@
           </div>
         </div>
 
-        <!-- Role Badge -->
+        
         <div class="px-4 py-3 bg-slate-50 border-b border-slate-100 flex items-center justify-between text-xs">
           <span class="text-slate-500 font-medium">Perfil Conectado:</span>
           <span id="active-user-badge" class="px-2.5 py-0.5 rounded-full bg-inova-blue-light text-inova-blue border border-inova-blue/20 font-bold uppercase text-[10px]">ADMIN</span>
         </div>
 
-        <!-- Navigation Links -->
+        
         <nav class="p-3 space-y-1">
           <p class="px-3 py-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Módulos Administrativos</p>
 
@@ -181,7 +181,7 @@
         </nav>
       </div>
 
-      <!-- User Profile Footer -->
+      
       <div class="p-4 border-t border-slate-100 bg-slate-50 flex items-center justify-between">
         <div class="flex items-center gap-3 overflow-hidden">
           <div id="user-avatar" class="w-9 h-9 rounded-full bg-inova-blue text-inova-yellow flex items-center justify-center font-bold text-xs shrink-0 shadow-sm">
@@ -198,10 +198,10 @@
       </div>
     </aside>
 
-    <!-- MAIN CONTENT -->
+    
     <main class="flex-1 flex flex-col min-w-0 overflow-y-auto custom-scrollbar">
 
-      <!-- TOP HEADER BAR -->
+      
       <header class="bg-white border-b border-slate-200 px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4 sticky top-0 z-20 shadow-sm">
         <div>
           <h1 id="page-title" class="text-xl font-bold text-inova-blue flex items-center gap-2">
@@ -221,10 +221,10 @@
         </div>
       </header>
 
-      <!-- DYNAMIC CONTENT SECTIONS -->
+      
       <div class="p-6 space-y-6 flex-1">
 
-        <!-- MÓDULO FINANCEIRO -->
+        
         <section id="module-financeiro" class="module-section space-y-6">
           <div id="fin-denied" class="hidden p-8 bg-red-50 border border-red-200 rounded-2xl text-center">
             <i class="fas fa-lock text-4xl text-red-500 mb-3"></i>
@@ -233,7 +233,7 @@
           </div>
 
           <div id="fin-content" class="space-y-6">
-            <!-- KPI Cards -->
+            
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <div class="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
                 <div class="flex justify-between items-start">
@@ -288,7 +288,7 @@
               </div>
             </div>
 
-            <!-- Finance Sub-tabs -->
+            
             <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
               <div class="border-b border-slate-200 px-6 pt-4 flex flex-wrap gap-6 bg-slate-50/50">
                 <button onclick="window.FinanceiroModule.setFinSubTab('boletos')" id="tab-fin-boletos" class="pb-3 text-sm font-bold border-b-2 border-inova-blue text-inova-blue flex items-center gap-2">
@@ -327,7 +327,7 @@
                         </tr>
                       </thead>
                       <tbody id="tbl-boletos-body" class="divide-y divide-slate-100 text-slate-700">
-                        <!-- Populated by JS -->
+                        
                       </tbody>
                     </table>
                   </div>
@@ -344,7 +344,7 @@
                     </button>
                   </div>
                   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="contratos-grid">
-                    <!-- Populated by JS -->
+                    
                   </div>
                 </div>
 
@@ -369,7 +369,7 @@
                         </tr>
                       </thead>
                       <tbody id="tbl-inadimplentes-body" class="divide-y divide-slate-100 text-slate-700">
-                        <!-- Populated by JS -->
+                        
                       </tbody>
                     </table>
                   </div>
@@ -379,7 +379,7 @@
           </div>
         </section>
 
-        <!-- MÓDULO COMERCIAL -->
+        
         <section id="module-comercial" class="module-section space-y-6 hidden">
           <div id="com-denied" class="hidden p-8 bg-red-50 border border-red-200 rounded-2xl text-center">
             <i class="fas fa-lock text-4xl text-red-500 mb-3"></i>
@@ -388,7 +388,7 @@
           </div>
 
           <div id="com-content" class="space-y-6">
-            <!-- Commercial Sub Navigation -->
+            
             <div class="bg-white border border-slate-200 rounded-2xl p-4 flex flex-wrap gap-3 shadow-sm">
               <button onclick="window.ComercialModule.setComSubTab('crm')" id="btn-com-crm" class="px-4 py-2.5 rounded-xl text-xs font-bold bg-inova-yellow-light text-slate-900 border border-inova-yellow flex items-center gap-2">
                 <i class="fas fa-filter text-amber-600"></i> CRM - Funil de Vendas
@@ -401,7 +401,7 @@
               </button>
             </div>
 
-            <!-- CRM Kanban -->
+            
             <div id="sub-com-crm" class="space-y-4">
               <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <div>
@@ -415,9 +415,9 @@
                 </button>
               </div>
 
-              <!-- KANBAN BOARD -->
+              
               <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <!-- Col 1: Prospecção -->
+                
                 <div class="bg-white border border-slate-200 p-3.5 rounded-2xl flex flex-col kanban-col shadow-sm">
                   <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
                     <span class="text-xs font-bold text-slate-700 uppercase tracking-wide flex items-center gap-2">
@@ -428,7 +428,7 @@
                   <div id="kanban-prospeccao" class="space-y-3 flex-1 overflow-y-auto custom-scrollbar"></div>
                 </div>
 
-                <!-- Col 2: Contato Feito -->
+                
                 <div class="bg-white border border-slate-200 p-3.5 rounded-2xl flex flex-col kanban-col shadow-sm">
                   <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
                     <span class="text-xs font-bold text-slate-700 uppercase tracking-wide flex items-center gap-2">
@@ -439,7 +439,7 @@
                   <div id="kanban-contato" class="space-y-3 flex-1 overflow-y-auto custom-scrollbar"></div>
                 </div>
 
-                <!-- Col 3: Proposta Enviada -->
+                
                 <div class="bg-white border border-slate-200 p-3.5 rounded-2xl flex flex-col kanban-col shadow-sm">
                   <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
                     <span class="text-xs font-bold text-slate-700 uppercase tracking-wide flex items-center gap-2">
@@ -450,7 +450,7 @@
                   <div id="kanban-proposta" class="space-y-3 flex-1 overflow-y-auto custom-scrollbar"></div>
                 </div>
 
-                <!-- Col 4: Fechado/Ganho -->
+                
                 <div class="bg-white border border-slate-200 p-3.5 rounded-2xl flex flex-col kanban-col shadow-sm">
                   <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
                     <span class="text-xs font-bold text-slate-700 uppercase tracking-wide flex items-center gap-2">
@@ -463,7 +463,7 @@
               </div>
             </div>
 
-            <!-- SAC -->
+            
             <div id="sub-com-sac" class="space-y-4 hidden">
               <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <div>
@@ -488,13 +488,13 @@
                     </tr>
                   </thead>
                   <tbody id="tbl-sac-body" class="divide-y divide-slate-100 text-slate-700">
-                    <!-- Populated by JS -->
+                    
                   </tbody>
                 </table>
               </div>
             </div>
 
-            <!-- Relacionamentos -->
+            
             <div id="sub-com-relacionamento" class="space-y-4 hidden">
               <div class="flex justify-between items-center">
                 <div>
@@ -503,13 +503,13 @@
                 </div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="relacionamento-grid">
-                <!-- Populated by JS -->
+                
               </div>
             </div>
           </div>
         </section>
 
-        <!-- MÓDULO RH -->
+        
         <section id="module-rh" class="module-section space-y-6 hidden">
           <div id="rh-denied" class="hidden p-8 bg-red-50 border border-red-200 rounded-2xl text-center">
             <i class="fas fa-lock text-4xl text-red-500 mb-3"></i>
@@ -518,7 +518,7 @@
           </div>
 
           <div id="rh-content" class="space-y-6">
-            <!-- RH Sub Navigation -->
+            
             <div class="bg-white border border-slate-200 rounded-2xl p-4 flex flex-wrap gap-3 shadow-sm">
               <button onclick="window.RHModule.setRhSubTab('contratacoes')" id="btn-rh-contratacoes" class="px-4 py-2.5 rounded-xl text-xs font-bold bg-purple-50 text-purple-700 border border-purple-200 flex items-center gap-2">
                 <i class="fas fa-user-plus"></i> Contratações (Vagas)
@@ -534,7 +534,7 @@
               </button>
             </div>
 
-            <!-- Contratações -->
+            
             <div id="sub-rh-contratacoes" class="space-y-4">
               <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <div>
@@ -546,11 +546,11 @@
                 </button>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="rh-vagas-grid">
-                <!-- Populated by JS -->
+                
               </div>
             </div>
 
-            <!-- Demissões -->
+            
             <div id="sub-rh-demissoes" class="space-y-4 hidden">
               <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <div>
@@ -574,16 +574,16 @@
                     </tr>
                   </thead>
                   <tbody id="tbl-demissoes-body" class="divide-y divide-slate-100 text-slate-700">
-                    <!-- Populated by JS -->
+                    
                   </tbody>
                 </table>
               </div>
             </div>
 
-            <!-- Férias -->
+            
             <div id="sub-rh-ferias" class="space-y-4 hidden">
               <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Calculadora -->
+                
                 <div class="bg-white border border-slate-200 p-5 rounded-2xl space-y-4 shadow-sm">
                   <h3 class="font-bold text-slate-800 text-base flex items-center gap-2">
                     <i class="fas fa-calculator text-purple-600"></i> Calculadora de Férias CLT
@@ -618,7 +618,7 @@
                   </div>
                 </div>
 
-                <!-- Programação Férias -->
+                
                 <div class="lg:col-span-2 bg-white border border-slate-200 p-5 rounded-2xl space-y-4 shadow-sm">
                   <h3 class="font-bold text-slate-800 text-base">Programação de Férias da Equipe</h3>
                   <div class="overflow-x-auto rounded-xl border border-slate-200">
@@ -633,7 +633,7 @@
                         </tr>
                       </thead>
                       <tbody id="tbl-ferias-body" class="divide-y divide-slate-100 text-slate-700">
-                        <!-- Populated by JS -->
+                        
                       </tbody>
                     </table>
                   </div>
@@ -641,7 +641,7 @@
               </div>
             </div>
 
-            <!-- Folha de Pagamento -->
+            
             <div id="sub-rh-folha" class="space-y-4 hidden">
               <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <div>
@@ -666,7 +666,7 @@
                     </tr>
                   </thead>
                   <tbody id="tbl-folha-body" class="divide-y divide-slate-100 text-slate-700">
-                    <!-- Populated by JS -->
+                    
                   </tbody>
                 </table>
               </div>
@@ -678,7 +678,7 @@
     </main>
   </div>
 
-  <!-- MODAL DEVOPS / SPRINTS -->
+  
   <div id="devops-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-white border border-slate-200 w-full max-w-4xl rounded-2xl p-6 space-y-6 max-h-[90vh] overflow-y-auto custom-scrollbar shadow-2xl">
       <div class="flex justify-between items-center border-b border-slate-100 pb-4">
@@ -691,7 +691,7 @@
         <button onclick="window.ModalsModule.closeDevopsModal()" class="p-2 text-slate-400 hover:text-slate-700 rounded-lg"><i class="fas fa-times text-lg"></i></button>
       </div>
 
-      <!-- Sprint Cards -->
+      
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-3">
           <div class="flex justify-between items-center">
@@ -739,7 +739,7 @@
         </div>
       </div>
 
-      <!-- Financial Summary -->
+      
       <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-2">
         <h4 class="text-xs font-bold uppercase text-slate-500">Resumo Financeiro da Implantação Inova</h4>
         <div class="flex justify-between items-center text-sm py-1 border-b border-slate-200">
@@ -760,7 +760,7 @@
     </div>
   </div>
 
-  <!-- MODAL HOLERITE -->
+  
   <div id="holerite-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-white text-slate-900 border border-slate-300 w-full max-w-2xl rounded-2xl p-6 space-y-4 max-h-[90vh] overflow-y-auto shadow-2xl">
       <div id="printable-holerite" class="space-y-4">
@@ -821,7 +821,7 @@
     </div>
   </div>
 
-  <!-- SCRIPTS - Ordem de carregamento importa -->
+  
   <script src="js/state.js"></script>
   <script src="js/utils/helpers.js"></script>
   <script src="js/auth.js"></script>

@@ -1,32 +1,17 @@
-/**
- * Funções utilitárias compartilhadas
- * Formatters, toast notifications, helpers de DOM
- */
 
-/**
- * Formata valor monetário para BRL
- * @param {number} value - Valor numérico
- * @returns {string} Valor formatado (ex: R$ 1.234,56)
- */
+
+
 function formatBRL(value) {
   return value.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
-/**
- * Formata data para padrão brasileiro
- * @param {string} dateStr - Data no formato YYYY-MM-DD
- * @returns {string} Data formatada (ex: 15/08/2026)
- */
+
 function formatDateBR(dateStr) {
   const [year, month, day] = dateStr.split('-');
   return `${day}/${month}/${year}`;
 }
 
-/**
- * Obtém classe CSS para status de boleto
- * @param {string} status - Status do boleto
- * @returns {string} Classes Tailwind
- */
+
 function getBoletoStatusClass(status) {
   switch (status) {
     case 'Pago':
@@ -38,11 +23,7 @@ function getBoletoStatusClass(status) {
   }
 }
 
-/**
- * Obtém classe CSS para prioridade SAC
- * @param {string} prioridade - Prioridade do ticket
- * @returns {string} Classes Tailwind
- */
+
 function getPrioridadeClass(prioridade) {
   switch (prioridade) {
     case 'Alta':
@@ -54,11 +35,7 @@ function getPrioridadeClass(prioridade) {
   }
 }
 
-/**
- * Obtém classe CSS para status SAC
- * @param {string} status - Status do ticket
- * @returns {string} Classes Tailwind
- */
+
 function getSacStatusClass(status) {
   switch (status) {
     case 'Aberto':
@@ -70,11 +47,7 @@ function getSacStatusClass(status) {
   }
 }
 
-/**
- * Obtém cor da etapa do Kanban
- * @param {string} etapa - Etapa do funil
- * @returns {string} Classe de cor do indicador
- */
+
 function getKanbanStageColor(etapa) {
   switch (etapa) {
     case 'prospeccao': return 'bg-sky-500';
@@ -85,11 +58,7 @@ function getKanbanStageColor(etapa) {
   }
 }
 
-/**
- * Obtém label da etapa do Kanban
- * @param {string} etapa - Etapa do funil
- * @returns {string} Label legível
- */
+
 function getKanbanStageLabel(etapa) {
   switch (etapa) {
     case 'prospeccao': return 'Prospecção';
@@ -100,26 +69,18 @@ function getKanbanStageLabel(etapa) {
   }
 }
 
-/**
- * Gera ID único simples
- * @param {string} prefix - Prefixo opcional
- * @returns {string} ID único
- */
+
 function generateId(prefix = '') {
   return `${prefix}${Date.now()}-${Math.floor(Math.random() * 10000)}`;
 }
 
-/**
- * Copia texto para a área de transferência
- * @param {string} text - Texto a copiar
- * @returns {Promise<void>}
- */
+
 async function copyToClipboard(text) {
   try {
     await navigator.clipboard.writeText(text);
     return true;
   } catch (err) {
-    // Fallback para navegadores antigos
+    
     const tempInput = document.createElement('input');
     tempInput.value = text;
     document.body.appendChild(tempInput);
@@ -130,11 +91,7 @@ async function copyToClipboard(text) {
   }
 }
 
-/**
- * Exibe notificação toast
- * @param {string} message - Mensagem a exibir
- * @param {string} type - Tipo: 'success' | 'error' | 'info'
- */
+
 function showToast(message, type = 'success') {
   const toast = document.getElementById('toast');
   const toastIcon = document.getElementById('toast-icon');
@@ -142,7 +99,7 @@ function showToast(message, type = 'success') {
 
   if (!toast || !toastMessage) return;
 
-  // Configurar ícone e cor baseado no tipo
+  
   const configs = {
     success: { bg: 'bg-emerald-600', border: 'border-emerald-500', icon: 'fa-check-circle' },
     error: { bg: 'bg-rose-600', border: 'border-rose-500', icon: 'fa-times-circle' },
@@ -151,30 +108,25 @@ function showToast(message, type = 'success') {
 
   const config = configs[type] || configs.success;
 
-  // Reset classes
+  
   toast.className = `fixed top-5 right-5 z-50 transform -translate-y-10 opacity-0 pointer-events-none transition-all duration-300 ease-in-out px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 ${config.bg} text-white ${config.border}`;
   toastIcon.className = `fas ${config.icon} text-xl`;
   toastMessage.textContent = message;
 
-  // Mostrar
+  
   requestAnimationFrame(() => {
     toast.classList.remove('-translate-y-10', 'opacity-0', 'pointer-events-none');
     toast.classList.add('translate-y-0', 'opacity-100');
   });
 
-  // Esconder após 3.5s
+  
   setTimeout(() => {
     toast.classList.remove('translate-y-0', 'opacity-100');
     toast.classList.add('-translate-y-10', 'opacity-0', 'pointer-events-none');
   }, 3500);
 }
 
-/**
- * Debounce para limitar frequência de execução
- * @param {Function} fn - Função a executar
- * @param {number} delay - Delay em ms
- * @returns {Function} Função com debounce
- */
+
 function debounce(fn, delay) {
   let timeoutId;
   return (...args) => {
@@ -183,27 +135,19 @@ function debounce(fn, delay) {
   };
 }
 
-/**
- * Escape HTML para prevenir XSS
- * @param {string} html - String com HTML
- * @returns {string} String escapada
- */
+
 function escapeHtml(html) {
   const div = document.createElement('div');
   div.textContent = html;
   return div.innerHTML;
 }
 
-/**
- * Capitaliza primeira letra de cada palavra
- * @param {string} str - String a capitalizar
- * @returns {string} String capitalizada
- */
+
 function capitalizeWords(str) {
   return str.replace(/\b\w/g, c => c.toUpperCase());
 }
 
-// Exportar para uso global
+
 window.AppHelpers = {
   formatBRL,
   formatDateBR,

@@ -1,7 +1,4 @@
-/**
- * Configuração do Tailwind CSS
- * Inclui design tokens da marca Inova (cores, fontes)
- */
+
 tailwind.config = {
   darkMode: 'class',
   theme: {

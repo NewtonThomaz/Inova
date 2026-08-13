@@ -1,20 +1,13 @@
-/**
- * Módulo Financeiro
- * Renderização de boletos, contratos, inadimplentes e ações relacionadas
- */
 
-/**
- * Renderiza todo o módulo financeiro
- */
+
+
 function renderFinanceiro() {
   renderBoletosTable();
   renderContratosGrid();
   renderInadimplentesTable();
 }
 
-/**
- * Renderiza tabela de boletos
- */
+
 function renderBoletosTable() {
   const tbody = document.getElementById('tbl-boletos-body');
   if (!tbody) return;
@@ -36,9 +29,7 @@ function renderBoletosTable() {
   `).join('');
 }
 
-/**
- * Renderiza grid de contratos
- */
+
 function renderContratosGrid() {
   const grid = document.getElementById('contratos-grid');
   if (!grid) return;
@@ -64,9 +55,7 @@ function renderContratosGrid() {
   `).join('');
 }
 
-/**
- * Renderiza tabela de inadimplentes
- */
+
 function renderInadimplentesTable() {
   const tbody = document.getElementById('tbl-inadimplentes-body');
   if (!tbody) return;
@@ -86,10 +75,7 @@ function renderInadimplentesTable() {
   `).join('');
 }
 
-/**
- * Alterna sub-aba do financeiro
- * @param {string} sub - 'boletos' | 'contratos' | 'inadimplentes'
- */
+
 function setFinSubTab(sub) {
   ['boletos', 'contratos', 'inadimplentes'].forEach(s => {
     document.getElementById(`sub-fin-${s}`).classList.add('hidden');
@@ -104,9 +90,7 @@ function setFinSubTab(sub) {
   activeTab.classList.replace('border-transparent', 'border-inova-blue');
 }
 
-/**
- * Abre modal para novo boleto
- */
+
 function openNewBoletoModal() {
   const cliente = prompt('Nome do Cliente para emissão do boleto:');
   const valor = prompt('Valor do Boleto (R$):', '3500');
@@ -125,9 +109,7 @@ function openNewBoletoModal() {
   }
 }
 
-/**
- * Abre modal para novo contrato
- */
+
 function openNewContratoModal() {
   const cliente = prompt('Razão Social do Cliente do Contrato:');
   const valor = prompt('Valor Mensal Recorrente (R$):', '7500');
@@ -146,32 +128,23 @@ function openNewContratoModal() {
   }
 }
 
-/**
- * Copia código de barras para clipboard
- * @param {string} codigo - Código de barras
- */
+
 async function copiarCodigoBarra(codigo) {
   await window.AppHelpers.copyToClipboard(codigo);
   window.AppHelpers.showToast('Código de barras copiado para a área de transferência!');
 }
 
-/**
- * Simula envio de 2ª via
- * @param {string} id - ID do boleto
- */
+
 function simularSegundaVia(id) {
   window.AppHelpers.showToast(`Segunda via do boleto ${id} enviada via e-mail Inova!`);
 }
 
-/**
- * Envia cobrança para inadimplente
- * @param {string} cliente - Nome do cliente
- */
+
 function enviarCobranca(cliente) {
   window.AppHelpers.showToast(`Notificação formal de cobrança disparada para ${cliente}`);
 }
 
-// Exportar para uso global
+
 window.FinanceiroModule = {
   renderFinanceiro,
   setFinSubTab,

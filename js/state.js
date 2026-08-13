@@ -1,9 +1,6 @@
-/**
- * Estado global da aplicação (Mock Data)
- * Em produção, isso viria de uma API/backend
- */
 
-// Estado da aplicação
+
+
 const state = {
   boletos: [
     { id: 'BOL-9021', cliente: 'TechCorp Brasil LTDA', vencimento: '2026-08-15', valor: 8500.00, status: 'Pendente', codigoBarra: '34191.09021 80000.123456 7 8910000850000' },
@@ -52,11 +49,11 @@ const state = {
   ]
 };
 
-// Estado da sessão do usuário
+
 let currentUser = null;
 let activeModule = 'financeiro';
 
-// Exportar para uso global (script type="module" não usado por simplicidade)
+
 window.AppState = {
   state,
   get currentUser() { return currentUser; },

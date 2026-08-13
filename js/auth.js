@@ -1,12 +1,6 @@
-/**
- * Módulo de Autenticação
- * Login, registro, logout e inicialização da aplicação
- */
 
-/**
- * Alterna entre formulários de login e registro
- * @param {string} view - 'login' ou 'register'
- */
+
+
 function toggleAuth(view) {
   const loginForm = document.getElementById('login-form');
   const registerForm = document.getElementById('register-form');
@@ -20,9 +14,7 @@ function toggleAuth(view) {
   }
 }
 
-/**
- * Processa login do usuário
- */
+
 function handleLogin() {
   const email = document.getElementById('login-email').value || 'usuario@inova.com.br';
   const role = document.getElementById('login-role').value;
@@ -37,9 +29,7 @@ function handleLogin() {
   window.AppHelpers.showToast(`Bem-vindo à Inova, ${window.AppState.currentUser.name}! Conectado como ${role.toUpperCase()}`);
 }
 
-/**
- * Processa registro de novo usuário
- */
+
 function handleRegister() {
   const name = document.getElementById('reg-name').value;
   const email = document.getElementById('reg-email').value;
@@ -55,9 +45,7 @@ function handleRegister() {
   window.AppHelpers.showToast('Conta Inova criada com sucesso!');
 }
 
-/**
- * Processa logout do usuário
- */
+
 function handleLogout() {
   window.AppState.currentUser = null;
   document.getElementById('main-app').classList.add('hidden');
@@ -65,24 +53,22 @@ function handleLogout() {
   window.AppHelpers.showToast('Sessão encerrada.');
 }
 
-/**
- * Inicializa a aplicação após autenticação
- */
+
 function initApp() {
   document.getElementById('auth-container').classList.add('hidden');
   document.getElementById('main-app').classList.remove('hidden');
 
-  // Atualizar UI do usuário
+  
   document.getElementById('user-display-name').textContent = window.AppState.currentUser.name;
   document.getElementById('user-display-email').textContent = window.AppState.currentUser.email;
   document.getElementById('user-avatar').textContent = window.AppState.currentUser.name.substring(0, 2).toUpperCase();
   document.getElementById('active-user-badge').textContent = window.AppState.currentUser.role.toUpperCase();
 
-  // Data atual
+  
   const now = new Date();
   document.getElementById('current-date').textContent = now.toLocaleDateString('pt-BR');
 
-  // Redirecionar para módulo padrão do perfil
+  
   const role = window.AppState.currentUser.role;
   if (role === 'financeiro') switchModule('financeiro');
   else if (role === 'comercial') switchModule('comercial');
@@ -90,14 +76,11 @@ function initApp() {
   else switchModule('financeiro');
 }
 
-/**
- * Alterna módulo ativo com validação de permissão
- * @param {string} mod - Módulo: 'financeiro' | 'comercial' | 'rh'
- */
+
 function switchModule(mod) {
   window.AppState.activeModule = mod;
 
-  // Atualizar navegação lateral
+  
   document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.classList.remove('bg-inova-blue-light', 'text-inova-blue');
     btn.classList.add('text-slate-600');
@@ -109,13 +92,13 @@ function switchModule(mod) {
     activeNavBtn.classList.add('bg-inova-blue-light', 'text-inova-blue');
   }
 
-  // Esconder todas as seções
+  
   document.querySelectorAll('.module-section').forEach(sec => sec.classList.add('hidden'));
 
   const titleEl = document.getElementById('page-title');
   const subTitleEl = document.getElementById('page-subtitle');
 
-  // Verificar permissão
+  
   const isAllowed = window.AppState.currentUser.role === 'admin' || window.AppState.currentUser.role === mod;
 
   if (mod === 'financeiro') {
@@ -160,7 +143,7 @@ function switchModule(mod) {
   }
 }
 
-// Exportar para uso global
+
 window.AuthModule = {
   toggleAuth,
   handleLogin,
