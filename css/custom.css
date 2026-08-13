@@ -1,0 +1,75 @@
+/**
+ * Estilos customizados além do Tailwind
+ * Scrollbar personalizada, Kanban, Print styles
+ */
+
+/* Scrollbar customizada */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Colunas do Kanban - altura mínima fixa */
+.kanban-col {
+  min-height: 480px;
+}
+
+/* Estilos para impressão do holerite */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-holerite,
+  #printable-holerite * {
+    visibility: visible;
+  }
+  #printable-holerite {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    color: black;
+    background: white;
+  }
+}
+
+/* Animações suaves para toast */
+#toast {
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+/* Transições para botões de navegação */
+.nav-btn {
+  transition: all 0.2s ease;
+}
+
+/* Hover states para cards */
+.hover-border-inova-yellow:hover {
+  border-color: #F4B41A;
+}
+.hover-border-purple-300:hover {
+  border-color: #d8b4fe;
+}
+
+/* Focus visible para acessibilidade */
+*:focus-visible {
+  outline: 2px solid #004D95;
+  outline-offset: 2px;
+}
+
+/* Truncamento de texto */
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

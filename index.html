@@ -4,53 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inova - Sistema Integrado de Gestão ERP DevOps</title>
+
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <!-- Google Fonts Inter -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Inter', 'sans-serif'] },
-          colors: {
-            inova: {
-              blue: '#004D95',
-              'blue-hover': '#003A70',
-              'blue-light': '#EBF3FA',
-              yellow: '#F4B41A',
-              'yellow-hover': '#D99E10',
-              'yellow-light': '#FEF9E7',
-            }
-          }
-        }
-      }
-    }
-  </script>
-  <style>
-    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
-    .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-    .kanban-col { min-height: 480px; }
-    @media print {
-      body * { visibility: hidden; }
-      #printable-holerite, #printable-holerite * { visibility: visible; }
-      #printable-holerite { position: absolute; left: 0; top: 0; width: 100%; color: black; background: white; }
-    }
-  </style>
+
+  <!-- Tailwind Config (Design Tokens Inova) -->
+  <script src="css/tailwind-config.js"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/custom.css">
 </head>
 <body class="h-full font-sans antialiased bg-slate-100 text-slate-800 custom-scrollbar flex flex-col">
 
+  <!-- Toast Notification -->
   <div id="toast" class="fixed top-5 right-5 z-50 transform -translate-y-10 opacity-0 pointer-events-none transition-all duration-300 ease-in-out bg-emerald-600 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 border border-emerald-500">
     <i id="toast-icon" class="fas fa-check-circle text-xl"></i>
     <span id="toast-message" class="text-sm font-medium">Ação realizada com sucesso!</span>
   </div>
 
+  <!-- AUTH CONTAINER (Login/Register) -->
   <div id="auth-container" class="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-slate-100 via-sky-50 to-amber-50">
     <div class="w-full max-w-md bg-white p-8 rounded-2xl border border-slate-200 shadow-xl relative overflow-hidden">
       <div class="absolute -top-12 -left-12 w-36 h-36 bg-inova-blue/10 rounded-full blur-2xl"></div>
@@ -68,7 +46,7 @@
         <p class="text-xs text-slate-500 font-medium mt-0.5">Plataforma ERP DevOps de Gestão Empresarial</p>
       </div>
 
-      <!-- LOGIN FORM SECTION -->
+      <!-- LOGIN FORM -->
       <div id="login-form" class="space-y-4 relative z-10">
         <h2 class="text-base font-semibold text-slate-700 border-b border-slate-100 pb-2 flex items-center justify-between">
           <span>Acessar Sistema</span>
@@ -97,15 +75,15 @@
             <option value="rh">Recursos Humanos (Contratações, Férias, Folha)</option>
           </select>
         </div>
-        <button onclick="handleLogin()" class="w-full py-3 bg-inova-blue hover:bg-inova-blue-hover text-white font-bold rounded-xl shadow-lg shadow-inova-blue/20 transition duration-200 flex items-center justify-center gap-2">
+        <button onclick="window.AuthModule.handleLogin()" class="w-full py-3 bg-inova-blue hover:bg-inova-blue-hover text-white font-bold rounded-xl shadow-lg shadow-inova-blue/20 transition duration-200 flex items-center justify-center gap-2">
           <i class="fas fa-sign-in-alt"></i> Entrar no Sistema
         </button>
         <p class="text-center text-xs text-slate-500 mt-4">
-          Não tem conta? <button onclick="toggleAuth('register')" class="text-inova-blue hover:underline font-bold">Cadastre-se aqui</button>
+          Não tem conta? <button onclick="window.AuthModule.toggleAuth('register')" class="text-inova-blue hover:underline font-bold">Cadastre-se aqui</button>
         </p>
       </div>
 
-      <!-- REGISTER FORM SECTION -->
+      <!-- REGISTER FORM -->
       <div id="register-form" class="space-y-4 relative z-10 hidden">
         <h2 class="text-base font-semibold text-slate-700 border-b border-slate-100 pb-2">Criar Nova Conta Corporativa</h2>
         <div>
@@ -129,22 +107,23 @@
           <label class="block text-xs font-semibold text-slate-600 mb-1">Senha</label>
           <input type="password" id="reg-pass" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-inova-blue" placeholder="••••••••">
         </div>
-        <button onclick="handleRegister()" class="w-full py-3 bg-inova-yellow hover:bg-inova-yellow-hover text-slate-900 font-bold rounded-xl shadow-lg shadow-inova-yellow/20 transition duration-200 flex items-center justify-center gap-2">
+        <button onclick="window.AuthModule.handleRegister()" class="w-full py-3 bg-inova-yellow hover:bg-inova-yellow-hover text-slate-900 font-bold rounded-xl shadow-lg shadow-inova-yellow/20 transition duration-200 flex items-center justify-center gap-2">
           <i class="fas fa-user-plus"></i> Finalizar Cadastro
         </button>
         <p class="text-center text-xs text-slate-500 mt-4">
-          Já possui conta? <button onclick="toggleAuth('login')" class="text-inova-blue hover:underline font-bold">Fazer Login</button>
+          Já possui conta? <button onclick="window.AuthModule.toggleAuth('login')" class="text-inova-blue hover:underline font-bold">Fazer Login</button>
         </p>
       </div>
     </div>
   </div>
 
+  <!-- MAIN APPLICATION -->
   <div id="main-app" class="hidden min-h-screen flex flex-col md:flex-row bg-slate-100">
 
-    <!-- SIDEBAR NAVIGATION (Light Mode Style with Inova Blue Accent) -->
+    <!-- SIDEBAR NAVIGATION -->
     <aside class="w-full md:w-64 bg-white border-r border-slate-200 flex flex-col justify-between shrink-0 shadow-sm">
       <div>
-        <!-- App Sidebar Logo -->
+        <!-- Sidebar Logo -->
         <div class="p-5 border-b border-slate-100 flex items-center justify-between">
           <div class="flex items-center gap-3">
             <img src="img/icon.png" alt="Inova Logo" class="h-10 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('fallback-logo-side').style.display='flex';">
@@ -158,7 +137,7 @@
           </div>
         </div>
 
-        <!-- Role Badge Display -->
+        <!-- Role Badge -->
         <div class="px-4 py-3 bg-slate-50 border-b border-slate-100 flex items-center justify-between text-xs">
           <span class="text-slate-500 font-medium">Perfil Conectado:</span>
           <span id="active-user-badge" class="px-2.5 py-0.5 rounded-full bg-inova-blue-light text-inova-blue border border-inova-blue/20 font-bold uppercase text-[10px]">ADMIN</span>
@@ -168,7 +147,7 @@
         <nav class="p-3 space-y-1">
           <p class="px-3 py-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Módulos Administrativos</p>
 
-          <button id="nav-financeiro" onclick="switchModule('financeiro')" class="nav-btn w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-slate-600 hover:bg-slate-100 transition-all font-semibold text-sm">
+          <button id="nav-financeiro" onclick="window.AuthModule.switchModule('financeiro')" class="nav-btn w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-slate-600 hover:bg-slate-100 transition-all font-semibold text-sm">
             <div class="flex items-center gap-3">
               <i class="fas fa-wallet w-5 text-emerald-600 text-base"></i>
               <span>Financeiro</span>
@@ -176,7 +155,7 @@
             <i class="fas fa-chevron-right text-[10px] text-slate-400"></i>
           </button>
 
-          <button id="nav-comercial" onclick="switchModule('comercial')" class="nav-btn w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-slate-600 hover:bg-slate-100 transition-all font-semibold text-sm">
+          <button id="nav-comercial" onclick="window.AuthModule.switchModule('comercial')" class="nav-btn w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-slate-600 hover:bg-slate-100 transition-all font-semibold text-sm">
             <div class="flex items-center gap-3">
               <i class="fas fa-chart-line w-5 text-inova-blue text-base"></i>
               <span>Comercial / CRM</span>
@@ -184,7 +163,7 @@
             <i class="fas fa-chevron-right text-[10px] text-slate-400"></i>
           </button>
 
-          <button id="nav-rh" onclick="switchModule('rh')" class="nav-btn w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-slate-600 hover:bg-slate-100 transition-all font-semibold text-sm">
+          <button id="nav-rh" onclick="window.AuthModule.switchModule('rh')" class="nav-btn w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-slate-600 hover:bg-slate-100 transition-all font-semibold text-sm">
             <div class="flex items-center gap-3">
               <i class="fas fa-users-gear w-5 text-purple-600 text-base"></i>
               <span>Recursos Humanos</span>
@@ -194,7 +173,7 @@
 
           <div class="pt-4 border-t border-slate-100 my-2">
             <p class="px-3 py-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Planejamento Ágil</p>
-            <button onclick="openDevopsModal()" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-inova-blue bg-inova-blue-light border border-inova-blue/20 hover:bg-sky-100 transition-all font-bold text-sm">
+            <button onclick="window.ModalsModule.openDevopsModal()" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-inova-blue bg-inova-blue-light border border-inova-blue/20 hover:bg-sky-100 transition-all font-bold text-sm">
               <i class="fas fa-code-branch w-5"></i>
               <span>Cronograma Sprints</span>
             </button>
@@ -202,7 +181,7 @@
         </nav>
       </div>
 
-      <!-- User Profile Sidebar Footer -->
+      <!-- User Profile Footer -->
       <div class="p-4 border-t border-slate-100 bg-slate-50 flex items-center justify-between">
         <div class="flex items-center gap-3 overflow-hidden">
           <div id="user-avatar" class="w-9 h-9 rounded-full bg-inova-blue text-inova-yellow flex items-center justify-center font-bold text-xs shrink-0 shadow-sm">
@@ -213,12 +192,13 @@
             <p id="user-display-email" class="text-[11px] text-slate-500 truncate">email@inova.com.br</p>
           </div>
         </div>
-        <button onclick="handleLogout()" title="Sair do Sistema" class="p-2 text-slate-400 hover:text-red-600 hover:bg-slate-200/60 rounded-lg transition-colors">
+        <button onclick="window.AuthModule.handleLogout()" title="Sair do Sistema" class="p-2 text-slate-400 hover:text-red-600 hover:bg-slate-200/60 rounded-lg transition-colors">
           <i class="fas fa-sign-out-alt"></i>
         </button>
       </div>
     </aside>
 
+    <!-- MAIN CONTENT -->
     <main class="flex-1 flex flex-col min-w-0 overflow-y-auto custom-scrollbar">
 
       <!-- TOP HEADER BAR -->
@@ -230,7 +210,7 @@
           <p id="page-subtitle" class="text-xs text-slate-500 mt-0.5">Gerenciamento dinâmico com validações de acesso por perfil</p>
         </div>
         <div class="flex items-center gap-3">
-          <button onclick="openDevopsModal()" class="px-3.5 py-2 bg-slate-50 border border-slate-200 hover:bg-slate-100 rounded-xl text-xs font-semibold text-slate-700 flex items-center gap-2 shadow-sm transition">
+          <button onclick="window.ModalsModule.openDevopsModal()" class="px-3.5 py-2 bg-slate-50 border border-slate-200 hover:bg-slate-100 rounded-xl text-xs font-semibold text-slate-700 flex items-center gap-2 shadow-sm transition">
             <i class="fas fa-layer-group text-inova-blue"></i>
             <span>DevOps Stakeholders Info</span>
           </button>
@@ -244,8 +224,8 @@
       <!-- DYNAMIC CONTENT SECTIONS -->
       <div class="p-6 space-y-6 flex-1">
 
+        <!-- MÓDULO FINANCEIRO -->
         <section id="module-financeiro" class="module-section space-y-6">
-          
           <div id="fin-denied" class="hidden p-8 bg-red-50 border border-red-200 rounded-2xl text-center">
             <i class="fas fa-lock text-4xl text-red-500 mb-3"></i>
             <h3 class="text-lg font-bold text-red-800">Acesso Restrito ao Módulo Financeiro</h3>
@@ -253,7 +233,7 @@
           </div>
 
           <div id="fin-content" class="space-y-6">
-            <!-- Finance KPI Cards -->
+            <!-- KPI Cards -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <div class="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
                 <div class="flex justify-between items-start">
@@ -308,16 +288,16 @@
               </div>
             </div>
 
-            <!-- Finance Module Sub-Tabs -->
+            <!-- Finance Sub-tabs -->
             <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
               <div class="border-b border-slate-200 px-6 pt-4 flex flex-wrap gap-6 bg-slate-50/50">
-                <button onclick="setFinSubTab('boletos')" id="tab-fin-boletos" class="pb-3 text-sm font-bold border-b-2 border-inova-blue text-inova-blue flex items-center gap-2">
+                <button onclick="window.FinanceiroModule.setFinSubTab('boletos')" id="tab-fin-boletos" class="pb-3 text-sm font-bold border-b-2 border-inova-blue text-inova-blue flex items-center gap-2">
                   <i class="fas fa-file-invoice-dollar"></i> Emissão de Boletos
                 </button>
-                <button onclick="setFinSubTab('contratos')" id="tab-fin-contratos" class="pb-3 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2">
+                <button onclick="window.FinanceiroModule.setFinSubTab('contratos')" id="tab-fin-contratos" class="pb-3 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2">
                   <i class="fas fa-file-signature"></i> Gestão de Contratos
                 </button>
-                <button onclick="setFinSubTab('inadimplentes')" id="tab-fin-inadimplentes" class="pb-3 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2">
+                <button onclick="window.FinanceiroModule.setFinSubTab('inadimplentes')" id="tab-fin-inadimplentes" class="pb-3 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2">
                   <i class="fas fa-bullhorn text-rose-600"></i> Cobrança de Inadimplentes
                 </button>
               </div>
@@ -329,11 +309,11 @@
                       <h3 class="font-bold text-slate-800">Boletos Financeiros Registrados</h3>
                       <p class="text-xs text-slate-500">Gestão de cobranças bancárias com código de barras gerado</p>
                     </div>
-                    <button onclick="openNewBoletoModal()" class="px-4 py-2.5 bg-inova-blue hover:bg-inova-blue-hover text-white rounded-xl text-xs font-bold flex items-center gap-2 transition shadow-md shadow-inova-blue/20">
+                    <button onclick="window.FinanceiroModule.openNewBoletoModal()" class="px-4 py-2.5 bg-inova-blue hover:bg-inova-blue-hover text-white rounded-xl text-xs font-bold flex items-center gap-2 transition shadow-md shadow-inova-blue/20">
                       <i class="fas fa-plus"></i> Gerar Novo Boleto
                     </button>
                   </div>
-                  
+
                   <div class="overflow-x-auto rounded-xl border border-slate-200">
                     <table class="w-full text-left text-sm">
                       <thead class="bg-slate-100 text-slate-600 uppercase text-[11px] font-bold tracking-wider">
@@ -359,7 +339,7 @@
                       <h3 class="font-bold text-slate-800">Gestão de Contratos Empresariais</h3>
                       <p class="text-xs text-slate-500">Acompanhamento de vigência, recorrência mensal e renovações</p>
                     </div>
-                    <button onclick="openNewContratoModal()" class="px-4 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold flex items-center gap-2 transition shadow-md shadow-purple-600/20">
+                    <button onclick="window.FinanceiroModule.openNewContratoModal()" class="px-4 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold flex items-center gap-2 transition shadow-md shadow-purple-600/20">
                       <i class="fas fa-file-signature"></i> Cadastrar Novo Contrato
                     </button>
                   </div>
@@ -399,8 +379,8 @@
           </div>
         </section>
 
+        <!-- MÓDULO COMERCIAL -->
         <section id="module-comercial" class="module-section space-y-6 hidden">
-          
           <div id="com-denied" class="hidden p-8 bg-red-50 border border-red-200 rounded-2xl text-center">
             <i class="fas fa-lock text-4xl text-red-500 mb-3"></i>
             <h3 class="text-lg font-bold text-red-800">Acesso Restrito ao Módulo Comercial</h3>
@@ -408,19 +388,20 @@
           </div>
 
           <div id="com-content" class="space-y-6">
-            <!-- Commercial Sub Navigation Tabs -->
+            <!-- Commercial Sub Navigation -->
             <div class="bg-white border border-slate-200 rounded-2xl p-4 flex flex-wrap gap-3 shadow-sm">
-              <button onclick="setComSubTab('crm')" id="btn-com-crm" class="px-4 py-2.5 rounded-xl text-xs font-bold bg-inova-yellow-light text-slate-900 border border-inova-yellow flex items-center gap-2">
+              <button onclick="window.ComercialModule.setComSubTab('crm')" id="btn-com-crm" class="px-4 py-2.5 rounded-xl text-xs font-bold bg-inova-yellow-light text-slate-900 border border-inova-yellow flex items-center gap-2">
                 <i class="fas fa-filter text-amber-600"></i> CRM - Funil de Vendas
               </button>
-              <button onclick="setComSubTab('sac')" id="btn-com-sac" class="px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200 hover:text-slate-900 flex items-center gap-2">
+              <button onclick="window.ComercialModule.setComSubTab('sac')" id="btn-com-sac" class="px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200 hover:text-slate-900 flex items-center gap-2">
                 <i class="fas fa-headset text-inova-blue"></i> SAC - Atendimento ao Cliente
               </button>
-              <button onclick="setComSubTab('relacionamento')" id="btn-com-relacionamento" class="px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200 hover:text-slate-900 flex items-center gap-2">
+              <button onclick="window.ComercialModule.setComSubTab('relacionamento')" id="btn-com-relacionamento" class="px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200 hover:text-slate-900 flex items-center gap-2">
                 <i class="fas fa-address-book text-emerald-600"></i> Gestão de Relacionamentos
               </button>
             </div>
 
+            <!-- CRM Kanban -->
             <div id="sub-com-crm" class="space-y-4">
               <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <div>
@@ -429,7 +410,7 @@
                   </h3>
                   <p class="text-xs text-slate-500">Acompanhamento das etapas comerciais de prospecção até fechamento</p>
                 </div>
-                <button onclick="openNewLeadModal()" class="px-4 py-2.5 bg-inova-yellow hover:bg-inova-yellow-hover text-slate-900 rounded-xl text-xs font-bold flex items-center gap-2 transition shadow-md shadow-inova-yellow/20">
+                <button onclick="window.ComercialModule.openNewLeadModal()" class="px-4 py-2.5 bg-inova-yellow hover:bg-inova-yellow-hover text-slate-900 rounded-xl text-xs font-bold flex items-center gap-2 transition shadow-md shadow-inova-yellow/20">
                   <i class="fas fa-plus"></i> Nova Oportunidade
                 </button>
               </div>
@@ -482,13 +463,14 @@
               </div>
             </div>
 
+            <!-- SAC -->
             <div id="sub-com-sac" class="space-y-4 hidden">
               <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <div>
                   <h3 class="text-base font-bold text-slate-800">Central de Chamados do Cliente (SAC)</h3>
                   <p class="text-xs text-slate-500">Atendimento e resolução de solicitações de clientes corporativos</p>
                 </div>
-                <button onclick="openNewTicketModal()" class="px-4 py-2.5 bg-inova-blue hover:bg-inova-blue-hover text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md">
+                <button onclick="window.ComercialModule.openNewTicketModal()" class="px-4 py-2.5 bg-inova-blue hover:bg-inova-blue-hover text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md">
                   <i class="fas fa-headset"></i> Abrir Novo Ticket SAC
                 </button>
               </div>
@@ -512,6 +494,7 @@
               </div>
             </div>
 
+            <!-- Relacionamentos -->
             <div id="sub-com-relacionamento" class="space-y-4 hidden">
               <div class="flex justify-between items-center">
                 <div>
@@ -526,8 +509,8 @@
           </div>
         </section>
 
+        <!-- MÓDULO RH -->
         <section id="module-rh" class="module-section space-y-6 hidden">
-          
           <div id="rh-denied" class="hidden p-8 bg-red-50 border border-red-200 rounded-2xl text-center">
             <i class="fas fa-lock text-4xl text-red-500 mb-3"></i>
             <h3 class="text-lg font-bold text-red-800">Acesso Restrito ao Módulo de Recursos Humanos</h3>
@@ -535,45 +518,46 @@
           </div>
 
           <div id="rh-content" class="space-y-6">
-            <!-- RH Sub Navigation Tabs -->
+            <!-- RH Sub Navigation -->
             <div class="bg-white border border-slate-200 rounded-2xl p-4 flex flex-wrap gap-3 shadow-sm">
-              <button onclick="setRhSubTab('contratacoes')" id="btn-rh-contratacoes" class="px-4 py-2.5 rounded-xl text-xs font-bold bg-purple-50 text-purple-700 border border-purple-200 flex items-center gap-2">
+              <button onclick="window.RHModule.setRhSubTab('contratacoes')" id="btn-rh-contratacoes" class="px-4 py-2.5 rounded-xl text-xs font-bold bg-purple-50 text-purple-700 border border-purple-200 flex items-center gap-2">
                 <i class="fas fa-user-plus"></i> Contratações (Vagas)
               </button>
-              <button onclick="setRhSubTab('demissoes')" id="btn-rh-demissoes" class="px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200 hover:text-slate-900 flex items-center gap-2">
+              <button onclick="window.RHModule.setRhSubTab('demissoes')" id="btn-rh-demissoes" class="px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200 hover:text-slate-900 flex items-center gap-2">
                 <i class="fas fa-user-minus"></i> Desligamentos / Demissões
               </button>
-              <button onclick="setRhSubTab('ferias')" id="btn-rh-ferias" class="px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200 hover:text-slate-900 flex items-center gap-2">
+              <button onclick="window.RHModule.setRhSubTab('ferias')" id="btn-rh-ferias" class="px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200 hover:text-slate-900 flex items-center gap-2">
                 <i class="fas fa-umbrella-beach"></i> Cálculos de Férias
               </button>
-              <button onclick="setRhSubTab('folha')" id="btn-rh-folha" class="px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200 hover:text-slate-900 flex items-center gap-2">
+              <button onclick="window.RHModule.setRhSubTab('folha')" id="btn-rh-folha" class="px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200 hover:text-slate-900 flex items-center gap-2">
                 <i class="fas fa-money-check-dollar"></i> Folha de Pagamento
               </button>
             </div>
 
+            <!-- Contratações -->
             <div id="sub-rh-contratacoes" class="space-y-4">
               <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <div>
                   <h3 class="text-base font-bold text-slate-800">Processos Seletivos e Contratações</h3>
                   <p class="text-xs text-slate-500">Vagas abertas e triagem de currículos para recrutamento</p>
                 </div>
-                <button onclick="openNewVagaModal()" class="px-4 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md shadow-purple-600/20">
+                <button onclick="window.RHModule.openNewVagaModal()" class="px-4 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md shadow-purple-600/20">
                   <i class="fas fa-briefcase"></i> Publicar Nova Vaga
                 </button>
               </div>
-
               <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="rh-vagas-grid">
                 <!-- Populated by JS -->
               </div>
             </div>
 
+            <!-- Demissões -->
             <div id="sub-rh-demissoes" class="space-y-4 hidden">
               <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <div>
                   <h3 class="text-base font-bold text-slate-800">Gestão de Demissões e Rescisões</h3>
                   <p class="text-xs text-slate-500">Registro de desligamentos e acompanhamento de homologação rescisória</p>
                 </div>
-                <button onclick="openNewDemissaoModal()" class="px-4 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md shadow-rose-600/20">
+                <button onclick="window.RHModule.openNewDemissaoModal()" class="px-4 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md shadow-rose-600/20">
                   <i class="fas fa-user-times"></i> Registrar Demissão
                 </button>
               </div>
@@ -596,9 +580,10 @@
               </div>
             </div>
 
+            <!-- Férias -->
             <div id="sub-rh-ferias" class="space-y-4 hidden">
               <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Interactive Vacation Calculator -->
+                <!-- Calculadora -->
                 <div class="bg-white border border-slate-200 p-5 rounded-2xl space-y-4 shadow-sm">
                   <h3 class="font-bold text-slate-800 text-base flex items-center gap-2">
                     <i class="fas fa-calculator text-purple-600"></i> Calculadora de Férias CLT
@@ -622,7 +607,7 @@
                       <option value="sim">Sim (10 dias de abono)</option>
                     </select>
                   </div>
-                  <button onclick="calcularFeriasSimulacao()" class="w-full py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold transition shadow-md">
+                  <button onclick="window.RHModule.calcularFeriasSimulacao()" class="w-full py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold transition shadow-md">
                     <i class="fas fa-calculator mr-1"></i> Calcular Férias
                   </button>
 
@@ -633,7 +618,7 @@
                   </div>
                 </div>
 
-                <!-- Scheduled Vacations List -->
+                <!-- Programação Férias -->
                 <div class="lg:col-span-2 bg-white border border-slate-200 p-5 rounded-2xl space-y-4 shadow-sm">
                   <h3 class="font-bold text-slate-800 text-base">Programação de Férias da Equipe</h3>
                   <div class="overflow-x-auto rounded-xl border border-slate-200">
@@ -656,6 +641,7 @@
               </div>
             </div>
 
+            <!-- Folha de Pagamento -->
             <div id="sub-rh-folha" class="space-y-4 hidden">
               <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <div>
@@ -692,6 +678,7 @@
     </main>
   </div>
 
+  <!-- MODAL DEVOPS / SPRINTS -->
   <div id="devops-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-white border border-slate-200 w-full max-w-4xl rounded-2xl p-6 space-y-6 max-h-[90vh] overflow-y-auto custom-scrollbar shadow-2xl">
       <div class="flex justify-between items-center border-b border-slate-100 pb-4">
@@ -701,10 +688,10 @@
           </h2>
           <p class="text-xs text-slate-500 mt-0.5">Planejamento de MVP incremental e investimento apresentado aos Stakeholders</p>
         </div>
-        <button onclick="closeDevopsModal()" class="p-2 text-slate-400 hover:text-slate-700 rounded-lg"><i class="fas fa-times text-lg"></i></button>
+        <button onclick="window.ModalsModule.closeDevopsModal()" class="p-2 text-slate-400 hover:text-slate-700 rounded-lg"><i class="fas fa-times text-lg"></i></button>
       </div>
 
-      <!-- Sprint Deliverable Cards -->
+      <!-- Sprint Cards -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-3">
           <div class="flex justify-between items-center">
@@ -752,7 +739,7 @@
         </div>
       </div>
 
-      <!-- Financial Investment Summary for Stakeholders -->
+      <!-- Financial Summary -->
       <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-2">
         <h4 class="text-xs font-bold uppercase text-slate-500">Resumo Financeiro da Implantação Inova</h4>
         <div class="flex justify-between items-center text-sm py-1 border-b border-slate-200">
@@ -766,13 +753,14 @@
       </div>
 
       <div class="flex justify-end">
-        <button onclick="closeDevopsModal()" class="px-5 py-2.5 bg-inova-blue hover:bg-inova-blue-hover text-white rounded-xl text-xs font-bold shadow">
+        <button onclick="window.ModalsModule.closeDevopsModal()" class="px-5 py-2.5 bg-inova-blue hover:bg-inova-blue-hover text-white rounded-xl text-xs font-bold shadow">
           Fechar Cronograma
         </button>
       </div>
     </div>
   </div>
 
+  <!-- MODAL HOLERITE -->
   <div id="holerite-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-white text-slate-900 border border-slate-300 w-full max-w-2xl rounded-2xl p-6 space-y-4 max-h-[90vh] overflow-y-auto shadow-2xl">
       <div id="printable-holerite" class="space-y-4">
@@ -826,595 +814,20 @@
         <button onclick="window.print()" class="px-4 py-2 bg-inova-blue hover:bg-inova-blue-hover text-white rounded-xl text-xs font-bold">
           <i class="fas fa-print mr-1"></i> Imprimir / PDF
         </button>
-        <button onclick="closeHoleriteModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold">
+        <button onclick="window.ModalsModule.closeHoleriteModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold">
           Fechar
         </button>
       </div>
     </div>
   </div>
 
-  <script>
-    let currentUser = null;
-    let activeModule = 'financeiro';
-
-    // Mock Data Objects in Memory (No External DB Needed)
-    const state = {
-      boletos: [
-        { id: 'BOL-9021', cliente: 'TechCorp Brasil LTDA', vencimento: '2026-08-15', valor: 8500.00, status: 'Pendente', codigoBarra: '34191.09021 80000.123456 7 8910000850000' },
-        { id: 'BOL-9022', cliente: 'Nexus Logística S.A.', vencimento: '2026-08-10', valor: 14200.00, status: 'Pago', codigoBarra: '34191.09022 80000.123456 7 8910001420000' },
-        { id: 'BOL-9023', cliente: 'Padaria Modelo EIRELI', vencimento: '2026-07-28', valor: 3100.00, status: 'Vencido', codigoBarra: '34191.09023 80000.123456 7 8910000310000' },
-        { id: 'BOL-9024', cliente: 'Inova Softwares ME', vencimento: '2026-08-20', valor: 12400.00, status: 'Pendente', codigoBarra: '34191.09024 80000.123456 7 8910001240000' }
-      ],
-      contratos: [
-        { id: 'CTR-001', cliente: 'TechCorp Brasil LTDA', valorMensal: 8500.00, inicio: '2025-01-10', status: 'Ativo', vigencia: '12 Meses' },
-        { id: 'CTR-002', cliente: 'Nexus Logística S.A.', valorMensal: 14200.00, inicio: '2024-06-15', status: 'Ativo', vigencia: '24 Meses' },
-        { id: 'CTR-003', cliente: 'Sistemas Alfa LTDA', valorMensal: 6800.00, inicio: '2025-03-01', status: 'Em Renovação', vigencia: '12 Meses' }
-      ],
-      inadimplentes: [
-        { cliente: 'Padaria Modelo EIRELI', diasAtraso: 14, valor: 3100.00, ultimoContato: '2026-08-01' },
-        { cliente: 'Comércio Silva LTDA', diasAtraso: 32, valor: 5250.00, ultimoContato: '2026-07-25' },
-        { cliente: 'Distribuidora Global', diasAtraso: 45, valor: 4500.00, ultimoContato: '2026-07-15' }
-      ],
-      crmLeads: [
-        { id: 'LD-1', cliente: 'Supermercados Sol', contato: 'Carlos Souza', valor: 15000.00, etapa: 'prospeccao' },
-        { id: 'LD-2', cliente: 'Farma Vida', contato: 'Renata Lima', valor: 28000.00, etapa: 'contato' },
-        { id: 'LD-3', cliente: 'Grupo Horizonte', contato: 'Marcos Paulo', valor: 45000.00, etapa: 'proposta' },
-        { id: 'LD-4', cliente: 'Indústria MetalPró', contato: 'Fernanda Vaz', valor: 62000.00, etapa: 'fechado' }
-      ],
-      sacTickets: [
-        { id: 'TCK-101', cliente: 'TechCorp Brasil LTDA', assunto: 'Dúvida na integração de API Financeira', prioridade: 'Alta', status: 'Aberto' },
-        { id: 'TCK-102', cliente: 'Nexus Logística S.A.', assunto: 'Solicitação de 2ª via de boleto', prioridade: 'Média', status: 'Em Atendimento' },
-        { id: 'TCK-103', cliente: 'Padaria Modelo EIRELI', assunto: 'Ajuste cadastral de CNPJ', prioridade: 'Baixa', status: 'Resolvido' }
-      ],
-      vagasRH: [
-        { id: 'VG-01', titulo: 'Desenvolvedor Full Stack Senior', departamento: 'Tecnologia', candidatos: 18, status: 'Em Seleção' },
-        { id: 'VG-02', titulo: 'Analista Financeiro Pleno', departamento: 'Financeiro', candidatos: 12, status: 'Entrevistas' },
-        { id: 'VG-03', titulo: 'Executivo de Vendas B2B', departamento: 'Comercial', candidatos: 25, status: 'Aberto' }
-      ],
-      demissoes: [
-        { colaborador: 'Roberto Andrade', cargo: 'Suporte N2', data: '2026-07-30', motivo: 'Iniciativa do Empregado', statusVerbas: 'Pago' },
-        { colaborador: 'Camila Torres', cargo: 'Vendedora Pleno', data: '2026-08-05', motivo: 'Reestruturação Interna', statusVerbas: 'Em Processamento' }
-      ],
-      ferias: [
-        { funcionario: 'Ana Beatriz Santos', periodo: '2025/2026', inicio: '2026-09-01', dias: 30, status: 'Aprovado' },
-        { funcionario: 'Lucas Mendes', periodo: '2024/2025', inicio: '2026-10-15', dias: 15, status: 'Pendente' }
-      ],
-      folha: [
-        { colaborador: 'Ana Beatriz Santos', cargo: 'Gerente Comercial', bruto: 9500.00, descontos: 2100.00, liquido: 7400.00 },
-        { colaborador: 'Lucas Mendes', cargo: 'DevOps Engineer', bruto: 8800.00, descontos: 1900.00, liquido: 6900.00 },
-        { colaborador: 'Juliana Paes', cargo: 'Analista de RH', bruto: 5200.00, descontos: 980.00, liquido: 4220.00 }
-      ]
-    };
-
-    function toggleAuth(view) {
-      if (view === 'register') {
-        document.getElementById('login-form').classList.add('hidden');
-        document.getElementById('register-form').classList.remove('hidden');
-      } else {
-        document.getElementById('register-form').classList.add('hidden');
-        document.getElementById('login-form').classList.remove('hidden');
-      }
-    }
-
-    function handleLogin() {
-      const email = document.getElementById('login-email').value || 'usuario@inova.com.br';
-      const role = document.getElementById('login-role').value;
-      
-      currentUser = {
-        name: email.split('@')[0].toUpperCase(),
-        email: email,
-        role: role
-      };
-
-      initApp();
-      showToast(`Bem-vindo à Inova, ${currentUser.name}! Conectado como ${role.toUpperCase()}`);
-    }
-
-    function handleRegister() {
-      const name = document.getElementById('reg-name').value;
-      const email = document.getElementById('reg-email').value;
-      const role = document.getElementById('reg-role').value;
-
-      if (!name || !email) {
-        showToast('Preencha nome e e-mail!', 'error');
-        return;
-      }
-
-      currentUser = { name, email, role };
-      initApp();
-      showToast('Conta Inova criada com sucesso!');
-    }
-
-    function handleLogout() {
-      currentUser = null;
-      document.getElementById('main-app').classList.add('hidden');
-      document.getElementById('auth-container').classList.remove('hidden');
-      showToast('Sessão encerrada.');
-    }
-
-    function initApp() {
-      document.getElementById('auth-container').classList.add('hidden');
-      document.getElementById('main-app').classList.remove('hidden');
-
-      document.getElementById('user-display-name').innerText = currentUser.name;
-      document.getElementById('user-display-email').innerText = currentUser.email;
-      document.getElementById('user-avatar').innerText = currentUser.name.substring(0, 2).toUpperCase();
-      document.getElementById('active-user-badge').innerText = currentUser.role.toUpperCase();
-
-      const now = new Date();
-      document.getElementById('current-date').innerText = now.toLocaleDateString('pt-BR');
-
-      if (currentUser.role === 'financeiro') switchModule('financeiro');
-      else if (currentUser.role === 'comercial') switchModule('comercial');
-      else if (currentUser.role === 'rh') switchModule('rh');
-      else switchModule('financeiro');
-    }
-
-    function switchModule(mod) {
-      activeModule = mod;
-
-      document.querySelectorAll('.nav-btn').forEach(btn => {
-        btn.classList.remove('bg-inova-blue-light', 'text-inova-blue');
-        btn.classList.add('text-slate-600');
-      });
-
-      const activeNavBtn = document.getElementById(`nav-${mod}`);
-      if (activeNavBtn) {
-        activeNavBtn.classList.remove('text-slate-600');
-        activeNavBtn.classList.add('bg-inova-blue-light', 'text-inova-blue');
-      }
-
-      document.querySelectorAll('.module-section').forEach(sec => sec.classList.add('hidden'));
-
-      const titleEl = document.getElementById('page-title');
-      const subTitleEl = document.getElementById('page-subtitle');
-
-      const isAllowed = currentUser.role === 'admin' || currentUser.role === mod;
-
-      if (mod === 'financeiro') {
-        titleEl.innerHTML = `<i class="fas fa-wallet text-emerald-600"></i> Módulo Financeiro Inova`;
-        subTitleEl.innerText = `Gestão de boletos bancários, contratos vigentes e cobrança de inadimplentes`;
-        document.getElementById('module-financeiro').classList.remove('hidden');
-        
-        if (!isAllowed) {
-          document.getElementById('fin-content').classList.add('hidden');
-          document.getElementById('fin-denied').classList.remove('hidden');
-        } else {
-          document.getElementById('fin-content').classList.remove('hidden');
-          document.getElementById('fin-denied').classList.add('hidden');
-          renderFinanceiro();
-        }
-      } else if (mod === 'comercial') {
-        titleEl.innerHTML = `<i class="fas fa-chart-line text-inova-blue"></i> Módulo Comercial & CRM Inova`;
-        subTitleEl.innerText = `Central de atendimento SAC, Funil de vendas CRM e Gestão de Relacionamentos`;
-        document.getElementById('module-comercial').classList.remove('hidden');
-
-        if (!isAllowed) {
-          document.getElementById('com-content').classList.add('hidden');
-          document.getElementById('com-denied').classList.remove('hidden');
-        } else {
-          document.getElementById('com-content').classList.remove('hidden');
-          document.getElementById('com-denied').classList.add('hidden');
-          renderComercial();
-        }
-      } else if (mod === 'rh') {
-        titleEl.innerHTML = `<i class="fas fa-users-gear text-purple-600"></i> Módulo de Recursos Humanos Inova`;
-        subTitleEl.innerText = `Gestão de contratações, demissões, calculadora de férias e folha salarial`;
-        document.getElementById('module-rh').classList.remove('hidden');
-
-        if (!isAllowed) {
-          document.getElementById('rh-content').classList.add('hidden');
-          document.getElementById('rh-denied').classList.remove('hidden');
-        } else {
-          document.getElementById('rh-content').classList.remove('hidden');
-          document.getElementById('rh-denied').classList.add('hidden');
-          renderRH();
-        }
-      }
-    }
-
-    function renderFinanceiro() {
-      // Render Boletos Table
-      const tbody = document.getElementById('tbl-boletos-body');
-      tbody.innerHTML = state.boletos.map(b => `
-        <tr class="hover:bg-slate-50 transition border-b border-slate-100">
-          <td class="p-3.5 font-mono text-xs font-bold text-inova-blue">${b.id}</td>
-          <td class="p-3.5 font-semibold text-slate-800">${b.cliente}</td>
-          <td class="p-3.5 text-slate-500 text-xs">${b.vencimento}</td>
-          <td class="p-3.5 font-bold text-slate-900">R$ ${b.valor.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>
-          <td class="p-3.5">
-            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase ${
-              b.status === 'Pago' ? 'bg-emerald-100 text-emerald-700 border border-emerald-200' :
-              b.status === 'Vencido' ? 'bg-rose-100 text-rose-700 border border-rose-200' :
-              'bg-amber-100 text-amber-800 border border-amber-200'
-            }">${b.status}</span>
-          </td>
-          <td class="p-3.5 text-right space-x-1">
-            <button onclick="copiarCodigoBarra('${b.codigoBarra}')" title="Copiar Linha Digitável" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold"><i class="fas fa-barcode"></i> Código</button>
-            <button onclick="simularSegundaVia('${b.id}')" title="Enviar 2ª Via" class="px-2.5 py-1 bg-inova-blue hover:bg-inova-blue-hover text-white rounded-lg text-xs font-semibold"><i class="fas fa-paper-plane"></i> 2ª Via</button>
-          </td>
-        </tr>
-      `).join('');
-
-      // Render Contratos Grid
-      const contratosGrid = document.getElementById('contratos-grid');
-      contratosGrid.innerHTML = state.contratos.map(c => `
-        <div class="bg-white border border-slate-200 p-4 rounded-xl space-y-3 hover:border-purple-300 transition shadow-sm">
-          <div class="flex justify-between items-start">
-            <div>
-              <h4 class="font-bold text-slate-800 text-sm">${c.cliente}</h4>
-              <p class="text-[11px] text-slate-400 font-mono">${c.id}</p>
-            </div>
-            <span class="text-[10px] px-2 py-0.5 rounded bg-purple-50 text-purple-700 border border-purple-200 font-bold uppercase">${c.status}</span>
-          </div>
-          <div class="text-xs text-slate-500 space-y-1">
-            <p><i class="far fa-calendar mr-1"></i> Início: ${c.inicio}</p>
-            <p><i class="fas fa-clock mr-1"></i> Vigência: ${c.vigencia}</p>
-          </div>
-          <div class="pt-2 border-t border-slate-100 flex justify-between items-center text-xs">
-            <span class="text-slate-500">Recorrência Mensal:</span>
-            <span class="font-black text-emerald-600 text-sm">R$ ${c.valorMensal.toLocaleString('pt-BR', {minimumFractionDigits:2})}</span>
-          </div>
-        </div>
-      `).join('');
-
-      // Render Inadimplentes Table
-      const inadiBody = document.getElementById('tbl-inadimplentes-body');
-      inadiBody.innerHTML = state.inadimplentes.map(i => `
-        <tr class="hover:bg-slate-50 transition border-b border-slate-100">
-          <td class="p-3.5 font-semibold text-slate-800">${i.cliente}</td>
-          <td class="p-3.5"><span class="px-2.5 py-1 rounded-lg bg-rose-100 text-rose-700 font-bold text-xs">${i.diasAtraso} dias em atraso</span></td>
-          <td class="p-3.5 font-bold text-rose-600">R$ ${i.valor.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>
-          <td class="p-3.5 text-slate-500 text-xs">${i.ultimoContato}</td>
-          <td class="p-3.5 text-right">
-            <button onclick="enviarCobranca('${i.cliente}')" class="px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white text-xs rounded-lg font-bold transition flex items-center gap-1.5 ml-auto shadow-sm">
-              <i class="fas fa-bullhorn"></i> Disparar Cobrança
-            </button>
-          </td>
-        </tr>
-      `).join('');
-    }
-
-    function setFinSubTab(sub) {
-      document.getElementById('sub-fin-boletos').classList.add('hidden');
-      document.getElementById('sub-fin-contratos').classList.add('hidden');
-      document.getElementById('sub-fin-inadimplentes').classList.add('hidden');
-
-      document.getElementById('tab-fin-boletos').classList.replace('text-inova-blue', 'text-slate-500');
-      document.getElementById('tab-fin-boletos').classList.replace('border-inova-blue', 'border-transparent');
-      document.getElementById('tab-fin-contratos').classList.replace('text-inova-blue', 'text-slate-500');
-      document.getElementById('tab-fin-contratos').classList.replace('border-inova-blue', 'border-transparent');
-      document.getElementById('tab-fin-inadimplentes').classList.replace('text-inova-blue', 'text-slate-500');
-      document.getElementById('tab-fin-inadimplentes').classList.replace('border-inova-blue', 'border-transparent');
-
-      document.getElementById(`sub-fin-${sub}`).classList.remove('hidden');
-      const activeTab = document.getElementById(`tab-fin-${sub}`);
-      activeTab.classList.replace('text-slate-500', 'text-inova-blue');
-      activeTab.classList.replace('border-transparent', 'border-inova-blue');
-    }
-
-    function openNewBoletoModal() {
-      const cliente = prompt('Nome do Cliente para emissão do boleto:');
-      const valor = prompt('Valor do Boleto (R$):', '3500');
-      if (cliente && valor) {
-        state.boletos.unshift({
-          id: `BOL-${Math.floor(1000 + Math.random() * 9000)}`,
-          cliente,
-          vencimento: '2026-08-30',
-          valor: parseFloat(valor),
-          status: 'Pendente',
-          codigoBarra: '34191.00000 80000.123456 7 ' + Math.floor(Math.random() * 100000000)
-        });
-        renderFinanceiro();
-        showToast('Novo boleto registrado e gerado na Inova!');
-      }
-    }
-
-    function openNewContratoModal() {
-      const cliente = prompt('Razão Social do Cliente do Contrato:');
-      const valor = prompt('Valor Mensal Recorrente (R$):', '7500');
-      if (cliente && valor) {
-        state.contratos.unshift({
-          id: `CTR-00${state.contratos.length + 1}`,
-          cliente,
-          valorMensal: parseFloat(valor),
-          inicio: new Date().toISOString().split('T')[0],
-          status: 'Ativo',
-          vigencia: '12 Meses'
-        });
-        renderFinanceiro();
-        showToast('Novo contrato cadastrado no Financeiro Inova!');
-      }
-    }
-
-    function copiarCodigoBarra(codigo) {
-      const tempInput = document.createElement('input');
-      tempInput.value = codigo;
-      document.body.appendChild(tempInput);
-      tempInput.select();
-      document.execCommand('copy');
-      document.body.removeChild(tempInput);
-      showToast('Código de barras copiado para a área de transferência!');
-    }
-
-    function simularSegundaVia(id) {
-      showToast(`Segunda via do boleto ${id} enviada via e-mail Inova!`);
-    }
-
-    function enviarCobranca(cliente) {
-      showToast(`Notificação formal de cobrança disparada para ${cliente}`);
-    }
-
-    function renderComercial() {
-      const stages = ['prospeccao', 'contato', 'proposta', 'fechado'];
-      
-      stages.forEach(stage => {
-        const colEl = document.getElementById(`kanban-${stage}`);
-        const countEl = document.getElementById(`count-${stage}`);
-        const filtered = state.crmLeads.filter(l => l.etapa === stage);
-        
-        countEl.innerText = filtered.length;
-        colEl.innerHTML = filtered.map(l => `
-          <div class="bg-slate-50 border border-slate-200 p-3.5 rounded-xl shadow-sm space-y-2 hover:border-inova-yellow transition">
-            <h4 class="font-bold text-slate-800 text-xs">${l.cliente}</h4>
-            <p class="text-[11px] text-slate-500"><i class="fas fa-user text-slate-400 mr-1"></i> ${l.contato}</p>
-            <div class="pt-2 border-t border-slate-200 flex justify-between items-center">
-              <span class="text-xs font-black text-inova-blue">R$ ${l.valor.toLocaleString('pt-BR', {minimumFractionDigits:0})}</span>
-              <button onclick="moverEtapaLead('${l.id}')" title="Avançar Etapa" class="p-1.5 bg-white border border-slate-200 hover:bg-inova-yellow text-slate-700 hover:text-slate-900 rounded-lg text-[11px] transition"><i class="fas fa-arrow-right"></i></button>
-            </div>
-          </div>
-        `).join('');
-      });
-
-      // Render SAC Table
-      const sacBody = document.getElementById('tbl-sac-body');
-      sacBody.innerHTML = state.sacTickets.map(t => `
-        <tr class="hover:bg-slate-50 transition border-b border-slate-100">
-          <td class="p-3.5 font-mono text-xs font-bold text-inova-blue">${t.id}</td>
-          <td class="p-3.5 font-semibold text-slate-800">${t.cliente}</td>
-          <td class="p-3.5 text-slate-600 text-xs">${t.assunto}</td>
-          <td class="p-3.5"><span class="px-2.5 py-1 text-[10px] font-bold rounded-full bg-slate-100 text-slate-700 border border-slate-200">${t.prioridade}</span></td>
-          <td class="p-3.5"><span class="px-2.5 py-1 text-[10px] font-bold rounded-full bg-inova-blue-light text-inova-blue border border-inova-blue/20">${t.status}</span></td>
-          <td class="p-3.5 text-right">
-            <button onclick="resolverTicket('${t.id}')" class="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold">Concluir Ticket</button>
-          </td>
-        </tr>
-      `).join('');
-
-      // Render Relacionamentos Grid
-      const relGrid = document.getElementById('relacionamento-grid');
-      relGrid.innerHTML = state.crmLeads.map(l => `
-        <div class="bg-white border border-slate-200 p-4 rounded-xl space-y-2 shadow-sm">
-          <div class="flex justify-between items-center">
-            <h4 class="font-bold text-slate-800 text-sm">${l.cliente}</h4>
-            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-bold uppercase">${l.etapa}</span>
-          </div>
-          <p class="text-xs text-slate-500"><i class="fas fa-user mr-1 text-inova-blue"></i> Responsável: ${l.contato}</p>
-          <p class="text-xs text-slate-500"><i class="fas fa-hand-holding-dollar mr-1 text-emerald-600"></i> Potencial: R$ ${l.valor.toLocaleString('pt-BR')}</p>
-        </div>
-      `).join('');
-    }
-
-    function setComSubTab(sub) {
-      document.getElementById('sub-com-crm').classList.add('hidden');
-      document.getElementById('sub-com-sac').classList.add('hidden');
-      document.getElementById('sub-com-relacionamento').classList.add('hidden');
-
-      document.getElementById('sub-com-' + sub).classList.remove('hidden');
-    }
-
-    function openNewLeadModal() {
-      const cliente = prompt('Nome da empresa/lead comercial:');
-      const valor = prompt('Valor estimado do negócio (R$):', '25000');
-      if (cliente && valor) {
-        state.crmLeads.unshift({
-          id: `LD-${state.crmLeads.length + 1}`,
-          cliente,
-          contato: 'Contato Registrado',
-          valor: parseFloat(valor),
-          etapa: 'prospeccao'
-        });
-        renderComercial();
-        showToast('Nova oportunidade adicionada ao Funil CRM!');
-      }
-    }
-
-    function moverEtapaLead(id) {
-      const lead = state.crmLeads.find(l => l.id === id);
-      if (lead) {
-        if (lead.etapa === 'prospeccao') lead.etapa = 'contato';
-        else if (lead.etapa === 'contato') lead.etapa = 'proposta';
-        else if (lead.etapa === 'proposta') lead.etapa = 'fechado';
-        renderComercial();
-        showToast(`Oportunidade ${id} movida no Funil Inova!`);
-      }
-    }
-
-    function openNewTicketModal() {
-      const cliente = prompt('Nome do Cliente solicitante SAC:');
-      const assunto = prompt('Descreva o assunto/problema do atendimento SAC:');
-      if (cliente && assunto) {
-        state.sacTickets.unshift({
-          id: `TCK-${100 + state.sacTickets.length + 1}`,
-          cliente,
-          assunto,
-          prioridade: 'Alta',
-          status: 'Aberto'
-        });
-        renderComercial();
-        showToast('Novo chamado SAC Inova aberto!');
-      }
-    }
-
-    function resolverTicket(id) {
-      const ticket = state.sacTickets.find(t => t.id === id);
-      if (ticket) {
-        ticket.status = 'Resolvido';
-        renderComercial();
-        showToast(`Ticket SAC ${id} finalizado!`);
-      }
-    }
-
-    function renderRH() {
-      // Render Vagas Grid
-      const vagasGrid = document.getElementById('rh-vagas-grid');
-      vagasGrid.innerHTML = state.vagasRH.map(v => `
-        <div class="bg-white border border-slate-200 p-4 rounded-xl space-y-3 hover:border-purple-300 transition shadow-sm">
-          <div class="flex justify-between items-start">
-            <h4 class="font-bold text-slate-800 text-sm">${v.titulo}</h4>
-            <span class="text-[10px] px-2 py-0.5 rounded bg-purple-50 text-purple-700 border border-purple-200 font-bold">${v.status}</span>
-          </div>
-          <p class="text-xs text-slate-500">Departamento: ${v.departamento}</p>
-          <div class="pt-2 border-t border-slate-100 flex justify-between items-center text-xs">
-            <span class="text-slate-500">Candidatos Inscritos:</span>
-            <span class="font-bold text-purple-700 font-mono">${v.candidatos}</span>
-          </div>
-        </div>
-      `).join('');
-
-      // Render Demissoes Table
-      const demisBody = document.getElementById('tbl-demissoes-body');
-      demisBody.innerHTML = state.demissoes.map(d => `
-        <tr class="hover:bg-slate-50 transition border-b border-slate-100">
-          <td class="p-3.5 font-semibold text-slate-800">${d.colaborador}</td>
-          <td class="p-3.5 text-slate-500 text-xs">${d.cargo}</td>
-          <td class="p-3.5 text-slate-600 text-xs">${d.data}</td>
-          <td class="p-3.5 text-slate-500 text-xs">${d.motivo}</td>
-          <td class="p-3.5 text-right">
-            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold ${d.statusVerbas === 'Pago' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${d.statusVerbas}</span>
-          </td>
-        </tr>
-      `).join('');
-
-      // Render Ferias Table
-      const feriasBody = document.getElementById('tbl-ferias-body');
-      feriasBody.innerHTML = state.ferias.map(f => `
-        <tr class="hover:bg-slate-50 transition border-b border-slate-100">
-          <td class="p-3.5 font-semibold text-slate-800">${f.funcionario}</td>
-          <td class="p-3.5 text-slate-500 text-xs">${f.periodo}</td>
-          <td class="p-3.5 text-slate-600 text-xs">${f.inicio}</td>
-          <td class="p-3.5 font-bold text-purple-700 text-xs">${f.dias} dias</td>
-          <td class="p-3.5 text-right">
-            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-purple-50 text-purple-700 border border-purple-200">${f.status}</span>
-          </td>
-        </tr>
-      `).join('');
-
-      // Render Folha Table
-      const folhaBody = document.getElementById('tbl-folha-body');
-      folhaBody.innerHTML = state.folha.map(fl => `
-        <tr class="hover:bg-slate-50 transition border-b border-slate-100">
-          <td class="p-3.5 font-semibold text-slate-800">${fl.colaborador}</td>
-          <td class="p-3.5 text-slate-500 text-xs">${fl.cargo}</td>
-          <td class="p-3.5 font-semibold text-slate-700">R$ ${fl.bruto.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>
-          <td class="p-3.5 text-rose-600 font-semibold"> - R$ ${fl.descontos.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>
-          <td class="p-3.5 font-black text-emerald-600">R$ ${fl.liquido.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>
-          <td class="p-3.5 text-right">
-            <button onclick="verHolerite('${fl.colaborador}', '${fl.cargo}', ${fl.bruto}, ${fl.descontos}, ${fl.liquido})" class="px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-xs font-bold flex items-center gap-1 ml-auto border border-slate-200">
-              <i class="fas fa-file-invoice text-purple-600"></i> Ver Holerite
-            </button>
-          </td>
-        </tr>
-      `).join('');
-    }
-
-    function setRhSubTab(sub) {
-      document.getElementById('sub-rh-contratacoes').classList.add('hidden');
-      document.getElementById('sub-rh-demissoes').classList.add('hidden');
-      document.getElementById('sub-rh-ferias').classList.add('hidden');
-      document.getElementById('sub-rh-folha').classList.add('hidden');
-
-      document.getElementById('sub-rh-' + sub).classList.remove('hidden');
-    }
-
-    function calcularFeriasSimulacao() {
-      const salario = parseFloat(document.getElementById('calc-salario').value) || 0;
-      const dias = parseInt(document.getElementById('calc-dias').value);
-      const abono = document.getElementById('calc-abono').value;
-
-      let baseProporcional = (salario / 30) * dias;
-      let tercoConstitucional = baseProporcional / 3;
-
-      if (abono === 'sim') {
-        tercoConstitucional += (salario / 30 * 10) / 3;
-      }
-
-      const total = baseProporcional + tercoConstitucional;
-
-      document.getElementById('res-ferias-base').innerText = `R$ ${baseProporcional.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-      document.getElementById('res-ferias-terco').innerText = `R$ ${tercoConstitucional.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-      document.getElementById('res-ferias-total').innerText = `R$ ${total.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-
-      showToast('Cálculo de Férias CLT Inova recalculado!');
-    }
-
-    function verHolerite(nome, cargo, bruto, descontos, liquido) {
-      document.getElementById('holerite-nome').innerText = nome;
-      document.getElementById('holerite-cargo').innerText = cargo;
-      document.getElementById('holerite-bruto').innerText = bruto.toLocaleString('pt-BR', {minimumFractionDigits: 2});
-      document.getElementById('holerite-descontos').innerText = descontos.toLocaleString('pt-BR', {minimumFractionDigits: 2});
-      document.getElementById('holerite-liquido').innerText = 'R$ ' + liquido.toLocaleString('pt-BR', {minimumFractionDigits: 2});
-      
-      document.getElementById('holerite-modal').classList.remove('hidden');
-    }
-
-    function closeHoleriteModal() {
-      document.getElementById('holerite-modal').classList.add('hidden');
-    }
-
-    function openNewVagaModal() {
-      const titulo = prompt('Título do Cargo / Vaga de Emprego:');
-      const depto = prompt('Departamento (ex: Tecnologia, RH, Comercial):', 'Tecnologia');
-      if (titulo) {
-        state.vagasRH.unshift({
-          id: `VG-0${state.vagasRH.length + 1}`,
-          titulo,
-          departamento: depto || 'Geral',
-          candidatos: 0,
-          status: 'Aberto'
-        });
-        renderRH();
-        showToast('Nova vaga de contratação publicada na Inova!');
-      }
-    }
-
-    function openNewDemissaoModal() {
-      const colaborador = prompt('Nome do colaborador para desligamento:');
-      const motivo = prompt('Motivo do desligamento:', 'Acordo Trabalhista');
-      if (colaborador) {
-        state.demissoes.unshift({
-          colaborador,
-          cargo: 'Analista Corporativo',
-          data: new Date().toISOString().split('T')[0],
-          motivo: motivo || 'Acordo',
-          statusVerbas: 'Em Processamento'
-        });
-        renderRH();
-        showToast('Processo de demissão e rescisão registrado!');
-      }
-    }
-
-    function openDevopsModal() {
-      document.getElementById('devops-modal').classList.remove('hidden');
-    }
-
-    function closeDevopsModal() {
-      document.getElementById('devops-modal').classList.add('hidden');
-    }
-
-    function showToast(msg, type = 'success') {
-      const toast = document.getElementById('toast');
-      const toastMsg = document.getElementById('toast-message');
-      
-      toastMsg.innerText = msg;
-      toast.classList.remove('-translate-y-10', 'opacity-0', 'pointer-events-none');
-      toast.classList.add('translate-y-0', 'opacity-100');
-
-      setTimeout(() => {
-        toast.classList.remove('translate-y-0', 'opacity-100');
-        toast.classList.add('-translate-y-10', 'opacity-0', 'pointer-events-none');
-      }, 3500);
-    }
-  </script>
+  <!-- SCRIPTS - Ordem de carregamento importa -->
+  <script src="js/state.js"></script>
+  <script src="js/utils/helpers.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/modules/financeiro.js"></script>
+  <script src="js/modules/comercial.js"></script>
+  <script src="js/modules/rh.js"></script>
+  <script src="js/modals/devops.js"></script>
 </body>
 </html>
