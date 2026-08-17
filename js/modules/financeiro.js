@@ -21,9 +21,13 @@ function renderBoletosTable() {
       <td class="p-3.5">
         <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase border ${window.AppHelpers.getBoletoStatusClass(b.status)}">${b.status}</span>
       </td>
-      <td class="p-3.5 text-right space-x-1">
-        <button onclick="copiarCodigoBarra('${b.codigoBarra}')" title="Copiar Linha Digitável" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold"><i class="fas fa-barcode"></i> Código</button>
-        <button onclick="simularSegundaVia('${b.id}')" title="Enviar 2ª Via" class="px-2.5 py-1 bg-inova-blue hover:bg-inova-blue-hover text-white rounded-lg text-xs font-semibold"><i class="fas fa-paper-plane"></i> 2ª Via</button>
+      <td class="p-3.5 text-right space-x-1.5 whitespace-nowrap">
+        <button onclick="window.FinanceiroModule.exibirCodigoBarra('${b.id}')" title="Exibir e Copiar Linha Digitável" class="px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold transition inline-flex items-center gap-1.5 shadow-xs">
+          <i class="fas fa-barcode text-slate-600"></i> Código
+        </button>
+        <button onclick="window.FinanceiroModule.exibirSegundaVia('${b.id}')" title="Visualizar 2ª Via do Boleto" class="px-2.5 py-1.5 bg-inova-blue hover:bg-inova-blue-hover text-white rounded-lg text-xs font-semibold transition inline-flex items-center gap-1.5 shadow-xs shadow-inova-blue/20">
+          <i class="fas fa-file-invoice"></i> 2ª Via
+        </button>
       </td>
     </tr>
   `).join('');
@@ -182,18 +186,107 @@ function submitNewContrato(event) {
   window.AppHelpers.showToast(`Novo contrato cadastrado para ${cliente}!`);
 }
 
+// Exibir Modal de Código de Barras / Linha Digitável
+function exibirCodigoBarra(id) {
+  const boleto = window.AppState.state.boletos.find(b => b.id === id || b.codigoBarra === id);
+  if (!boleto) return;
+
+  const modal = document.getElementById('modal-codigo-barras');
+  if (!modal) return;
+
+  const idEl = document.getElementById('codigo-modal-id');
+  const clienteEl = document.getElementById('codigo-modal-cliente');
+  const vencEl = document.getElementById('codigo-modal-vencimento');
+  const valorEl = document.getElementById('codigo-modal-valor');
+  const linhaInput = document.getElementById('codigo-modal-linha');
+  const btn2Via = document.getElementById('codigo-modal-btn-2via');
+
+  if (idEl) idEl.textContent = boleto.id;
+  if (clienteEl) clienteEl.textContent = boleto.cliente;
+  if (vencEl) vencEl.textContent = window.AppHelpers.formatDateBR(boleto.vencimento);
+  if (valorEl) valorEl.textContent = 'R$ ' + window.AppHelpers.formatBRL(boleto.valor);
+  if (linhaInput) linhaInput.value = boleto.codigoBarra;
+  if (btn2Via) {
+    btn2Via.onclick = () => {
+      fecharModalCodigoBarra();
+      exibirSegundaVia(boleto.id);
+    };
+  }
+
+  window.AppHelpers.copyToClipboard(boleto.codigoBarra);
+  modal.classList.remove('hidden');
+  window.AppHelpers.showToast(`Código copiado e exibido para ${boleto.id}!`);
+}
+
+function fecharModalCodigoBarra() {
+  const modal = document.getElementById('modal-codigo-barras');
+  if (modal) modal.classList.add('hidden');
+}
+
+function copiarLinhaModal() {
+  const linhaInput = document.getElementById('codigo-modal-linha');
+  if (linhaInput) {
+    window.AppHelpers.copyToClipboard(linhaInput.value);
+    window.AppHelpers.showToast('Linha digitável copiada com sucesso!');
+  }
+}
+
+// Exibir Modal de 2ª Via Completa do Boleto
+function exibirSegundaVia(id) {
+  const boleto = window.AppState.state.boletos.find(b => b.id === id);
+  if (!boleto) return;
+
+  const modal = document.getElementById('modal-segunda-via-boleto');
+  if (!modal) return;
+
+  const linhaEl = document.getElementById('view-boleto-linha');
+  const vencEl = document.getElementById('view-boleto-vencimento');
+  const docNumEl = document.getElementById('view-boleto-doc-num');
+  const nossoNumEl = document.getElementById('view-boleto-nosso-num');
+  const valorEl = document.getElementById('view-boleto-valor');
+  const sacadoNomeEl = document.getElementById('view-boleto-sacado-nome');
+  const statusEl = document.getElementById('view-boleto-status');
+
+  if (linhaEl) linhaEl.textContent = boleto.codigoBarra;
+  if (vencEl) vencEl.textContent = window.AppHelpers.formatDateBR(boleto.vencimento);
+  if (docNumEl) docNumEl.textContent = boleto.id;
+  if (nossoNumEl) nossoNumEl.textContent = '109/' + (boleto.id.replace('BOL-', '9021')) + '-8';
+  if (valorEl) valorEl.textContent = 'R$ ' + window.AppHelpers.formatBRL(boleto.valor);
+  if (sacadoNomeEl) sacadoNomeEl.textContent = boleto.cliente;
+  if (statusEl) {
+    statusEl.textContent = boleto.status;
+    statusEl.className = `px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase border ${window.AppHelpers.getBoletoStatusClass(boleto.status)}`;
+  }
+
+  modal.classList.remove('hidden');
+  window.AppHelpers.showToast(`2ª Via do boleto ${boleto.id} gerada na tela!`);
+}
+
+function fecharModalSegundaVia() {
+  const modal = document.getElementById('modal-segunda-via-boleto');
+  if (modal) modal.classList.add('hidden');
+}
+
 async function copiarCodigoBarra(codigo) {
-  await window.AppHelpers.copyToClipboard(codigo);
-  window.AppHelpers.showToast('Código de barras copiado para a área de transferência!');
+  exibirCodigoBarra(codigo);
 }
 
 function simularSegundaVia(id) {
-  window.AppHelpers.showToast(`Segunda via do boleto ${id} enviada via e-mail Inova!`);
+  exibirSegundaVia(id);
 }
 
 function enviarCobranca(cliente) {
   window.AppHelpers.showToast(`Notificação formal de cobrança disparada para ${cliente}`);
 }
+
+// Aliases globais
+window.exibirCodigoBarra = exibirCodigoBarra;
+window.fecharModalCodigoBarra = fecharModalCodigoBarra;
+window.copiarLinhaModal = copiarLinhaModal;
+window.exibirSegundaVia = exibirSegundaVia;
+window.fecharModalSegundaVia = fecharModalSegundaVia;
+window.copiarCodigoBarra = exibirCodigoBarra;
+window.simularSegundaVia = exibirSegundaVia;
 
 window.FinanceiroModule = {
   renderFinanceiro,
@@ -204,7 +297,12 @@ window.FinanceiroModule = {
   openNewContratoModal,
   closeNewContratoModal,
   submitNewContrato,
-  copiarCodigoBarra,
-  simularSegundaVia,
+  exibirCodigoBarra,
+  fecharModalCodigoBarra,
+  copiarLinhaModal,
+  exibirSegundaVia,
+  fecharModalSegundaVia,
+  copiarCodigoBarra: exibirCodigoBarra,
+  simularSegundaVia: exibirSegundaVia,
   enviarCobranca
 };

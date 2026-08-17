@@ -824,6 +824,253 @@
     </div>
   </div>
 
+  <!-- Modal Exibição Código de Barras / Linha Digitável -->
+  <div id="modal-codigo-barras" class="app-modal fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white text-slate-900 border border-slate-200 w-full max-w-lg rounded-2xl p-6 space-y-4 max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div class="flex justify-between items-center pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-inova-blue-light text-inova-blue flex items-center justify-center">
+            <i class="fas fa-barcode text-sm"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-slate-800">Código de Barras & Linha Digitável</h3>
+            <p class="text-[11px] text-slate-500">Boleto: <span id="codigo-modal-id" class="font-mono font-bold text-inova-blue">BOL-0000</span></p>
+          </div>
+        </div>
+        <button onclick="window.FinanceiroModule.fecharModalCodigoBarra()" class="w-7 h-7 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 flex items-center justify-center transition">
+          <i class="fas fa-times text-xs"></i>
+        </button>
+      </div>
+
+      <!-- Resumo do Boleto -->
+      <div class="grid grid-cols-3 gap-2 text-xs bg-slate-50 p-3 rounded-xl border border-slate-200">
+        <div>
+          <p class="text-[10px] text-slate-500 font-semibold uppercase">Sacado / Cliente</p>
+          <p id="codigo-modal-cliente" class="font-bold text-slate-800 truncate">--</p>
+        </div>
+        <div>
+          <p class="text-[10px] text-slate-500 font-semibold uppercase">Vencimento</p>
+          <p id="codigo-modal-vencimento" class="font-bold text-slate-800">--</p>
+        </div>
+        <div>
+          <p class="text-[10px] text-slate-500 font-semibold uppercase">Valor Total</p>
+          <p id="codigo-modal-valor" class="font-black text-emerald-600 font-mono">--</p>
+        </div>
+      </div>
+
+      <!-- Linha Digitável e Ação de Copiar -->
+      <div class="space-y-2">
+        <label class="block text-xs font-bold text-slate-700">Linha Digitável (Código para pagamento em Internet Banking / App):</label>
+        <div class="relative">
+          <input type="text" id="codigo-modal-linha" readonly
+            class="w-full px-3.5 py-3 text-xs font-mono font-bold text-slate-800 bg-slate-100 border border-slate-300 rounded-xl select-all focus:outline-none focus:ring-2 focus:ring-inova-blue tracking-wider text-center">
+        </div>
+        <button onclick="window.FinanceiroModule.copiarLinhaModal()"
+          class="w-full py-2.5 bg-inova-blue hover:bg-inova-blue-hover text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow-md shadow-inova-blue/20">
+          <i class="fas fa-copy"></i> Copiar Linha Digitável
+        </button>
+      </div>
+
+      <!-- Representação Gráfica do Código de Barras -->
+      <div class="pt-3 border-t border-slate-100 space-y-2 text-center">
+        <p class="text-[11px] text-slate-500 font-medium">Representação Gráfica FEBRABAN para Leitor Óptico:</p>
+        <div class="bg-white p-3 rounded-xl border border-slate-200 flex flex-col items-center justify-center space-y-1">
+          <!-- Barras simuladas com padrão estético e realista -->
+          <div class="flex items-center justify-center h-12 w-full gap-[2px] overflow-hidden">
+            <span class="w-1 h-full bg-slate-900"></span><span class="w-0.5 h-full bg-slate-900"></span><span class="w-1.5 h-full bg-slate-900"></span>
+            <span class="w-0.5 h-full bg-slate-900"></span><span class="w-2 h-full bg-slate-900"></span><span class="w-1 h-full bg-slate-900"></span>
+            <span class="w-0.5 h-full bg-slate-900"></span><span class="w-1.5 h-full bg-slate-900"></span><span class="w-0.5 h-full bg-slate-900"></span>
+            <span class="w-2.5 h-full bg-slate-900"></span><span class="w-1 h-full bg-slate-900"></span><span class="w-0.5 h-full bg-slate-900"></span>
+            <span class="w-1.5 h-full bg-slate-900"></span><span class="w-1 h-full bg-slate-900"></span><span class="w-2 h-full bg-slate-900"></span>
+            <span class="w-0.5 h-full bg-slate-900"></span><span class="w-1 h-full bg-slate-900"></span><span class="w-2.5 h-full bg-slate-900"></span>
+            <span class="w-1.5 h-full bg-slate-900"></span><span class="w-0.5 h-full bg-slate-900"></span><span class="w-1 h-full bg-slate-900"></span>
+            <span class="w-2 h-full bg-slate-900"></span><span class="w-0.5 h-full bg-slate-900"></span><span class="w-1.5 h-full bg-slate-900"></span>
+            <span class="w-1 h-full bg-slate-900"></span><span class="w-2.5 h-full bg-slate-900"></span><span class="w-0.5 h-full bg-slate-900"></span>
+            <span class="w-1 h-full bg-slate-900"></span><span class="w-1.5 h-full bg-slate-900"></span><span class="w-2 h-full bg-slate-900"></span>
+            <span class="w-0.5 h-full bg-slate-900"></span><span class="w-1 h-full bg-slate-900"></span><span class="w-2.5 h-full bg-slate-900"></span>
+            <span class="w-1.5 h-full bg-slate-900"></span><span class="w-0.5 h-full bg-slate-900"></span><span class="w-1 h-full bg-slate-900"></span>
+            <span class="w-2 h-full bg-slate-900"></span><span class="w-0.5 h-full bg-slate-900"></span><span class="w-1.5 h-full bg-slate-900"></span>
+            <span class="w-1 h-full bg-slate-900"></span><span class="w-0.5 h-full bg-slate-900"></span><span class="w-2 h-full bg-slate-900"></span>
+          </div>
+          <p class="text-[10px] font-mono text-slate-400">Autenticação Digital Inova Pay - FEBRABAN</p>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-2 border-t border-slate-100">
+        <button id="codigo-modal-btn-2via" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-md shadow-purple-600/20">
+          <i class="fas fa-file-invoice"></i> Ver 2ª Via Completa
+        </button>
+        <button onclick="window.FinanceiroModule.fecharModalCodigoBarra()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">
+          Fechar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Visualização Completa da 2ª Via do Boleto Bancário -->
+  <div id="modal-segunda-via-boleto" class="app-modal fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white text-slate-900 border border-slate-300 w-full max-w-3xl rounded-2xl p-6 space-y-4 max-h-[92vh] overflow-y-auto shadow-2xl">
+      
+      <!-- Área Imprimível do Boleto Bancário -->
+      <div id="printable-boleto" class="space-y-4 text-xs font-sans text-slate-800 bg-white">
+        
+        <!-- Cabeçalho do Boleto / Banco -->
+        <div class="flex items-center justify-between pb-2 border-b-2 border-slate-800">
+          <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2">
+              <div class="w-7 h-7 rounded-lg bg-inova-blue text-white flex items-center justify-center font-black text-sm">
+                I
+              </div>
+              <span class="font-black text-base text-inova-blue tracking-tight">BANCO INOVA PAY</span>
+            </div>
+            <div class="text-base font-black px-3 border-x-2 border-slate-800 font-mono">
+              341-7
+            </div>
+          </div>
+          <div id="view-boleto-linha" class="font-mono text-[11px] sm:text-xs font-bold tracking-wider text-slate-900">
+            34191.09021 80000.123456 7 8910000850000
+          </div>
+        </div>
+
+        <!-- Grade de Campos FEBRABAN do Boleto -->
+        <div class="border border-slate-800 divide-y divide-slate-800">
+          
+          <!-- Linha 1: Local de Pagamento e Vencimento -->
+          <div class="grid grid-cols-1 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-800">
+            <div class="p-2 md:col-span-3">
+              <span class="block text-[10px] uppercase font-bold text-slate-500">Local de Pagamento</span>
+              <span class="font-semibold text-slate-900">PAGÁVEL EM QUALQUER BANCO OU CANAIS ELETRÔNICOS ATÉ O VENCIMENTO</span>
+            </div>
+            <div class="p-2 bg-slate-50">
+              <span class="block text-[10px] uppercase font-bold text-slate-500">Vencimento</span>
+              <span id="view-boleto-vencimento" class="font-black text-sm text-slate-900 font-mono">15/08/2026</span>
+            </div>
+          </div>
+
+          <!-- Linha 2: Beneficiário e Agência / Código Beneficiário -->
+          <div class="grid grid-cols-1 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-800">
+            <div class="p-2 md:col-span-3">
+              <span class="block text-[10px] uppercase font-bold text-slate-500">Beneficiário</span>
+              <span class="font-bold text-slate-900">INOVA SISTEMAS INTEGRADOS DE GESTÃO S.A. - CNPJ: 12.345.678/0001-90</span>
+              <p class="text-[10px] text-slate-500">Av. Paulista, 1000 - Bela Vista - São Paulo / SP - CEP 01310-100</p>
+            </div>
+            <div class="p-2 bg-slate-50">
+              <span class="block text-[10px] uppercase font-bold text-slate-500">Agência / Código Beneficiário</span>
+              <span class="font-bold font-mono text-slate-900">3890 / 48190-2</span>
+            </div>
+          </div>
+
+          <!-- Linha 3: Detalhes do Documento -->
+          <div class="grid grid-cols-2 md:grid-cols-6 divide-x divide-slate-800 text-[11px]">
+            <div class="p-1.5">
+              <span class="block text-[9px] uppercase font-bold text-slate-500">Data Documento</span>
+              <span class="font-semibold">17/08/2026</span>
+            </div>
+            <div class="p-1.5">
+              <span class="block text-[9px] uppercase font-bold text-slate-500">Nº do Documento</span>
+              <span id="view-boleto-doc-num" class="font-bold font-mono text-inova-blue">BOL-9021</span>
+            </div>
+            <div class="p-1.5">
+              <span class="block text-[9px] uppercase font-bold text-slate-500">Espécie Doc</span>
+              <span class="font-semibold">DM</span>
+            </div>
+            <div class="p-1.5">
+              <span class="block text-[9px] uppercase font-bold text-slate-500">Aceite</span>
+              <span class="font-semibold">N</span>
+            </div>
+            <div class="p-1.5">
+              <span class="block text-[9px] uppercase font-bold text-slate-500">Data Processamento</span>
+              <span class="font-semibold">17/08/2026</span>
+            </div>
+            <div class="p-1.5 bg-slate-50">
+              <span class="block text-[9px] uppercase font-bold text-slate-500">Nosso Número</span>
+              <span id="view-boleto-nosso-num" class="font-bold font-mono">109/902190-8</span>
+            </div>
+          </div>
+
+          <!-- Linha 4: Instruções e Valores -->
+          <div class="grid grid-cols-1 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-800">
+            <div class="p-3 md:col-span-3 space-y-1.5">
+              <span class="block text-[10px] uppercase font-bold text-slate-500">Instruções de Responsabilidade do Beneficiário</span>
+              <p class="text-[11px] text-slate-700 font-medium">• Cobrança referente à licença de uso do ERP Inova Cloud e Suporte Técnico Especializado.</p>
+              <p class="text-[11px] text-slate-700 font-medium">• Sr. Caixa: Não receber após 30 dias do vencimento.</p>
+              <p class="text-[11px] text-slate-700 font-medium">• Após vencimento: cobrar juros de mora de 1,00% ao mês e multa rescisória de 2,00%.</p>
+              <p class="text-[10px] text-slate-400 italic">2ª Via emitida diretamente através do Portal Integrado Inova Gestão ERP.</p>
+            </div>
+            <div class="divide-y divide-slate-800 bg-slate-50">
+              <div class="p-2">
+                <span class="block text-[10px] uppercase font-bold text-slate-500">Valor do Documento</span>
+                <span id="view-boleto-valor" class="font-black text-base text-slate-900 font-mono">R$ 8.500,00</span>
+              </div>
+              <div class="p-2">
+                <span class="block text-[10px] uppercase font-bold text-slate-500">(-) Desconto / Abatimento</span>
+                <span class="font-mono text-slate-400">-</span>
+              </div>
+              <div class="p-2">
+                <span class="block text-[10px] uppercase font-bold text-slate-500">(+) Mora / Multa</span>
+                <span class="font-mono text-slate-400">-</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Linha 5: Pagador (Sacado) -->
+          <div class="p-3 bg-slate-50/70">
+            <span class="block text-[10px] uppercase font-bold text-slate-500">Pagador (Sacado)</span>
+            <div class="flex justify-between items-center">
+              <div>
+                <span id="view-boleto-sacado-nome" class="font-bold text-sm text-slate-900">TechCorp Brasil LTDA</span>
+                <span id="view-boleto-status" class="ml-2 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase border">Pendente</span>
+                <p class="text-[10px] text-slate-500">CNPJ: 12.345.678/0001-90 | Endereço: Av. das Nações Unidas, 4500 - São Paulo / SP</p>
+              </div>
+              <div class="text-right text-[10px] text-slate-400 font-mono">
+                Cód. Baixa: 98124
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Código de Barras Gráfico Inferior (Ficha de Compensação) -->
+        <div class="pt-3 flex flex-col items-center justify-center space-y-1">
+          <div class="flex items-center justify-center h-14 w-full max-w-xl gap-[3px] overflow-hidden bg-white p-2">
+            <span class="w-1 h-full bg-slate-900"></span><span class="w-0.5 h-full bg-slate-900"></span><span class="w-2 h-full bg-slate-900"></span>
+            <span class="w-0.5 h-full bg-slate-900"></span><span class="w-3 h-full bg-slate-900"></span><span class="w-1 h-full bg-slate-900"></span>
+            <span class="w-0.5 h-full bg-slate-900"></span><span class="w-2 h-full bg-slate-900"></span><span class="w-0.5 h-full bg-slate-900"></span>
+            <span class="w-3 h-full bg-slate-900"></span><span class="w-1 h-full bg-slate-900"></span><span class="w-0.5 h-full bg-slate-900"></span>
+            <span class="w-2 h-full bg-slate-900"></span><span class="w-1 h-full bg-slate-900"></span><span class="w-2.5 h-full bg-slate-900"></span>
+            <span class="w-0.5 h-full bg-slate-900"></span><span class="w-1 h-full bg-slate-900"></span><span class="w-3 h-full bg-slate-900"></span>
+            <span class="w-2 h-full bg-slate-900"></span><span class="w-0.5 h-full bg-slate-900"></span><span class="w-1 h-full bg-slate-900"></span>
+            <span class="w-2.5 h-full bg-slate-900"></span><span class="w-0.5 h-full bg-slate-900"></span><span class="w-2 h-full bg-slate-900"></span>
+            <span class="w-1 h-full bg-slate-900"></span><span class="w-3 h-full bg-slate-900"></span><span class="w-0.5 h-full bg-slate-900"></span>
+            <span class="w-1 h-full bg-slate-900"></span><span class="w-2 h-full bg-slate-900"></span><span class="w-2.5 h-full bg-slate-900"></span>
+            <span class="w-0.5 h-full bg-slate-900"></span><span class="w-1 h-full bg-slate-900"></span><span class="w-3 h-full bg-slate-900"></span>
+            <span class="w-2 h-full bg-slate-900"></span><span class="w-0.5 h-full bg-slate-900"></span><span class="w-1 h-full bg-slate-900"></span>
+            <span class="w-2.5 h-full bg-slate-900"></span><span class="w-0.5 h-full bg-slate-900"></span><span class="w-2 h-full bg-slate-900"></span>
+            <span class="w-1 h-full bg-slate-900"></span><span class="w-0.5 h-full bg-slate-900"></span><span class="w-2.5 h-full bg-slate-900"></span>
+          </div>
+          <p class="text-[10px] text-slate-400 font-mono tracking-widest uppercase">Autenticação Mecânica / Ficha de Compensação</p>
+        </div>
+      </div>
+
+      <!-- Botões de Ação do Modal -->
+      <div class="flex justify-between items-center pt-3 border-t border-slate-200">
+        <button onclick="window.FinanceiroModule.copiarLinhaModal()"
+          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5">
+          <i class="fas fa-copy"></i> Copiar Código
+        </button>
+        <div class="flex gap-2">
+          <button onclick="window.print()"
+            class="px-4 py-2 bg-inova-blue hover:bg-inova-blue-hover text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-md shadow-inova-blue/20">
+            <i class="fas fa-print"></i> Imprimir / PDF
+          </button>
+          <button onclick="window.FinanceiroModule.fecharModalSegundaVia()"
+            class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">
+            Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Modal Novo Boleto (Financeiro) -->
   <div id="modal-novo-boleto" class="app-modal fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-white text-slate-900 border border-slate-200 w-full max-w-md rounded-2xl p-6 space-y-4 max-h-[90vh] overflow-y-auto shadow-2xl">

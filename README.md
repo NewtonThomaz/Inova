@@ -90,10 +90,10 @@ inova/
 ### 1. 🏦 Módulo Financeiro
 - **KPIs:** Faturado mês, Boletos a receber, Inadimplência, Contratos vigentes
 - **Abas:**
-  - **Emissão de Boletos:** Tabela com código de barras, ações (copiar, 2ª via)
+  - **Emissão de Boletos:** Tabela com código de barras, exibição modal da linha digitável e visualizador/impressor da **2ª Via do Boleto Bancário** FEBRABAN
   - **Gestão de Contratos:** Cards com vigência, valor mensal, status
   - **Cobrança de Inadimplentes:** Tabela com dias em atraso, disparo de cobrança
-- **Ações simuladas:** Novo boleto, novo contrato, copiar linha digitável, enviar cobrança
+- **Ações:** Novo boleto via modal, novo contrato via modal, ver/copiar linha digitável na tela, emitir 2ª via na tela/PDF, enviar cobrança
 
 ### 2. 📈 Módulo Comercial / CRM
 - **Sub-abbas:**

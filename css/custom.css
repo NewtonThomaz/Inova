@@ -27,10 +27,13 @@
     visibility: hidden;
   }
   #printable-holerite,
-  #printable-holerite * {
+  #printable-holerite *,
+  #printable-boleto,
+  #printable-boleto * {
     visibility: visible;
   }
-  #printable-holerite {
+  #printable-holerite,
+  #printable-boleto {
     position: absolute;
     left: 0;
     top: 0;
