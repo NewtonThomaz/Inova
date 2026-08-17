@@ -150,40 +150,85 @@ function closeHoleriteModal() {
 
 
 function openNewVagaModal() {
-  const titulo = prompt('Título do Cargo / Vaga de Emprego:');
-  const depto = prompt('Departamento (ex: Tecnologia, RH, Comercial):', 'Tecnologia');
-
-  if (titulo) {
-    window.AppState.state.vagasRH.unshift({
-      id: `VG-0${window.AppState.state.vagasRH.length + 1}`,
-      titulo,
-      departamento: depto || 'Geral',
-      candidatos: 0,
-      status: 'Aberto'
-    });
-    renderRH();
-    window.AppHelpers.showToast('Nova vaga de contratação publicada na Inova!');
-  }
+  const modal = document.getElementById('modal-nova-vaga');
+  if (!modal) return;
+  const form = document.getElementById('form-nova-vaga');
+  if (form) form.reset();
+  modal.classList.remove('hidden');
 }
 
+function closeNewVagaModal() {
+  const modal = document.getElementById('modal-nova-vaga');
+  if (modal) modal.classList.add('hidden');
+}
+
+function submitNewVaga(event) {
+  if (event) event.preventDefault();
+  const titulo = document.getElementById('vaga-titulo').value.trim();
+  const departamento = document.getElementById('vaga-departamento').value || 'Tecnologia';
+  const status = document.getElementById('vaga-status').value || 'Aberto';
+
+  if (!titulo) {
+    window.AppHelpers.showToast('Informe o título do cargo / vaga.', 'error');
+    return;
+  }
+
+  window.AppState.state.vagasRH.unshift({
+    id: `VG-0${window.AppState.state.vagasRH.length + 1}`,
+    titulo,
+    departamento,
+    candidatos: 0,
+    status
+  });
+
+  closeNewVagaModal();
+  renderRH();
+  window.AppHelpers.showToast(`Nova vaga de "${titulo}" publicada na Inova!`);
+}
 
 function openNewDemissaoModal() {
-  const colaborador = prompt('Nome do colaborador para desligamento:');
-  const motivo = prompt('Motivo do desligamento:', 'Acordo Trabalhista');
+  const modal = document.getElementById('modal-nova-demissao');
+  if (!modal) return;
+  const form = document.getElementById('form-nova-demissao');
+  if (form) form.reset();
 
-  if (colaborador) {
-    window.AppState.state.demissoes.unshift({
-      colaborador,
-      cargo: 'Analista Corporativo',
-      data: new Date().toISOString().split('T')[0],
-      motivo: motivo || 'Acordo',
-      statusVerbas: 'Em Processamento'
-    });
-    renderRH();
-    window.AppHelpers.showToast('Processo de demissão e rescisão registrado!');
+  const dataInput = document.getElementById('demissao-data');
+  if (dataInput) {
+    dataInput.value = new Date().toISOString().split('T')[0];
   }
+  modal.classList.remove('hidden');
 }
 
+function closeNewDemissaoModal() {
+  const modal = document.getElementById('modal-nova-demissao');
+  if (modal) modal.classList.add('hidden');
+}
+
+function submitNewDemissao(event) {
+  if (event) event.preventDefault();
+  const colaborador = document.getElementById('demissao-colaborador').value.trim();
+  const cargo = document.getElementById('demissao-cargo').value.trim() || 'Analista Corporativo';
+  const data = document.getElementById('demissao-data').value || new Date().toISOString().split('T')[0];
+  const motivo = document.getElementById('demissao-motivo').value || 'Acordo Trabalhista';
+  const statusVerbas = document.getElementById('demissao-status-verbas').value || 'Em Processamento';
+
+  if (!colaborador) {
+    window.AppHelpers.showToast('Informe o nome do colaborador.', 'error');
+    return;
+  }
+
+  window.AppState.state.demissoes.unshift({
+    colaborador,
+    cargo,
+    data,
+    motivo,
+    statusVerbas
+  });
+
+  closeNewDemissaoModal();
+  renderRH();
+  window.AppHelpers.showToast(`Processo de demissão para ${colaborador} registrado!`);
+}
 
 window.RHModule = {
   renderRH,
@@ -192,5 +237,9 @@ window.RHModule = {
   verHolerite,
   closeHoleriteModal,
   openNewVagaModal,
-  openNewDemissaoModal
+  closeNewVagaModal,
+  submitNewVaga,
+  openNewDemissaoModal,
+  closeNewDemissaoModal,
+  submitNewDemissao
 };

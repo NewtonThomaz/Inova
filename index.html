@@ -824,6 +824,389 @@
     </div>
   </div>
 
+  <!-- Modal Novo Boleto (Financeiro) -->
+  <div id="modal-novo-boleto" class="app-modal fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white text-slate-900 border border-slate-200 w-full max-w-md rounded-2xl p-6 space-y-4 max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div class="flex justify-between items-center pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-inova-blue-light text-inova-blue flex items-center justify-center">
+            <i class="fas fa-file-invoice-dollar text-sm"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-slate-800">Gerar Novo Boleto</h3>
+            <p class="text-[11px] text-slate-500">Emissão de cobrança com código de barra</p>
+          </div>
+        </div>
+        <button onclick="window.FinanceiroModule.closeNewBoletoModal()" class="w-7 h-7 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 flex items-center justify-center transition">
+          <i class="fas fa-times text-xs"></i>
+        </button>
+      </div>
+
+      <form id="form-novo-boleto" onsubmit="window.FinanceiroModule.submitNewBoleto(event)" class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Cliente / Razão Social <span class="text-rose-500">*</span></label>
+          <input type="text" id="boleto-cliente" required placeholder="Nome completo ou Razão Social"
+            class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-inova-blue/30 focus:border-inova-blue bg-slate-50/50">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Valor (R$) <span class="text-rose-500">*</span></label>
+            <input type="number" id="boleto-valor" step="0.01" min="1" required placeholder="0,00"
+              class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-inova-blue/30 focus:border-inova-blue bg-slate-50/50">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Data Vencimento <span class="text-rose-500">*</span></label>
+            <input type="date" id="boleto-vencimento" required
+              class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-inova-blue/30 focus:border-inova-blue bg-slate-50/50">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Status Inicial</label>
+          <select id="boleto-status" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-inova-blue/30 focus:border-inova-blue bg-slate-50/50">
+            <option value="Pendente" selected>Pendente</option>
+            <option value="Pago">Pago</option>
+            <option value="Vencido">Vencido</option>
+          </select>
+        </div>
+
+        <div class="flex justify-end gap-2 pt-3 border-t border-slate-100">
+          <button type="button" onclick="window.FinanceiroModule.closeNewBoletoModal()"
+            class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">
+            Cancelar
+          </button>
+          <button type="submit"
+            class="px-4 py-2 bg-inova-blue hover:bg-inova-blue-hover text-white rounded-xl text-xs font-bold transition shadow-md shadow-inova-blue/20">
+            <i class="fas fa-check mr-1"></i> Gerar Boleto
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Novo Contrato (Financeiro) -->
+  <div id="modal-novo-contrato" class="app-modal fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white text-slate-900 border border-slate-200 w-full max-w-md rounded-2xl p-6 space-y-4 max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div class="flex justify-between items-center pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center">
+            <i class="fas fa-file-contract text-sm"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-slate-800">Cadastrar Novo Contrato</h3>
+            <p class="text-[11px] text-slate-500">Gestão de contrato corporativo e recorrência</p>
+          </div>
+        </div>
+        <button onclick="window.FinanceiroModule.closeNewContratoModal()" class="w-7 h-7 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 flex items-center justify-center transition">
+          <i class="fas fa-times text-xs"></i>
+        </button>
+      </div>
+
+      <form id="form-novo-contrato" onsubmit="window.FinanceiroModule.submitNewContrato(event)" class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Razão Social / Cliente <span class="text-rose-500">*</span></label>
+          <input type="text" id="contrato-cliente" required placeholder="Nome da empresa contratante"
+            class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-600/30 focus:border-purple-600 bg-slate-50/50">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Valor Mensal (R$) <span class="text-rose-500">*</span></label>
+            <input type="number" id="contrato-valor" step="0.01" min="1" required placeholder="0,00"
+              class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-600/30 focus:border-purple-600 bg-slate-50/50">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Início da Vigência <span class="text-rose-500">*</span></label>
+            <input type="date" id="contrato-inicio" required
+              class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-600/30 focus:border-purple-600 bg-slate-50/50">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Vigência</label>
+            <select id="contrato-vigencia" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-600/30 focus:border-purple-600 bg-slate-50/50">
+              <option value="12 Meses" selected>12 Meses</option>
+              <option value="24 Meses">24 Meses</option>
+              <option value="36 Meses">36 Meses</option>
+              <option value="Indeterminado">Indeterminado</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Status</label>
+            <select id="contrato-status" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-600/30 focus:border-purple-600 bg-slate-50/50">
+              <option value="Ativo" selected>Ativo</option>
+              <option value="Em Renovação">Em Renovação</option>
+              <option value="Pendente">Pendente</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-2 pt-3 border-t border-slate-100">
+          <button type="button" onclick="window.FinanceiroModule.closeNewContratoModal()"
+            class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">
+            Cancelar
+          </button>
+          <button type="submit"
+            class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold transition shadow-md shadow-purple-600/20">
+            <i class="fas fa-check mr-1"></i> Salvar Contrato
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Nova Oportunidade Lead (Comercial / CRM) -->
+  <div id="modal-novo-lead" class="app-modal fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white text-slate-900 border border-slate-200 w-full max-w-md rounded-2xl p-6 space-y-4 max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div class="flex justify-between items-center pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-inova-yellow-light text-slate-800 flex items-center justify-center border border-inova-yellow/30">
+            <i class="fas fa-lightbulb text-sm text-inova-yellow"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-slate-800">Nova Oportunidade Comercial</h3>
+            <p class="text-[11px] text-slate-500">Cadastre um novo lead no Funil de Vendas CRM</p>
+          </div>
+        </div>
+        <button onclick="window.ComercialModule.closeNewLeadModal()" class="w-7 h-7 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 flex items-center justify-center transition">
+          <i class="fas fa-times text-xs"></i>
+        </button>
+      </div>
+
+      <form id="form-novo-lead" onsubmit="window.ComercialModule.submitNewLead(event)" class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Empresa / Lead Comercial <span class="text-rose-500">*</span></label>
+          <input type="text" id="lead-cliente" required placeholder="Nome da empresa ou cliente"
+            class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-inova-yellow/40 focus:border-inova-yellow bg-slate-50/50">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Nome do Contato / Decisor</label>
+          <input type="text" id="lead-contato" placeholder="Ex: Carlos Souza"
+            class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-inova-yellow/40 focus:border-inova-yellow bg-slate-50/50">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Valor Estimado (R$) <span class="text-rose-500">*</span></label>
+            <input type="number" id="lead-valor" step="0.01" min="1" required placeholder="25000.00"
+              class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-inova-yellow/40 focus:border-inova-yellow bg-slate-50/50">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Etapa Inicial</label>
+            <select id="lead-etapa" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-inova-yellow/40 focus:border-inova-yellow bg-slate-50/50">
+              <option value="prospeccao" selected>Prospecção</option>
+              <option value="contato">Contato Feito</option>
+              <option value="proposta">Proposta Enviada</option>
+              <option value="fechado">Fechado / Ganho</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-2 pt-3 border-t border-slate-100">
+          <button type="button" onclick="window.ComercialModule.closeNewLeadModal()"
+            class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">
+            Cancelar
+          </button>
+          <button type="submit"
+            class="px-4 py-2 bg-inova-yellow hover:bg-inova-yellow-hover text-slate-900 rounded-xl text-xs font-bold transition shadow-md shadow-inova-yellow/20">
+            <i class="fas fa-plus mr-1"></i> Criar Oportunidade
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Novo Ticket SAC (Comercial) -->
+  <div id="modal-novo-ticket" class="app-modal fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white text-slate-900 border border-slate-200 w-full max-w-md rounded-2xl p-6 space-y-4 max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div class="flex justify-between items-center pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-inova-blue-light text-inova-blue flex items-center justify-center">
+            <i class="fas fa-headset text-sm"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-slate-800">Abrir Chamado SAC</h3>
+            <p class="text-[11px] text-slate-500">Registro de atendimento ao cliente corporativo</p>
+          </div>
+        </div>
+        <button onclick="window.ComercialModule.closeNewTicketModal()" class="w-7 h-7 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 flex items-center justify-center transition">
+          <i class="fas fa-times text-xs"></i>
+        </button>
+      </div>
+
+      <form id="form-novo-ticket" onsubmit="window.ComercialModule.submitNewTicket(event)" class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Cliente Solicitante <span class="text-rose-500">*</span></label>
+          <input type="text" id="ticket-cliente" required placeholder="Nome do cliente ou empresa"
+            class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-inova-blue/30 focus:border-inova-blue bg-slate-50/50">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Assunto / Descrição do Atendimento <span class="text-rose-500">*</span></label>
+          <textarea id="ticket-assunto" required rows="3" placeholder="Descreva sucintamente a solicitação ou problema"
+            class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-inova-blue/30 focus:border-inova-blue bg-slate-50/50"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Prioridade</label>
+          <select id="ticket-prioridade" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-inova-blue/30 focus:border-inova-blue bg-slate-50/50">
+            <option value="Alta" selected>Alta</option>
+            <option value="Média">Média</option>
+            <option value="Baixa">Baixa</option>
+          </select>
+        </div>
+
+        <div class="flex justify-end gap-2 pt-3 border-t border-slate-100">
+          <button type="button" onclick="window.ComercialModule.closeNewTicketModal()"
+            class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">
+            Cancelar
+          </button>
+          <button type="submit"
+            class="px-4 py-2 bg-inova-blue hover:bg-inova-blue-hover text-white rounded-xl text-xs font-bold transition shadow-md shadow-inova-blue/20">
+            <i class="fas fa-headset mr-1"></i> Abrir Ticket
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Nova Vaga (RH) -->
+  <div id="modal-nova-vaga" class="app-modal fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white text-slate-900 border border-slate-200 w-full max-w-md rounded-2xl p-6 space-y-4 max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div class="flex justify-between items-center pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center">
+            <i class="fas fa-briefcase text-sm"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-slate-800">Publicar Nova Vaga</h3>
+            <p class="text-[11px] text-slate-500">Abertura de processo seletivo e recrutamento</p>
+          </div>
+        </div>
+        <button onclick="window.RHModule.closeNewVagaModal()" class="w-7 h-7 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 flex items-center justify-center transition">
+          <i class="fas fa-times text-xs"></i>
+        </button>
+      </div>
+
+      <form id="form-nova-vaga" onsubmit="window.RHModule.submitNewVaga(event)" class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Título do Cargo / Vaga <span class="text-rose-500">*</span></label>
+          <input type="text" id="vaga-titulo" required placeholder="Ex: Desenvolvedor Full Stack Senior"
+            class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-600/30 focus:border-purple-600 bg-slate-50/50">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Departamento</label>
+            <select id="vaga-departamento" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-600/30 focus:border-purple-600 bg-slate-50/50">
+              <option value="Tecnologia" selected>Tecnologia</option>
+              <option value="Financeiro">Financeiro</option>
+              <option value="Comercial">Comercial</option>
+              <option value="Recursos Humanos">Recursos Humanos</option>
+              <option value="Operações">Operações</option>
+              <option value="Marketing">Marketing</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Status Inicial</label>
+            <select id="vaga-status" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-600/30 focus:border-purple-600 bg-slate-50/50">
+              <option value="Aberto" selected>Aberto</option>
+              <option value="Em Seleção">Em Seleção</option>
+              <option value="Entrevistas">Entrevistas</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-2 pt-3 border-t border-slate-100">
+          <button type="button" onclick="window.RHModule.closeNewVagaModal()"
+            class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">
+            Cancelar
+          </button>
+          <button type="submit"
+            class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold transition shadow-md shadow-purple-600/20">
+            <i class="fas fa-briefcase mr-1"></i> Publicar Vaga
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Nova Demissão (RH) -->
+  <div id="modal-nova-demissao" class="app-modal fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white text-slate-900 border border-slate-200 w-full max-w-md rounded-2xl p-6 space-y-4 max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div class="flex justify-between items-center pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center">
+            <i class="fas fa-user-times text-sm"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-slate-800">Registrar Desligamento</h3>
+            <p class="text-[11px] text-slate-500">Processamento rescisório e homologação de colaborador</p>
+          </div>
+        </div>
+        <button onclick="window.RHModule.closeNewDemissaoModal()" class="w-7 h-7 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 flex items-center justify-center transition">
+          <i class="fas fa-times text-xs"></i>
+        </button>
+      </div>
+
+      <form id="form-nova-demissao" onsubmit="window.RHModule.submitNewDemissao(event)" class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Nome do Colaborador <span class="text-rose-500">*</span></label>
+          <input type="text" id="demissao-colaborador" required placeholder="Nome completo do colaborador"
+            class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-rose-600/30 focus:border-rose-600 bg-slate-50/50">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Cargo Atual</label>
+            <input type="text" id="demissao-cargo" placeholder="Ex: Analista Comercial"
+              class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-rose-600/30 focus:border-rose-600 bg-slate-50/50">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Data do Desligamento <span class="text-rose-500">*</span></label>
+            <input type="date" id="demissao-data" required
+              class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-rose-600/30 focus:border-rose-600 bg-slate-50/50">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Motivo do Desligamento</label>
+          <select id="demissao-motivo" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-rose-600/30 focus:border-rose-600 bg-slate-50/50">
+            <option value="Acordo Trabalhista" selected>Acordo Trabalhista</option>
+            <option value="Iniciativa do Empregado">Iniciativa do Empregado (Pedido de Demissão)</option>
+            <option value="Reestruturação Interna">Reestruturação Interna</option>
+            <option value="Demissão sem Justa Causa">Demissão sem Justa Causa</option>
+            <option value="Demissão com Justa Causa">Demissão com Justa Causa</option>
+            <option value="Término de Contrato de Experiência">Término de Contrato de Experiência</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Status das Verbas Rescisórias</label>
+          <select id="demissao-status-verbas" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-rose-600/30 focus:border-rose-600 bg-slate-50/50">
+            <option value="Em Processamento" selected>Em Processamento</option>
+            <option value="Pago">Pago</option>
+            <option value="Pendente">Pendente</option>
+          </select>
+        </div>
+
+        <div class="flex justify-end gap-2 pt-3 border-t border-slate-100">
+          <button type="button" onclick="window.RHModule.closeNewDemissaoModal()"
+            class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">
+            Cancelar
+          </button>
+          <button type="submit"
+            class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold transition shadow-md shadow-rose-600/20">
+            <i class="fas fa-user-times mr-1"></i> Registrar Demissão
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
 
   <script src="js/state.js"></script>
   <script src="js/utils/helpers.js"></script>

@@ -143,7 +143,7 @@ const state = {
 ```
 
 - **Persistência:** Apenas em memória (recarrega a página → volta ao estado inicial)
-- **Criação:** `prompt()` nativo para simplicidade didática
+- **Criação:** Modais interativos com validação de formulários e feedback visual (Toasts)
 - **Atualização:** Re-render completo da seção (`renderFinanceiro()`, `renderComercial()`, `renderRH()`)
 
 ---
@@ -227,7 +227,7 @@ showToast('Mensagem de sucesso!');
 | **RBAC no front-end** | `switchModule()` valida `currentUser.role === mod` |
 | **Componentização via funções** | `renderFinanceiro()`, `renderComercial()`, `renderRH()` |
 | **State-driven UI** | Dados em `state` → funções de render → DOM |
-| **Formulários controlados** | `value` + `onchange`/`onclick` + `prompt()` |
+| **Formulários controlados e Modais** | `value` + `onsubmit`/`onclick` + validação |
 | **Tabelas responsivas** | `overflow-x-auto` + `table` nativa |
 | **Kanban Board CSS Grid** | `grid-cols-4` + `kanban-col` (min-height fixo) |
 | **Print CSS** | `@media print` isolando `#printable-holerite` |
@@ -240,7 +240,6 @@ showToast('Mensagem de sucesso!');
 
 - ❌ Sem backend / API / banco de dados
 - ❌ Sem persistência (localStorage, IndexedDB, etc.)
-- ❌ Sem validação robusta de formulários (apenas `prompt` básico)
 - ❌ Sem testes automatizados
 - ❌ Sem build/bundler (Vite, Webpack, etc.)
 - ❌ Sem TypeScript

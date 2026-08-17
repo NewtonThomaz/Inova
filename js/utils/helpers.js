@@ -147,6 +147,20 @@ function capitalizeWords(str) {
   return str.replace(/\b\w/g, c => c.toUpperCase());
 }
 
+// Fechamento de modais com ESC e clique no backdrop
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.app-modal, #holerite-modal').forEach(modal => {
+      modal.classList.add('hidden');
+    });
+  }
+});
+
+document.addEventListener('click', (e) => {
+  if (e.target && e.target.classList && (e.target.classList.contains('app-modal') || e.target.id === 'holerite-modal')) {
+    e.target.classList.add('hidden');
+  }
+});
 
 window.AppHelpers = {
   formatBRL,

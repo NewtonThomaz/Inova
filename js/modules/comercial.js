@@ -124,20 +124,41 @@ function setComSubTab(sub) {
 }
 
 function openNewLeadModal() {
-  const cliente = prompt('Nome da empresa/lead comercial:');
-  const valor = prompt('Valor estimado do negócio (R$):', '25000');
+  const modal = document.getElementById('modal-novo-lead');
+  if (!modal) return;
+  const form = document.getElementById('form-novo-lead');
+  if (form) form.reset();
+  modal.classList.remove('hidden');
+}
 
-  if (cliente && valor) {
-    window.AppState.state.crmLeads.unshift({
-      id: `LD-${window.AppState.state.crmLeads.length + 1}`,
-      cliente,
-      contato: 'Contato Registrado',
-      valor: parseFloat(valor) || 0,
-      etapa: 'prospeccao'
-    });
-    renderComercial();
-    window.AppHelpers.showToast('Nova oportunidade adicionada ao Funil CRM!');
+function closeNewLeadModal() {
+  const modal = document.getElementById('modal-novo-lead');
+  if (modal) modal.classList.add('hidden');
+}
+
+function submitNewLead(event) {
+  if (event) event.preventDefault();
+  const cliente = document.getElementById('lead-cliente').value.trim();
+  const contato = document.getElementById('lead-contato').value.trim() || 'Contato Registrado';
+  const valor = parseFloat(document.getElementById('lead-valor').value);
+  const etapa = document.getElementById('lead-etapa').value || 'prospeccao';
+
+  if (!cliente || isNaN(valor) || valor <= 0) {
+    window.AppHelpers.showToast('Preencha os dados da oportunidade corretamente.', 'error');
+    return;
   }
+
+  window.AppState.state.crmLeads.unshift({
+    id: `LD-${window.AppState.state.crmLeads.length + 1}`,
+    cliente,
+    contato,
+    valor,
+    etapa
+  });
+
+  closeNewLeadModal();
+  renderComercial();
+  window.AppHelpers.showToast(`Nova oportunidade para ${cliente} adicionada ao Funil CRM!`);
 }
 
 function moverEtapaLead(id) {
@@ -239,20 +260,40 @@ function handleDrop(event, stage) {
 }
 
 function openNewTicketModal() {
-  const cliente = prompt('Nome do Cliente solicitante SAC:');
-  const assunto = prompt('Descreva o assunto/problema do atendimento SAC:');
+  const modal = document.getElementById('modal-novo-ticket');
+  if (!modal) return;
+  const form = document.getElementById('form-novo-ticket');
+  if (form) form.reset();
+  modal.classList.remove('hidden');
+}
 
-  if (cliente && assunto) {
-    window.AppState.state.sacTickets.unshift({
-      id: `TCK-${100 + window.AppState.state.sacTickets.length + 1}`,
-      cliente,
-      assunto,
-      prioridade: 'Alta',
-      status: 'Aberto'
-    });
-    renderComercial();
-    window.AppHelpers.showToast('Novo chamado SAC Inova aberto!');
+function closeNewTicketModal() {
+  const modal = document.getElementById('modal-novo-ticket');
+  if (modal) modal.classList.add('hidden');
+}
+
+function submitNewTicket(event) {
+  if (event) event.preventDefault();
+  const cliente = document.getElementById('ticket-cliente').value.trim();
+  const assunto = document.getElementById('ticket-assunto').value.trim();
+  const prioridade = document.getElementById('ticket-prioridade').value || 'Alta';
+
+  if (!cliente || !assunto) {
+    window.AppHelpers.showToast('Preencha o cliente e o assunto do atendimento SAC.', 'error');
+    return;
   }
+
+  window.AppState.state.sacTickets.unshift({
+    id: `TCK-${100 + window.AppState.state.sacTickets.length + 1}`,
+    cliente,
+    assunto,
+    prioridade,
+    status: 'Aberto'
+  });
+
+  closeNewTicketModal();
+  renderComercial();
+  window.AppHelpers.showToast('Novo chamado SAC Inova aberto!');
 }
 
 function resolverTicket(id) {
@@ -276,11 +317,15 @@ window.ComercialModule = {
   renderKanban,
   setComSubTab,
   openNewLeadModal,
+  closeNewLeadModal,
+  submitNewLead,
   moverEtapaLead,
   voltarEtapaLead,
   avancarEtapaLead: moverEtapaLead,
   setLeadEtapa,
   openNewTicketModal,
+  closeNewTicketModal,
+  submitNewTicket,
   resolverTicket,
   handleDragStart,
   handleDragEnd,

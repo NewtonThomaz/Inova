@@ -92,64 +92,118 @@ function setFinSubTab(sub) {
 
 
 function openNewBoletoModal() {
-  const cliente = prompt('Nome do Cliente para emissão do boleto:');
-  const valor = prompt('Valor do Boleto (R$):', '3500');
+  const modal = document.getElementById('modal-novo-boleto');
+  if (!modal) return;
+  const form = document.getElementById('form-novo-boleto');
+  if (form) form.reset();
 
-  if (cliente && valor) {
-    window.AppState.state.boletos.unshift({
-      id: `BOL-${Math.floor(1000 + Math.random() * 9000)}`,
-      cliente,
-      vencimento: '2026-08-30',
-      valor: parseFloat(valor),
-      status: 'Pendente',
-      codigoBarra: '34191.00000 80000.123456 7 ' + Math.floor(Math.random() * 100000000)
-    });
-    renderFinanceiro();
-    window.AppHelpers.showToast('Novo boleto registrado e gerado na Inova!');
+  const vencInput = document.getElementById('boleto-vencimento');
+  if (vencInput) {
+    const futureDate = new Date();
+    futureDate.setDate(futureDate.getDate() + 15);
+    vencInput.value = futureDate.toISOString().split('T')[0];
   }
+  modal.classList.remove('hidden');
 }
 
+function closeNewBoletoModal() {
+  const modal = document.getElementById('modal-novo-boleto');
+  if (modal) modal.classList.add('hidden');
+}
+
+function submitNewBoleto(event) {
+  if (event) event.preventDefault();
+  const cliente = document.getElementById('boleto-cliente').value.trim();
+  const valor = parseFloat(document.getElementById('boleto-valor').value);
+  const vencimento = document.getElementById('boleto-vencimento').value;
+  const status = document.getElementById('boleto-status').value || 'Pendente';
+
+  if (!cliente || isNaN(valor) || valor <= 0 || !vencimento) {
+    window.AppHelpers.showToast('Preencha todos os campos do boleto corretamente.', 'error');
+    return;
+  }
+
+  window.AppState.state.boletos.unshift({
+    id: `BOL-${Math.floor(1000 + Math.random() * 9000)}`,
+    cliente,
+    vencimento,
+    valor,
+    status,
+    codigoBarra: '34191.00000 80000.123456 7 ' + Math.floor(Math.random() * 100000000)
+  });
+
+  closeNewBoletoModal();
+  renderFinanceiro();
+  window.AppHelpers.showToast(`Novo boleto gerado para ${cliente}!`);
+}
 
 function openNewContratoModal() {
-  const cliente = prompt('Razão Social do Cliente do Contrato:');
-  const valor = prompt('Valor Mensal Recorrente (R$):', '7500');
+  const modal = document.getElementById('modal-novo-contrato');
+  if (!modal) return;
+  const form = document.getElementById('form-novo-contrato');
+  if (form) form.reset();
 
-  if (cliente && valor) {
-    window.AppState.state.contratos.unshift({
-      id: `CTR-00${window.AppState.state.contratos.length + 1}`,
-      cliente,
-      valorMensal: parseFloat(valor),
-      inicio: new Date().toISOString().split('T')[0],
-      status: 'Ativo',
-      vigencia: '12 Meses'
-    });
-    renderFinanceiro();
-    window.AppHelpers.showToast('Novo contrato cadastrado no Financeiro Inova!');
+  const inicioInput = document.getElementById('contrato-inicio');
+  if (inicioInput) {
+    inicioInput.value = new Date().toISOString().split('T')[0];
   }
+  modal.classList.remove('hidden');
 }
 
+function closeNewContratoModal() {
+  const modal = document.getElementById('modal-novo-contrato');
+  if (modal) modal.classList.add('hidden');
+}
+
+function submitNewContrato(event) {
+  if (event) event.preventDefault();
+  const cliente = document.getElementById('contrato-cliente').value.trim();
+  const valorMensal = parseFloat(document.getElementById('contrato-valor').value);
+  const inicio = document.getElementById('contrato-inicio').value || new Date().toISOString().split('T')[0];
+  const vigencia = document.getElementById('contrato-vigencia').value || '12 Meses';
+  const status = document.getElementById('contrato-status').value || 'Ativo';
+
+  if (!cliente || isNaN(valorMensal) || valorMensal <= 0) {
+    window.AppHelpers.showToast('Preencha todos os dados do contrato.', 'error');
+    return;
+  }
+
+  window.AppState.state.contratos.unshift({
+    id: `CTR-00${window.AppState.state.contratos.length + 1}`,
+    cliente,
+    valorMensal,
+    inicio,
+    status,
+    vigencia
+  });
+
+  closeNewContratoModal();
+  renderFinanceiro();
+  window.AppHelpers.showToast(`Novo contrato cadastrado para ${cliente}!`);
+}
 
 async function copiarCodigoBarra(codigo) {
   await window.AppHelpers.copyToClipboard(codigo);
   window.AppHelpers.showToast('Código de barras copiado para a área de transferência!');
 }
 
-
 function simularSegundaVia(id) {
   window.AppHelpers.showToast(`Segunda via do boleto ${id} enviada via e-mail Inova!`);
 }
-
 
 function enviarCobranca(cliente) {
   window.AppHelpers.showToast(`Notificação formal de cobrança disparada para ${cliente}`);
 }
 
-
 window.FinanceiroModule = {
   renderFinanceiro,
   setFinSubTab,
   openNewBoletoModal,
+  closeNewBoletoModal,
+  submitNewBoleto,
   openNewContratoModal,
+  closeNewContratoModal,
+  submitNewContrato,
   copiarCodigoBarra,
   simularSegundaVia,
   enviarCobranca
