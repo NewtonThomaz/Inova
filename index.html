@@ -453,7 +453,11 @@
 
               <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
 
-                <div class="bg-white border border-slate-200 p-3.5 rounded-2xl flex flex-col kanban-col shadow-sm">
+                <div class="bg-white border border-slate-200 p-3.5 rounded-2xl flex flex-col kanban-col shadow-sm transition"
+                     ondragover="window.ComercialModule.handleDragOver(event)"
+                     ondragenter="window.ComercialModule.handleDragEnter(event, 'prospeccao')"
+                     ondragleave="window.ComercialModule.handleDragLeave(event)"
+                     ondrop="window.ComercialModule.handleDrop(event, 'prospeccao')">
                   <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
                     <span class="text-xs font-bold text-slate-700 uppercase tracking-wide flex items-center gap-2">
                       <span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span> Prospecção
@@ -465,7 +469,11 @@
                 </div>
 
 
-                <div class="bg-white border border-slate-200 p-3.5 rounded-2xl flex flex-col kanban-col shadow-sm">
+                <div class="bg-white border border-slate-200 p-3.5 rounded-2xl flex flex-col kanban-col shadow-sm transition"
+                     ondragover="window.ComercialModule.handleDragOver(event)"
+                     ondragenter="window.ComercialModule.handleDragEnter(event, 'contato')"
+                     ondragleave="window.ComercialModule.handleDragLeave(event)"
+                     ondrop="window.ComercialModule.handleDrop(event, 'contato')">
                   <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
                     <span class="text-xs font-bold text-slate-700 uppercase tracking-wide flex items-center gap-2">
                       <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Contato Feito
@@ -477,7 +485,11 @@
                 </div>
 
 
-                <div class="bg-white border border-slate-200 p-3.5 rounded-2xl flex flex-col kanban-col shadow-sm">
+                <div class="bg-white border border-slate-200 p-3.5 rounded-2xl flex flex-col kanban-col shadow-sm transition"
+                     ondragover="window.ComercialModule.handleDragOver(event)"
+                     ondragenter="window.ComercialModule.handleDragEnter(event, 'proposta')"
+                     ondragleave="window.ComercialModule.handleDragLeave(event)"
+                     ondrop="window.ComercialModule.handleDrop(event, 'proposta')">
                   <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
                     <span class="text-xs font-bold text-slate-700 uppercase tracking-wide flex items-center gap-2">
                       <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span> Proposta Enviada
@@ -489,7 +501,11 @@
                 </div>
 
 
-                <div class="bg-white border border-slate-200 p-3.5 rounded-2xl flex flex-col kanban-col shadow-sm">
+                <div class="bg-white border border-slate-200 p-3.5 rounded-2xl flex flex-col kanban-col shadow-sm transition"
+                     ondragover="window.ComercialModule.handleDragOver(event)"
+                     ondragenter="window.ComercialModule.handleDragEnter(event, 'fechado')"
+                     ondragleave="window.ComercialModule.handleDragLeave(event)"
+                     ondrop="window.ComercialModule.handleDrop(event, 'fechado')">
                   <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
                     <span class="text-xs font-bold text-slate-700 uppercase tracking-wide flex items-center gap-2">
                       <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Fechado / Ganho

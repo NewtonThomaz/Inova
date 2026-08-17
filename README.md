@@ -97,10 +97,10 @@ inova/
 
 ### 2. 📈 Módulo Comercial / CRM
 - **Sub-abbas:**
-  - **CRM - Funil de Vendas (Kanban):** 4 colunas (Prospecção → Contato → Proposta → Fechado) com drag-and-drop simulado via botão "Avançar"
+  - **CRM - Funil de Vendas (Kanban):** 4 colunas (Prospecção ⇄ Contato ⇄ Proposta ⇄ Fechado) com movimentação bidirecional (Avançar e Voltar etapas) e suporte a Drag-and-Drop nativo
   - **SAC - Atendimento:** Tabela de tickets com prioridade, status, resolução
   - **Gestão de Relacionamentos:** Cards 360º com potencial de negócio
-- **Ações:** Nova oportunidade, novo ticket SAC, mover etapa, resolver ticket
+- **Ações:** Nova oportunidade, novo ticket SAC, avançar/voltar etapa, resolver ticket
 
 ### 3. 👥 Módulo Recursos Humanos
 - **Sub-abbas:**
@@ -244,7 +244,6 @@ showToast('Mensagem de sucesso!');
 - ❌ Sem testes automatizados
 - ❌ Sem build/bundler (Vite, Webpack, etc.)
 - ❌ Sem TypeScript
-- ❌ Drag-and-drop real no Kanban (apenas botão "Avançar")
 - ❌ Acessibilidade completa (ARIA labels, focus management em modais)
 - ❌ Responsividade testada apenas em breakpoints Tailwind padrão
 
