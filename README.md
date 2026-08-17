@@ -1,154 +1,178 @@
 # Inova - Sistema Integrado de Gestão ERP DevOps
 
-Projeto front-end educacional de um sistema ERP completo desenvolvido em **HTML, CSS e JavaScript vanilla**, utilizando **Tailwind CSS** para estilização. O projeto simula uma plataforma empresarial com módulos Financeiro, Comercial/CRM e Recursos Humanos, incluindo autenticação com RBAC (Role-Based Access Control).
+Projeto front-end modular de um sistema ERP completo desenvolvido em **HTML5, CSS3 e JavaScript Vanilla (ES6+)**, utilizando **Tailwind CSS** para estilização. O projeto simula uma plataforma corporativa com módulos Financeiro, Comercial/CRM e Recursos Humanos, incluindo autenticação com RBAC (*Role-Based Access Control*), modais interativos, impressão de documentos oficiais e movimentação bidirecional de dados.
 
-> ⚠️ **Projeto apenas front-end** — Não possui backend, banco de dados ou API real. Todos os dados são mockados em memória (JavaScript) para fins didáticos e de prototipação de interface.
+> ⚠️ **Projeto Front-End Educacional** — Não possui backend, banco de dados ou API real. Todos os dados são gerenciados em memória no estado global (`AppState`) para fins didáticos e prototipação de alta fidelidade.
 
 ---
 
 ## 🎯 Objetivo
 
-Exercitar a criação de páginas HTML modernas, responsivas e bem estruturadas, simulando um sistema ERP empresarial completo com:
+Exercitar a criação de páginas web modernas, responsivas e bem estruturadas, simulando um sistema ERP empresarial robusto com:
 
-- Sistema de login/cadastro com perfis de acesso
-- Navegação por módulos com controle de permissão
-- Dashboards com KPIs e tabelas interativas
-- Kanban de vendas (CRM)
-- Calculadoras e simuladores (férias CLT, holerites)
-- Modais informativos (DevOps/Sprints, impressão de holerite)
-- Design system consistente (modo claro, cores da marca Inova)
+- Arquitetura front-end modular dividida por responsabilidades (`modules`, `modals`, `utils`)
+- Sistema de login e controle de acesso baseado em papéis (RBAC)
+- Dashboards com KPIs e tabelas dinâmicas
+- Kanban de Vendas (CRM) bidirecional com suporte a Drag & Drop nativo
+- Emissão e visualização de 2ª Via de Boletos Bancários padrão FEBRABAN e Linha Digitável
+- Calculadoras e simuladores trabalhistas (Férias CLT, Demonstrativo de Holerite)
+- Modais interativos com formulários controlados e validação (substituindo `prompt()` nativo)
+- Fechamento inteligente de modais via tecla `ESC` ou clique fora (backdrop)
+- Sistema de notificações Toast dinâmico
+- Estilização para impressão oficial via `@media print` (Holerite e Boletos)
+- Design System consistente com paleta de cores oficial Inova
 
 ---
 
 ## 🚀 Tecnologias Utilizadas
 
-| Tecnologia | Uso |
-|------------|-----|
-| **HTML5** | Estrutura semântica e acessível |
-| **Tailwind CSS** (via CDN) | Estilização utility-first, responsiva, dark-mode ready |
-| **JavaScript Vanilla (ES6+)** | Lógica de UI, state management em memória, renderização dinâmica |
-| **Font Awesome 6.4** | Ícones vetoriais |
-| **Google Fonts (Inter)** | Tipografia moderna |
+| Tecnologia | Uso no Projeto |
+|------------|----------------|
+| **HTML5** | Estruturação semântica, acessível e formulários controlados |
+| **Tailwind CSS** (via CDN) | Estilização utility-first, responsividade e layout flexbox/grid |
+| **JavaScript Vanilla (ES6+)** | Arquitetura modular, manipulação de DOM, estado reativo em memória |
+| **CSS3 Customizado** | Scrollbars customizadas, transições e regras de `@media print` |
+| **Font Awesome 6.4** | Ícones vetoriais em botões, abas e cabeçalhos |
+| **Google Fonts (Inter)** | Tipografia moderna e limpa (pesos 300 a 800) |
 
 ---
 
 ## 📦 Estrutura do Projeto
 
+O projeto foi totalmente modularizado para melhor organização, manutenibilidade e separação de conceitos:
+
 ```
 inova/
-├── index.html          # Arquivo único contendo HTML, CSS (Tailwind config) e JS
+├── index.html                  # Interface SPA principal, dashboards e estrutura de modais
+├── css/
+│   ├── custom.css             # Estilos utilitários, scrollbar e regras @media print
+│   └── tailwind-config.js     # Configurações de cores e tokens do Design System Inova
 ├── img/
-│   └── icon.png        # Logo da marca Inova (fallback para SVG inline se não encontrado)
-└── README.md           # Este arquivo
+│   └── icon.png               # Logotipo oficial da marca Inova
+├── js/
+│   ├── auth.js                # Lógica de login, logout e controle de permissões (RBAC)
+│   ├── state.js               # Estado global em memória da aplicação (AppState)
+│   ├── modals/
+│   │   └── devops.js          # Controladores de modais específicos (DevOps / Sprints)
+│   ├── modules/
+│   │   ├── comercial.js       # Funil Kanban CRM bidirecional, SAC e Relacionamentos
+│   │   ├── financeiro.js      # Boletos, 2ª Via, Linha Digitável, Contratos e Cobranças
+│   │   └── rh.js              # Vagas, Demissões, Calculadora de Férias CLT e Folha
+│   └── utils/
+│       └── helpers.js         # Utilitários (formatação BRL/Datas, Toasts, listeners ESC/Backdrop)
+└── README.md                  # Documentação completa do projeto
 ```
-
-> **Nota:** Todo o código está contido em `index.html` para simplicidade didática. Em projetos reais, recomenda-se separar CSS, JS e componentes.
 
 ---
 
-## 🎨 Design System (Cores Inova)
+## 🎨 Design System (Identidade Visual Inova)
 
 ```css
---inova-blue:       #004D95     
---inova-blue-hover: #003A70      
---inova-yellow:     #F4B41A      
---inova-yellow-hover:#D99E10     
---inova-yellow-light:#FEF9E7   
+--inova-blue:        #004D95;     /* Azul principal da marca */
+--inova-blue-hover:  #003A70;     /* Azul escuro para hover */
+--inova-blue-light:  #E6F0FA;     /* Azul suave para backgrounds e badges */
+--inova-yellow:      #F4B41A;     /* Amarelo institucional */
+--inova-yellow-hover:#D99E10;     /* Amarelo para foco e hover */
+--inova-yellow-light:#FEF9E7;     /* Amarelo claro para destaques */
 ```
 
-- **Modo:** Apenas **Light Mode** implementado (preparado para dark mode via `tailwind.config.darkMode: 'class'`)
-- **Tipografia:** Inter (300–800)
-- **Bordas:** `rounded-xl` / `rounded-2xl` predominantes
-- **Sombras:** `shadow-sm` / `shadow-md` / `shadow-xl` em camadas
-- **Scrollbar:** Customizada (`.custom-scrollbar`)
+- **Tipografia:** Fonte *Inter* (Google Fonts)
+- **Cantos:** `rounded-xl` e `rounded-2xl` predominantes
+- **Sombras:** `shadow-sm`, `shadow-md`, `shadow-xl` e `shadow-2xl` em modais
+- **Backdrops:** `backdrop-blur-sm` com `bg-slate-900/60` para foco visual em diálogos
 
 ---
 
-## 🔐 Autenticação e RBAC
+## 🔐 Autenticação e Controle de Acesso (RBAC)
 
-### Perfis Disponíveis
+### Perfis de Acesso
 
-| Perfil | Acesso | Descrição |
-|--------|--------|-----------|
-| **Administrador** | Total | Todos os módulos (Financeiro, Comercial, RH) |
-| **Financeiro** | Financeiro | Boletos, Contratos, Cobrança |
-| **Comercial** | Comercial | CRM/Kanban, SAC, Relacionamentos |
-| **RH** | RH | Vagas, Demissões, Férias, Folha |
+| Perfil | Acesso Permitido | Descrição |
+|--------|------------------|-----------|
+| **Administrador Geral** | Total | Acesso irrestrito a todos os módulos (Financeiro, Comercial e RH) |
+| **Financeiro** | Módulo Financeiro | Gestão de Boletos, 2ª Via, Contratos e Inadimplência |
+| **Comercial** | Módulo Comercial | Funil de Vendas CRM, Central SAC e Base de Clientes |
+| **Recursos Humanos** | Módulo RH | Vagas, Demissões, Calculadora de Férias e Folha de Pagamento |
 
-### Fluxo de Login
-
-1. Usuário informa e-mail, senha e seleciona perfil
-2. `handleLogin()` cria objeto `currentUser` em memória
-3. `initApp()` esconde auth, mostra app principal
-4. `switchModule()` redireciona para módulo padrão do perfil
-5. Se acessar módulo sem permissão → tela de **Acesso Restrito**
+### Credenciais de Teste (Pré-preenchidas na tela de Login):
+* **E-mail:** `admin@inova.com.br`
+* **Senha:** `123456`
+* **Perfil:** *Administrador Geral* (ou selecione qualquer outro para testar o RBAC)
 
 ---
 
 ## 📱 Módulos e Funcionalidades
 
-### 1. 🏦 Módulo Financeiro
-- **KPIs:** Faturado mês, Boletos a receber, Inadimplência, Contratos vigentes
-- **Abas:**
-  - **Emissão de Boletos:** Tabela com código de barras, exibição modal da linha digitável e visualizador/impressor da **2ª Via do Boleto Bancário** FEBRABAN
-  - **Gestão de Contratos:** Cards com vigência, valor mensal, status
-  - **Cobrança de Inadimplentes:** Tabela com dias em atraso, disparo de cobrança
-- **Ações:** Novo boleto via modal, novo contrato via modal, ver/copiar linha digitável na tela, emitir 2ª via na tela/PDF, enviar cobrança
+### 1. 🏦 Módulo Financeiro (`js/modules/financeiro.js`)
+- **KPIs Principais:** Faturamento do Mês, Boletos a Receber, Total em Inadimplência e Contratos Vigentes.
+- **Abas de Navegação:**
+  - **Emissão de Boletos:**
+    - Tabela de boletos com status (*Pago*, *Pendente*, *Vencido*).
+    - **Modal Gerar Novo Boleto:** Formulário com cliente, valor, vencimento e status inicial.
+    - **Modal de Código de Barras:** Exibe linha digitável formatada, botão de cópia rápida e representação gráfica de barras FEBRABAN.
+    - **Modal de 2ª Via do Boleto:** Ficha de compensação bancária completa com autenticação mecânica simulada e suporte a **Impressão / PDF** (`window.print()`).
+  - **Gestão de Contratos:** Cards de clientes com valor mensal recorrente, início e vigência.
+    - **Modal Novo Contrato:** Formulário com razão social, valor mensal, vigência e status.
+  - **Cobrança de Inadimplentes:** Tabela com dias em atraso, valores pendentes e botão para disparar notificação de cobrança.
 
-### 2. 📈 Módulo Comercial / CRM
-- **Sub-abbas:**
-  - **CRM - Funil de Vendas (Kanban):** 4 colunas (Prospecção ⇄ Contato ⇄ Proposta ⇄ Fechado) com movimentação bidirecional (Avançar e Voltar etapas) e suporte a Drag-and-Drop nativo
-  - **SAC - Atendimento:** Tabela de tickets com prioridade, status, resolução
-  - **Gestão de Relacionamentos:** Cards 360º com potencial de negócio
-- **Ações:** Nova oportunidade, novo ticket SAC, avançar/voltar etapa, resolver ticket
+### 2. 📈 Módulo Comercial & CRM (`js/modules/comercial.js`)
+- **Abas de Navegação:**
+  - **Pipeline de Negócios / Funil de Vendas (Kanban):**
+    - 4 Colunas de progressão: *Prospecção* ⇄ *Contato Feito* ⇄ *Proposta Enviada* ⇄ *Fechado / Ganho*.
+    - **Movimentação Bidirecional:** Botões dedicados de **Avançar** (`fa-arrow-right`) e **Voltar** (`fa-arrow-left`) em cada card.
+    - **Drag and Drop Nativo:** Arraste e solte cards entre qualquer coluna com realce visual.
+    - **Modal Nova Oportunidade:** Cadastro de leads com empresa, decisor, valor estimado e estágio inicial.
+  - **Central de Chamados SAC:**
+    - Tabela com protocolo, solicitante, assunto, prioridade e status do atendimento.
+    - **Modal Novo Ticket SAC:** Abertura de chamados com descrição detalhada e prioridade (*Alta*, *Média*, *Baixa*).
+    - Ação de concluir/resolver chamados.
+  - **Gestão de Relacionamentos 360º:** Cards unificados com potencial acumulado por cliente.
 
-### 3. 👥 Módulo Recursos Humanos
-- **Sub-abbas:**
-  - **Contratações:** Grid de vagas com contador de candidatos
-  - **Demissões:** Tabela com motivo, status verbas rescisórias
-  - **Férias:** 
-    - **Calculadora CLT interativa** (salário, dias, abono 1/3) → resultado em tempo real
-    - Tabela de programação de férias da equipe
-  - **Folha de Pagamento:** Tabela com bruto, descontos (INSS/IRRF), líquido + botão **Ver Holerite**
-- **Ações:** Nova vaga, registrar demissão, calcular férias, imprimir holerite
+### 3. 👥 Módulo Recursos Humanos (`js/modules/rh.js`)
+- **Abas de Navegação:**
+  - **Contratações (Vagas):**
+    - Grid de vagas abertas com contador de candidatos inscritos.
+    - **Modal Publicar Nova Vaga:** Formulário com cargo, departamento e status do processo seletivo.
+  - **Desligamentos / Demissões:**
+    - Tabela com colaborador, cargo, data e status das verbas rescisórias.
+    - **Modal Registrar Demissão:** Formulário com colaborador, motivo da rescisão e status financeiro.
+  - **Cálculos de Férias CLT:**
+    - **Calculadora Interativa em Tempo Real:** Entrada de salário base, dias de gozo e opção de abono pecuniário (1/3 constitucional).
+    - Tabela de programação de férias da equipe.
+  - **Folha de Pagamento:**
+    - Tabela com salário bruto, descontos legais (INSS/IRRF) e salário líquido.
+    - **Modal de Holerite:** Demonstrativo mensal formatado pronto para **Impressão / PDF**.
 
-### 4. ⚙️ DevOps / Stakeholders (Modal)
-- Cronograma de 3 Sprints (MVP incremental)
-- Investimento por sprint + total R$ 90.000
-- Metodologia Scrum com entregas funcionais
-
-### 5. 🖨️ Holerite (Modal + Print)
-- Demonstrativo mensal CLT formatado para impressão
-- `@media print` otimizado (oculta tudo exceto `#printable-holerite`)
-- Botão "Imprimir / PDF" nativo do navegador
+### 4. ⚙️ Modais Globais e Informativos
+- **Modal DevOps / Cronograma:** Planejamento incremental em 3 Sprints com orçamento e entregáveis.
+- **Sistema de Modais com Validação:** Todos os formulários realizam validação de campos obrigatórios e exibem notificações Toast.
+- **Teclado & Usabilidade:** Pressionar a tecla `ESC` ou clicar no fundo do modal fecha automaticamente qualquer janela aberta.
 
 ---
 
-## 💾 Estado e Dados (Mock)
+## 💾 Estrutura do Estado Global (`js/state.js`)
 
-Todos os dados residem no objeto `state` (linha ~841 do `index.html`):
+Todos os dados reativos da aplicação residem no objeto `AppState.state`:
 
 ```javascript
 const state = {
-  boletos: [...],       // 4 registros
-  contratos: [...],     // 3 registros
-  inadimplentes: [...], // 3 registros
-  crmLeads: [...],      // 4 leads no funil
-  sacTickets: [...],    // 3 tickets
-  vagasRH: [...],       // 3 vagas
-  demissoes: [...],     // 2 registros
-  ferias: [...],        // 2 programações
-  folha: [...]          // 3 colaboradores
+  boletos: [...],       // Registros de boletos com linha digitável e status
+  contratos: [...],     // Contratos vigentes e recorrência mensal
+  inadimplentes: [...], // Histórico de inadimplência e contatos
+  crmLeads: [...],      // Oportunidades do funil CRM com estágios e valores
+  sacTickets: [...],    // Chamados SAC com níveis de prioridade
+  vagasRH: [...],       // Vagas abertas e candidatos
+  demissoes: [...],     // Registros rescisórios
+  ferias: [...],        // Programações de férias
+  folha: [...]          // Colaboradores e valores de folha de pagamento
 };
 ```
 
-- **Persistência:** Apenas em memória (recarrega a página → volta ao estado inicial)
-- **Criação:** Modais interativos com validação de formulários e feedback visual (Toasts)
-- **Atualização:** Re-render completo da seção (`renderFinanceiro()`, `renderComercial()`, `renderRH()`)
-
 ---
 
-## 🛠️ Como Executar
+## 🛠️ Como Executar o Projeto
+
+Como o projeto é front-end vanilla, não requer instalação de dependências ou build:
 
 ### Opção 1: Abrir diretamente no navegador
 ```bash
@@ -162,123 +186,31 @@ open index.html
 xdg-open index.html
 ```
 
-### Opção 2: Servidor local (recomendado para evitar CORS em assets)
+### Opção 2: Servidor Local (Recomendado)
 ```bash
-# Python 3
-python -m http.server 8000
-
 # Node.js (npx)
 npx serve .
+
+# Python 3
+python -m http.server 8000
 
 # PHP
 php -S localhost:8000
 ```
 Acesse: `http://localhost:8000`
 
-> **Credenciais de teste** (pré-preenchidas no login):
-> - E-mail: `admin@inova.com.br`
-> - Senha: `123456`
-> - Perfil: `Administrador Geral`
-
 ---
 
-## 📚 Padrões de Código Utilizados
+## 📚 Boas Práticas e Padrões Implementados
 
-### Renderização Dinâmica
-```javascript
-// Template literals + map + join para gerar HTML
-tbody.innerHTML = state.boletos.map(b => `
-  <tr>...${b.id}...</tr>
-`).join('');
-```
-
-### Event Delegation via `onclick` inline
-```html
-<button onclick="moverEtapaLead('${l.id}')">Avançar</button>
-```
-> Simples e didático. Em projetos reais: `addEventListener` + delegação.
-
-### Estado Global Simples
-```javascript
-let currentUser = null;
-let activeModule = 'financeiro';
-```
-
-### Toast Notifications
-```javascript
-showToast('Mensagem de sucesso!');
-// Animação CSS: translateY + opacity
-```
-
-### Acessibilidade Básica
-- `lang="pt-BR"` no `<html>`
-- Labels associados aos inputs
-- Contraste de cores (WCAG AA na maioria)
-- Ícones decorativos com `aria-hidden` implícito (Font Awesome)
-- Navegação por teclado funcional (botões, links, inputs)
-
----
-
-## 🎓 Conceitos Exercitados
-
-| Conceito | Onde Aplicado |
-|----------|---------------|
-| **Single Page Application (SPA) vanilla** | Troca de seções via `classList.toggle('hidden')` |
-| **RBAC no front-end** | `switchModule()` valida `currentUser.role === mod` |
-| **Componentização via funções** | `renderFinanceiro()`, `renderComercial()`, `renderRH()` |
-| **State-driven UI** | Dados em `state` → funções de render → DOM |
-| **Formulários controlados e Modais** | `value` + `onsubmit`/`onclick` + validação |
-| **Tabelas responsivas** | `overflow-x-auto` + `table` nativa |
-| **Kanban Board CSS Grid** | `grid-cols-4` + `kanban-col` (min-height fixo) |
-| **Print CSS** | `@media print` isolando `#printable-holerite` |
-| **Design Tokens no Tailwind** | `tailwind.config.theme.extend.colors.inova` |
-| **Fallback de imagem** | `onerror` → esconde `<img>` → mostra `<div>` com iniciais |
-
----
-
-## 🚧 Limitações Conhecidas (Proposital)
-
-- ❌ Sem backend / API / banco de dados
-- ❌ Sem persistência (localStorage, IndexedDB, etc.)
-- ❌ Sem testes automatizados
-- ❌ Sem build/bundler (Vite, Webpack, etc.)
-- ❌ Sem TypeScript
-- ❌ Acessibilidade completa (ARIA labels, focus management em modais)
-- ❌ Responsividade testada apenas em breakpoints Tailwind padrão
-
----
-
-## 📈 Possíveis Evoluções (Para Estudo)
-
-1. **Separar arquivos:** `index.html`, `styles.css`, `app.js`, `state.js`
-2. **Adicionar localStorage:** Persistir `state` e `currentUser`
-3. **Migrar para Alpine.js ou Vue 3 (CDN):** Reatividade declarativa
-4. **Implementar Drag-and-Drop nativo:** HTML5 Drag API no Kanban
-5. **Adicionar Chart.js:** Gráficos nos KPIs financeiros/comerciais
-6. **Dark Mode real:** Toggle + `localStorage` + `darkMode: 'class'`
-7. **Validação de formulários:** Yup/Zod ou nativa `checkValidity()`
-8. **Testes:** Vitest + Happy DOM ou Playwright E2E
-9. **Storybook:** Documentar componentes visuais isolados
-10. **PWA:** Manifest + Service Worker para offline
+- **Modularização de Scripts:** Separação clara entre utilitários (`helpers.js`), estado (`state.js`), autenticação (`auth.js`) e módulos de negócio (`comercial.js`, `financeiro.js`, `rh.js`).
+- **Renderização Dinâmica Reativa:** Funções de renderização que reconstroem o DOM baseadas no estado atual (`AppState`).
+- **Interatividade Aprimorada:** Substituição de `prompt()` por modais ricos com inputs validados.
+- **Print Optimization:** Estilização com `@media print` isolando documentos (Holerite e 2ª Via do Boleto) para impressão direta ou exportação em PDF.
+- **Acessibilidade & Usabilidade:** Suporte a atalhos de teclado (`ESC`), feedback por Toasts coloridos e layout responsivo para desktop e dispositivos móveis.
 
 ---
 
 ## 📄 Licença
 
-Projeto educacional de domínio livre. Use, modifique e estude à vontade.
-
----
-
-## 🤝 Contribuição
-
-Este é um projeto de exercício individual. Sinta-se à vontade para:
-
-1. Fazer fork
-2. Criar branch (`git checkout -b feature/nova-funcionalidade`)
-3. Commitar (`git commit -m 'feat: adiciona X'`)
-4. Push (`git push origin feature/nova-funcionalidade`)
-5. Abrir Pull Request
-
----
-
-**Desenvolvido para fins didáticos — Prática de HTML/CSS/JS moderno com Tailwind CSS** 🚀
+Projeto desenvolvido para fins educacionais e de estudo prático. Livre para uso, modificação e referência. 🚀
