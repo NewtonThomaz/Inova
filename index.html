@@ -1,44 +1,52 @@
 <!DOCTYPE html>
 <html lang="pt-BR" class="h-full bg-slate-100 text-slate-800">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="img/icon.png">
   <title>Inova - Sistema Integrado de Gestão ERP DevOps</title>
 
-  
+
   <script src="https://cdn.tailwindcss.com"></script>
 
-  
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+
   <script src="css/tailwind-config.js"></script>
 
-  
+
   <link rel="stylesheet" href="css/custom.css">
 </head>
+
 <body class="h-full font-sans antialiased bg-slate-100 text-slate-800 custom-scrollbar flex flex-col">
 
-  
-  <div id="toast" class="fixed top-5 right-5 z-50 transform -translate-y-10 opacity-0 pointer-events-none transition-all duration-300 ease-in-out bg-emerald-600 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 border border-emerald-500">
+
+  <div id="toast"
+    class="fixed top-5 right-5 z-50 transform -translate-y-10 opacity-0 pointer-events-none transition-all duration-300 ease-in-out bg-emerald-600 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 border border-emerald-500">
     <i id="toast-icon" class="fas fa-check-circle text-xl"></i>
     <span id="toast-message" class="text-sm font-medium">Ação realizada com sucesso!</span>
   </div>
 
-  
-  <div id="auth-container" class="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-slate-100 via-sky-50 to-amber-50">
+
+  <div id="auth-container"
+    class="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-slate-100 via-sky-50 to-amber-50">
     <div class="w-full max-w-md bg-white p-8 rounded-2xl border border-slate-200 shadow-xl relative overflow-hidden">
       <div class="absolute -top-12 -left-12 w-36 h-36 bg-inova-blue/10 rounded-full blur-2xl"></div>
       <div class="absolute -bottom-12 -right-12 w-36 h-36 bg-inova-yellow/20 rounded-full blur-2xl"></div>
 
-      
+
       <div class="text-center mb-8 relative z-10 flex flex-col items-center">
         <div class="mb-3 flex items-center justify-center">
-          <img src="img/icon.png" alt="Inova Logo" class="h-16 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('fallback-logo-login').style.display='flex';">
-          <div id="fallback-logo-login" class="hidden w-16 h-16 rounded-2xl bg-inova-blue text-inova-yellow items-center justify-center shadow-lg font-bold text-2xl">
+          <img src="img/icon.png" alt="Inova Logo" class="h-16 w-auto object-contain"
+            onerror="this.style.display='none'; document.getElementById('fallback-logo-login').style.display='flex';">
+          <div id="fallback-logo-login"
+            class="hidden w-16 h-16 rounded-2xl bg-inova-blue text-inova-yellow items-center justify-center shadow-lg font-bold text-2xl">
             in
           </div>
         </div>
@@ -46,57 +54,72 @@
         <p class="text-xs text-slate-500 font-medium mt-0.5">Plataforma ERP DevOps de Gestão Empresarial</p>
       </div>
 
-      
+
       <div id="login-form" class="space-y-4 relative z-10">
-        <h2 class="text-base font-semibold text-slate-700 border-b border-slate-100 pb-2 flex items-center justify-between">
+        <h2
+          class="text-base font-semibold text-slate-700 border-b border-slate-100 pb-2 flex items-center justify-between">
           <span>Acessar Sistema</span>
-          <span class="text-[10px] bg-inova-blue-light text-inova-blue font-bold px-2 py-0.5 rounded-full font-mono">v3.2.0</span>
+          <span
+            class="text-[10px] bg-inova-blue-light text-inova-blue font-bold px-2 py-0.5 rounded-full font-mono">v3.2.0</span>
         </h2>
         <div>
           <label class="block text-xs font-semibold text-slate-600 mb-1">E-mail Corporativo</label>
           <div class="relative">
             <i class="fas fa-envelope absolute left-3 top-3 text-slate-400 text-sm"></i>
-            <input type="email" id="login-email" value="admin@inova.com.br" class="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-inova-blue focus:bg-white transition-colors" placeholder="seu.email@inova.com.br">
+            <input type="email" id="login-email" value="admin@inova.com.br"
+              class="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-inova-blue focus:bg-white transition-colors"
+              placeholder="seu.email@inova.com.br">
           </div>
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-600 mb-1">Senha</label>
           <div class="relative">
             <i class="fas fa-lock absolute left-3 top-3 text-slate-400 text-sm"></i>
-            <input type="password" id="login-password" value="123456" class="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-inova-blue focus:bg-white transition-colors" placeholder="••••••••">
+            <input type="password" id="login-password" value="123456"
+              class="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-inova-blue focus:bg-white transition-colors"
+              placeholder="••••••••">
           </div>
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-600 mb-1">Perfil de Acesso Simulado (RBAC)</label>
-          <select id="login-role" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-inova-blue focus:bg-white font-medium">
+          <select id="login-role"
+            class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-inova-blue focus:bg-white font-medium">
             <option value="admin">Administrador Geral (Acesso Total)</option>
             <option value="financeiro">Financeiro (Boletos, Contratos, Cobrança)</option>
             <option value="comercial">Comercial (SAC, CRM, Relacionamentos)</option>
             <option value="rh">Recursos Humanos (Contratações, Férias, Folha)</option>
           </select>
         </div>
-        <button onclick="window.AuthModule.handleLogin()" class="w-full py-3 bg-inova-blue hover:bg-inova-blue-hover text-white font-bold rounded-xl shadow-lg shadow-inova-blue/20 transition duration-200 flex items-center justify-center gap-2">
+        <button onclick="window.AuthModule.handleLogin()"
+          class="w-full py-3 bg-inova-blue hover:bg-inova-blue-hover text-white font-bold rounded-xl shadow-lg shadow-inova-blue/20 transition duration-200 flex items-center justify-center gap-2">
           <i class="fas fa-sign-in-alt"></i> Entrar no Sistema
         </button>
         <p class="text-center text-xs text-slate-500 mt-4">
-          Não tem conta? <button onclick="window.AuthModule.toggleAuth('register')" class="text-inova-blue hover:underline font-bold">Cadastre-se aqui</button>
+          Não tem conta? <button onclick="window.AuthModule.toggleAuth('register')"
+            class="text-inova-blue hover:underline font-bold">Cadastre-se aqui</button>
         </p>
       </div>
 
-      
+
       <div id="register-form" class="space-y-4 relative z-10 hidden">
-        <h2 class="text-base font-semibold text-slate-700 border-b border-slate-100 pb-2">Criar Nova Conta Corporativa</h2>
+        <h2 class="text-base font-semibold text-slate-700 border-b border-slate-100 pb-2">Criar Nova Conta Corporativa
+        </h2>
         <div>
           <label class="block text-xs font-semibold text-slate-600 mb-1">Nome Completo</label>
-          <input type="text" id="reg-name" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-inova-blue" placeholder="Ex: Ana Clara Silva">
+          <input type="text" id="reg-name"
+            class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-inova-blue"
+            placeholder="Ex: Ana Clara Silva">
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-600 mb-1">E-mail Profissional</label>
-          <input type="email" id="reg-email" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-inova-blue" placeholder="ana@inova.com.br">
+          <input type="email" id="reg-email"
+            class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-inova-blue"
+            placeholder="ana@inova.com.br">
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-600 mb-1">Módulo / Função de Acesso Inicial</label>
-          <select id="reg-role" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-inova-blue">
+          <select id="reg-role"
+            class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-inova-blue">
             <option value="admin">Administrador Geral</option>
             <option value="financeiro">Gestor Financeiro</option>
             <option value="comercial">Executivo Comercial</option>
@@ -105,29 +128,35 @@
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-600 mb-1">Senha</label>
-          <input type="password" id="reg-pass" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-inova-blue" placeholder="••••••••">
+          <input type="password" id="reg-pass"
+            class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-inova-blue"
+            placeholder="••••••••">
         </div>
-        <button onclick="window.AuthModule.handleRegister()" class="w-full py-3 bg-inova-yellow hover:bg-inova-yellow-hover text-slate-900 font-bold rounded-xl shadow-lg shadow-inova-yellow/20 transition duration-200 flex items-center justify-center gap-2">
+        <button onclick="window.AuthModule.handleRegister()"
+          class="w-full py-3 bg-inova-yellow hover:bg-inova-yellow-hover text-slate-900 font-bold rounded-xl shadow-lg shadow-inova-yellow/20 transition duration-200 flex items-center justify-center gap-2">
           <i class="fas fa-user-plus"></i> Finalizar Cadastro
         </button>
         <p class="text-center text-xs text-slate-500 mt-4">
-          Já possui conta? <button onclick="window.AuthModule.toggleAuth('login')" class="text-inova-blue hover:underline font-bold">Fazer Login</button>
+          Já possui conta? <button onclick="window.AuthModule.toggleAuth('login')"
+            class="text-inova-blue hover:underline font-bold">Fazer Login</button>
         </p>
       </div>
     </div>
   </div>
 
-  
+
   <div id="main-app" class="hidden min-h-screen flex flex-col md:flex-row bg-slate-100">
 
-    
+
     <aside class="w-full md:w-64 bg-white border-r border-slate-200 flex flex-col justify-between shrink-0 shadow-sm">
       <div>
-        
+
         <div class="p-5 border-b border-slate-100 flex items-center justify-between">
           <div class="flex items-center gap-3">
-            <img src="img/icon.png" alt="Inova Logo" class="h-10 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('fallback-logo-side').style.display='flex';">
-            <div id="fallback-logo-side" class="hidden w-10 h-10 rounded-xl bg-inova-blue text-inova-yellow items-center justify-center font-bold text-lg shadow-md">
+            <img src="img/icon.png" alt="Inova Logo" class="h-10 w-auto object-contain"
+              onerror="this.style.display='none'; document.getElementById('fallback-logo-side').style.display='flex';">
+            <div id="fallback-logo-side"
+              class="hidden w-10 h-10 rounded-xl bg-inova-blue text-inova-yellow items-center justify-center font-bold text-lg shadow-md">
               in
             </div>
             <div>
@@ -137,17 +166,19 @@
           </div>
         </div>
 
-        
+
         <div class="px-4 py-3 bg-slate-50 border-b border-slate-100 flex items-center justify-between text-xs">
           <span class="text-slate-500 font-medium">Perfil Conectado:</span>
-          <span id="active-user-badge" class="px-2.5 py-0.5 rounded-full bg-inova-blue-light text-inova-blue border border-inova-blue/20 font-bold uppercase text-[10px]">ADMIN</span>
+          <span id="active-user-badge"
+            class="px-2.5 py-0.5 rounded-full bg-inova-blue-light text-inova-blue border border-inova-blue/20 font-bold uppercase text-[10px]">ADMIN</span>
         </div>
 
-        
+
         <nav class="p-3 space-y-1">
           <p class="px-3 py-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Módulos Administrativos</p>
 
-          <button id="nav-financeiro" onclick="window.AuthModule.switchModule('financeiro')" class="nav-btn w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-slate-600 hover:bg-slate-100 transition-all font-semibold text-sm">
+          <button id="nav-financeiro" onclick="window.AuthModule.switchModule('financeiro')"
+            class="nav-btn w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-slate-600 hover:bg-slate-100 transition-all font-semibold text-sm">
             <div class="flex items-center gap-3">
               <i class="fas fa-wallet w-5 text-emerald-600 text-base"></i>
               <span>Financeiro</span>
@@ -155,7 +186,8 @@
             <i class="fas fa-chevron-right text-[10px] text-slate-400"></i>
           </button>
 
-          <button id="nav-comercial" onclick="window.AuthModule.switchModule('comercial')" class="nav-btn w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-slate-600 hover:bg-slate-100 transition-all font-semibold text-sm">
+          <button id="nav-comercial" onclick="window.AuthModule.switchModule('comercial')"
+            class="nav-btn w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-slate-600 hover:bg-slate-100 transition-all font-semibold text-sm">
             <div class="flex items-center gap-3">
               <i class="fas fa-chart-line w-5 text-inova-blue text-base"></i>
               <span>Comercial / CRM</span>
@@ -163,28 +195,22 @@
             <i class="fas fa-chevron-right text-[10px] text-slate-400"></i>
           </button>
 
-          <button id="nav-rh" onclick="window.AuthModule.switchModule('rh')" class="nav-btn w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-slate-600 hover:bg-slate-100 transition-all font-semibold text-sm">
+          <button id="nav-rh" onclick="window.AuthModule.switchModule('rh')"
+            class="nav-btn w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-slate-600 hover:bg-slate-100 transition-all font-semibold text-sm">
             <div class="flex items-center gap-3">
               <i class="fas fa-users-gear w-5 text-purple-600 text-base"></i>
               <span>Recursos Humanos</span>
             </div>
             <i class="fas fa-chevron-right text-[10px] text-slate-400"></i>
           </button>
-
-          <div class="pt-4 border-t border-slate-100 my-2">
-            <p class="px-3 py-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Planejamento Ágil</p>
-            <button onclick="window.ModalsModule.openDevopsModal()" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-inova-blue bg-inova-blue-light border border-inova-blue/20 hover:bg-sky-100 transition-all font-bold text-sm">
-              <i class="fas fa-code-branch w-5"></i>
-              <span>Cronograma Sprints</span>
-            </button>
-          </div>
         </nav>
       </div>
 
-      
+
       <div class="p-4 border-t border-slate-100 bg-slate-50 flex items-center justify-between">
         <div class="flex items-center gap-3 overflow-hidden">
-          <div id="user-avatar" class="w-9 h-9 rounded-full bg-inova-blue text-inova-yellow flex items-center justify-center font-bold text-xs shrink-0 shadow-sm">
+          <div id="user-avatar"
+            class="w-9 h-9 rounded-full bg-inova-blue text-inova-yellow flex items-center justify-center font-bold text-xs shrink-0 shadow-sm">
             US
           </div>
           <div class="overflow-hidden">
@@ -192,48 +218,42 @@
             <p id="user-display-email" class="text-[11px] text-slate-500 truncate">email@inova.com.br</p>
           </div>
         </div>
-        <button onclick="window.AuthModule.handleLogout()" title="Sair do Sistema" class="p-2 text-slate-400 hover:text-red-600 hover:bg-slate-200/60 rounded-lg transition-colors">
+        <button onclick="window.AuthModule.handleLogout()" title="Sair do Sistema"
+          class="p-2 text-slate-400 hover:text-red-600 hover:bg-slate-200/60 rounded-lg transition-colors">
           <i class="fas fa-sign-out-alt"></i>
         </button>
       </div>
     </aside>
 
-    
+
     <main class="flex-1 flex flex-col min-w-0 overflow-y-auto custom-scrollbar">
 
-      
-      <header class="bg-white border-b border-slate-200 px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4 sticky top-0 z-20 shadow-sm">
+
+      <header
+        class="bg-white border-b border-slate-200 px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4 sticky top-0 z-20 shadow-sm">
         <div>
           <h1 id="page-title" class="text-xl font-bold text-inova-blue flex items-center gap-2">
             <i class="fas fa-chart-pie text-inova-yellow"></i> Visão Geral Módulo
           </h1>
-          <p id="page-subtitle" class="text-xs text-slate-500 mt-0.5">Gerenciamento dinâmico com validações de acesso por perfil</p>
-        </div>
-        <div class="flex items-center gap-3">
-          <button onclick="window.ModalsModule.openDevopsModal()" class="px-3.5 py-2 bg-slate-50 border border-slate-200 hover:bg-slate-100 rounded-xl text-xs font-semibold text-slate-700 flex items-center gap-2 shadow-sm transition">
-            <i class="fas fa-layer-group text-inova-blue"></i>
-            <span>DevOps Stakeholders Info</span>
-          </button>
-          <div class="h-6 w-px bg-slate-200"></div>
-          <span class="text-xs font-medium text-slate-600 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200">
-            <i class="far fa-calendar-alt text-inova-blue mr-1.5"></i> <span id="current-date">--/--/----</span>
-          </span>
+          <p id="page-subtitle" class="text-xs text-slate-500 mt-0.5">Gerenciamento dinâmico com validações de acesso
+            por perfil</p>
         </div>
       </header>
 
-      
+
       <div class="p-6 space-y-6 flex-1">
 
-        
+
         <section id="module-financeiro" class="module-section space-y-6">
           <div id="fin-denied" class="hidden p-8 bg-red-50 border border-red-200 rounded-2xl text-center">
             <i class="fas fa-lock text-4xl text-red-500 mb-3"></i>
             <h3 class="text-lg font-bold text-red-800">Acesso Restrito ao Módulo Financeiro</h3>
-            <p class="text-sm text-red-600 mt-1">Seu perfil não possui permissões para visualizar ou gerenciar recursos financeiros.</p>
+            <p class="text-sm text-red-600 mt-1">Seu perfil não possui permissões para visualizar ou gerenciar recursos
+              financeiros.</p>
           </div>
 
           <div id="fin-content" class="space-y-6">
-            
+
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <div class="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
                 <div class="flex justify-between items-start">
@@ -245,7 +265,8 @@
                     <i class="fas fa-dollar-sign text-lg"></i>
                   </div>
                 </div>
-                <p class="text-[11px] text-emerald-600 mt-2 font-medium flex items-center gap-1"><i class="fas fa-arrow-up"></i> +12.4% em relação ao mês anterior</p>
+                <p class="text-[11px] text-emerald-600 mt-2 font-medium flex items-center gap-1"><i
+                    class="fas fa-arrow-up"></i> +12.4% em relação ao mês anterior</p>
               </div>
 
               <div class="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
@@ -258,7 +279,8 @@
                     <i class="fas fa-barcode text-lg"></i>
                   </div>
                 </div>
-                <p class="text-[11px] text-slate-500 mt-2"><span id="fin-boletos-count" class="font-bold">4</span> boletos registrados</p>
+                <p class="text-[11px] text-slate-500 mt-2"><span id="fin-boletos-count" class="font-bold">4</span>
+                  boletos registrados</p>
               </div>
 
               <div class="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
@@ -271,7 +293,8 @@
                     <i class="fas fa-exclamation-triangle text-lg"></i>
                   </div>
                 </div>
-                <p class="text-[11px] text-rose-600 mt-2 font-medium"><span id="fin-inadimplentes-count" class="font-bold">3</span> clientes com cobrança pendente</p>
+                <p class="text-[11px] text-rose-600 mt-2 font-medium"><span id="fin-inadimplentes-count"
+                    class="font-bold">3</span> clientes com cobrança pendente</p>
               </div>
 
               <div class="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
@@ -288,16 +311,19 @@
               </div>
             </div>
 
-            
+
             <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
               <div class="border-b border-slate-200 px-6 pt-4 flex flex-wrap gap-6 bg-slate-50/50">
-                <button onclick="window.FinanceiroModule.setFinSubTab('boletos')" id="tab-fin-boletos" class="pb-3 text-sm font-bold border-b-2 border-inova-blue text-inova-blue flex items-center gap-2">
+                <button onclick="window.FinanceiroModule.setFinSubTab('boletos')" id="tab-fin-boletos"
+                  class="pb-3 text-sm font-bold border-b-2 border-inova-blue text-inova-blue flex items-center gap-2">
                   <i class="fas fa-file-invoice-dollar"></i> Emissão de Boletos
                 </button>
-                <button onclick="window.FinanceiroModule.setFinSubTab('contratos')" id="tab-fin-contratos" class="pb-3 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2">
+                <button onclick="window.FinanceiroModule.setFinSubTab('contratos')" id="tab-fin-contratos"
+                  class="pb-3 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2">
                   <i class="fas fa-file-signature"></i> Gestão de Contratos
                 </button>
-                <button onclick="window.FinanceiroModule.setFinSubTab('inadimplentes')" id="tab-fin-inadimplentes" class="pb-3 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2">
+                <button onclick="window.FinanceiroModule.setFinSubTab('inadimplentes')" id="tab-fin-inadimplentes"
+                  class="pb-3 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2">
                   <i class="fas fa-bullhorn text-rose-600"></i> Cobrança de Inadimplentes
                 </button>
               </div>
@@ -309,7 +335,8 @@
                       <h3 class="font-bold text-slate-800">Boletos Financeiros Registrados</h3>
                       <p class="text-xs text-slate-500">Gestão de cobranças bancárias com código de barras gerado</p>
                     </div>
-                    <button onclick="window.FinanceiroModule.openNewBoletoModal()" class="px-4 py-2.5 bg-inova-blue hover:bg-inova-blue-hover text-white rounded-xl text-xs font-bold flex items-center gap-2 transition shadow-md shadow-inova-blue/20">
+                    <button onclick="window.FinanceiroModule.openNewBoletoModal()"
+                      class="px-4 py-2.5 bg-inova-blue hover:bg-inova-blue-hover text-white rounded-xl text-xs font-bold flex items-center gap-2 transition shadow-md shadow-inova-blue/20">
                       <i class="fas fa-plus"></i> Gerar Novo Boleto
                     </button>
                   </div>
@@ -327,7 +354,7 @@
                         </tr>
                       </thead>
                       <tbody id="tbl-boletos-body" class="divide-y divide-slate-100 text-slate-700">
-                        
+
                       </tbody>
                     </table>
                   </div>
@@ -339,22 +366,25 @@
                       <h3 class="font-bold text-slate-800">Gestão de Contratos Empresariais</h3>
                       <p class="text-xs text-slate-500">Acompanhamento de vigência, recorrência mensal e renovações</p>
                     </div>
-                    <button onclick="window.FinanceiroModule.openNewContratoModal()" class="px-4 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold flex items-center gap-2 transition shadow-md shadow-purple-600/20">
+                    <button onclick="window.FinanceiroModule.openNewContratoModal()"
+                      class="px-4 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold flex items-center gap-2 transition shadow-md shadow-purple-600/20">
                       <i class="fas fa-file-signature"></i> Cadastrar Novo Contrato
                     </button>
                   </div>
                   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="contratos-grid">
-                    
+
                   </div>
                 </div>
 
                 <div id="sub-fin-inadimplentes" class="space-y-4 hidden">
-                  <div class="p-4 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-800 flex items-center justify-between">
+                  <div
+                    class="p-4 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-800 flex items-center justify-between">
                     <span class="flex items-center gap-2 font-medium">
                       <i class="fas fa-shield-halved text-rose-600 text-base"></i>
                       Régua de cobrança ativa com notificações formais e acionamento financeiro.
                     </span>
-                    <span class="font-bold bg-rose-100 px-2.5 py-1 rounded-lg border border-rose-300 text-rose-700">3 Débitos Críticos</span>
+                    <span class="font-bold bg-rose-100 px-2.5 py-1 rounded-lg border border-rose-300 text-rose-700">3
+                      Débitos Críticos</span>
                   </div>
 
                   <div class="overflow-x-auto rounded-xl border border-slate-200">
@@ -369,7 +399,7 @@
                         </tr>
                       </thead>
                       <tbody id="tbl-inadimplentes-body" class="divide-y divide-slate-100 text-slate-700">
-                        
+
                       </tbody>
                     </table>
                   </div>
@@ -379,7 +409,7 @@
           </div>
         </section>
 
-        
+
         <section id="module-comercial" class="module-section space-y-6 hidden">
           <div id="com-denied" class="hidden p-8 bg-red-50 border border-red-200 rounded-2xl text-center">
             <i class="fas fa-lock text-4xl text-red-500 mb-3"></i>
@@ -388,89 +418,99 @@
           </div>
 
           <div id="com-content" class="space-y-6">
-            
+
             <div class="bg-white border border-slate-200 rounded-2xl p-4 flex flex-wrap gap-3 shadow-sm">
-              <button onclick="window.ComercialModule.setComSubTab('crm')" id="btn-com-crm" class="px-4 py-2.5 rounded-xl text-xs font-bold bg-inova-yellow-light text-slate-900 border border-inova-yellow flex items-center gap-2">
+              <button onclick="window.ComercialModule.setComSubTab('crm')" id="btn-com-crm"
+                class="px-4 py-2.5 rounded-xl text-xs font-bold bg-inova-yellow-light text-slate-900 border border-inova-yellow flex items-center gap-2">
                 <i class="fas fa-filter text-amber-600"></i> CRM - Funil de Vendas
               </button>
-              <button onclick="window.ComercialModule.setComSubTab('sac')" id="btn-com-sac" class="px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200 hover:text-slate-900 flex items-center gap-2">
+              <button onclick="window.ComercialModule.setComSubTab('sac')" id="btn-com-sac"
+                class="px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200 hover:text-slate-900 flex items-center gap-2">
                 <i class="fas fa-headset text-inova-blue"></i> SAC - Atendimento ao Cliente
               </button>
-              <button onclick="window.ComercialModule.setComSubTab('relacionamento')" id="btn-com-relacionamento" class="px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200 hover:text-slate-900 flex items-center gap-2">
+              <button onclick="window.ComercialModule.setComSubTab('relacionamento')" id="btn-com-relacionamento"
+                class="px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200 hover:text-slate-900 flex items-center gap-2">
                 <i class="fas fa-address-book text-emerald-600"></i> Gestão de Relacionamentos
               </button>
             </div>
 
-            
+
             <div id="sub-com-crm" class="space-y-4">
               <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <div>
                   <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
                     <i class="fas fa-tasks text-inova-yellow"></i> Pipeline de Negócios (Funil de Vendas)
                   </h3>
-                  <p class="text-xs text-slate-500">Acompanhamento das etapas comerciais de prospecção até fechamento</p>
+                  <p class="text-xs text-slate-500">Acompanhamento das etapas comerciais de prospecção até fechamento
+                  </p>
                 </div>
-                <button onclick="window.ComercialModule.openNewLeadModal()" class="px-4 py-2.5 bg-inova-yellow hover:bg-inova-yellow-hover text-slate-900 rounded-xl text-xs font-bold flex items-center gap-2 transition shadow-md shadow-inova-yellow/20">
+                <button onclick="window.ComercialModule.openNewLeadModal()"
+                  class="px-4 py-2.5 bg-inova-yellow hover:bg-inova-yellow-hover text-slate-900 rounded-xl text-xs font-bold flex items-center gap-2 transition shadow-md shadow-inova-yellow/20">
                   <i class="fas fa-plus"></i> Nova Oportunidade
                 </button>
               </div>
 
-              
+
               <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                
+
                 <div class="bg-white border border-slate-200 p-3.5 rounded-2xl flex flex-col kanban-col shadow-sm">
                   <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
                     <span class="text-xs font-bold text-slate-700 uppercase tracking-wide flex items-center gap-2">
                       <span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span> Prospecção
                     </span>
-                    <span id="count-prospeccao" class="px-2 py-0.5 bg-slate-100 text-slate-600 text-xs rounded-full font-mono font-bold">0</span>
+                    <span id="count-prospeccao"
+                      class="px-2 py-0.5 bg-slate-100 text-slate-600 text-xs rounded-full font-mono font-bold">0</span>
                   </div>
                   <div id="kanban-prospeccao" class="space-y-3 flex-1 overflow-y-auto custom-scrollbar"></div>
                 </div>
 
-                
+
                 <div class="bg-white border border-slate-200 p-3.5 rounded-2xl flex flex-col kanban-col shadow-sm">
                   <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
                     <span class="text-xs font-bold text-slate-700 uppercase tracking-wide flex items-center gap-2">
                       <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Contato Feito
                     </span>
-                    <span id="count-contato" class="px-2 py-0.5 bg-slate-100 text-slate-600 text-xs rounded-full font-mono font-bold">0</span>
+                    <span id="count-contato"
+                      class="px-2 py-0.5 bg-slate-100 text-slate-600 text-xs rounded-full font-mono font-bold">0</span>
                   </div>
                   <div id="kanban-contato" class="space-y-3 flex-1 overflow-y-auto custom-scrollbar"></div>
                 </div>
 
-                
+
                 <div class="bg-white border border-slate-200 p-3.5 rounded-2xl flex flex-col kanban-col shadow-sm">
                   <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
                     <span class="text-xs font-bold text-slate-700 uppercase tracking-wide flex items-center gap-2">
                       <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span> Proposta Enviada
                     </span>
-                    <span id="count-proposta" class="px-2 py-0.5 bg-slate-100 text-slate-600 text-xs rounded-full font-mono font-bold">0</span>
+                    <span id="count-proposta"
+                      class="px-2 py-0.5 bg-slate-100 text-slate-600 text-xs rounded-full font-mono font-bold">0</span>
                   </div>
                   <div id="kanban-proposta" class="space-y-3 flex-1 overflow-y-auto custom-scrollbar"></div>
                 </div>
 
-                
+
                 <div class="bg-white border border-slate-200 p-3.5 rounded-2xl flex flex-col kanban-col shadow-sm">
                   <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
                     <span class="text-xs font-bold text-slate-700 uppercase tracking-wide flex items-center gap-2">
                       <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Fechado / Ganho
                     </span>
-                    <span id="count-fechado" class="px-2 py-0.5 bg-slate-100 text-slate-600 text-xs rounded-full font-mono font-bold">0</span>
+                    <span id="count-fechado"
+                      class="px-2 py-0.5 bg-slate-100 text-slate-600 text-xs rounded-full font-mono font-bold">0</span>
                   </div>
                   <div id="kanban-fechado" class="space-y-3 flex-1 overflow-y-auto custom-scrollbar"></div>
                 </div>
               </div>
             </div>
 
-            
+
             <div id="sub-com-sac" class="space-y-4 hidden">
               <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <div>
                   <h3 class="text-base font-bold text-slate-800">Central de Chamados do Cliente (SAC)</h3>
                   <p class="text-xs text-slate-500">Atendimento e resolução de solicitações de clientes corporativos</p>
                 </div>
-                <button onclick="window.ComercialModule.openNewTicketModal()" class="px-4 py-2.5 bg-inova-blue hover:bg-inova-blue-hover text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md">
+                <button onclick="window.ComercialModule.openNewTicketModal()"
+                  class="px-4 py-2.5 bg-inova-blue hover:bg-inova-blue-hover text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md">
                   <i class="fas fa-headset"></i> Abrir Novo Ticket SAC
                 </button>
               </div>
@@ -488,13 +528,13 @@
                     </tr>
                   </thead>
                   <tbody id="tbl-sac-body" class="divide-y divide-slate-100 text-slate-700">
-                    
+
                   </tbody>
                 </table>
               </div>
             </div>
 
-            
+
             <div id="sub-com-relacionamento" class="space-y-4 hidden">
               <div class="flex justify-between items-center">
                 <div>
@@ -503,61 +543,69 @@
                 </div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="relacionamento-grid">
-                
+
               </div>
             </div>
           </div>
         </section>
 
-        
+
         <section id="module-rh" class="module-section space-y-6 hidden">
           <div id="rh-denied" class="hidden p-8 bg-red-50 border border-red-200 rounded-2xl text-center">
             <i class="fas fa-lock text-4xl text-red-500 mb-3"></i>
             <h3 class="text-lg font-bold text-red-800">Acesso Restrito ao Módulo de Recursos Humanos</h3>
-            <p class="text-sm text-red-600 mt-1">Seu perfil não possui permissões para dados de RH e Folha de Pagamento.</p>
+            <p class="text-sm text-red-600 mt-1">Seu perfil não possui permissões para dados de RH e Folha de Pagamento.
+            </p>
           </div>
 
           <div id="rh-content" class="space-y-6">
-            
+
             <div class="bg-white border border-slate-200 rounded-2xl p-4 flex flex-wrap gap-3 shadow-sm">
-              <button onclick="window.RHModule.setRhSubTab('contratacoes')" id="btn-rh-contratacoes" class="px-4 py-2.5 rounded-xl text-xs font-bold bg-purple-50 text-purple-700 border border-purple-200 flex items-center gap-2">
+              <button onclick="window.RHModule.setRhSubTab('contratacoes')" id="btn-rh-contratacoes"
+                class="px-4 py-2.5 rounded-xl text-xs font-bold bg-purple-50 text-purple-700 border border-purple-200 flex items-center gap-2">
                 <i class="fas fa-user-plus"></i> Contratações (Vagas)
               </button>
-              <button onclick="window.RHModule.setRhSubTab('demissoes')" id="btn-rh-demissoes" class="px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200 hover:text-slate-900 flex items-center gap-2">
+              <button onclick="window.RHModule.setRhSubTab('demissoes')" id="btn-rh-demissoes"
+                class="px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200 hover:text-slate-900 flex items-center gap-2">
                 <i class="fas fa-user-minus"></i> Desligamentos / Demissões
               </button>
-              <button onclick="window.RHModule.setRhSubTab('ferias')" id="btn-rh-ferias" class="px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200 hover:text-slate-900 flex items-center gap-2">
+              <button onclick="window.RHModule.setRhSubTab('ferias')" id="btn-rh-ferias"
+                class="px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200 hover:text-slate-900 flex items-center gap-2">
                 <i class="fas fa-umbrella-beach"></i> Cálculos de Férias
               </button>
-              <button onclick="window.RHModule.setRhSubTab('folha')" id="btn-rh-folha" class="px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200 hover:text-slate-900 flex items-center gap-2">
+              <button onclick="window.RHModule.setRhSubTab('folha')" id="btn-rh-folha"
+                class="px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200 hover:text-slate-900 flex items-center gap-2">
                 <i class="fas fa-money-check-dollar"></i> Folha de Pagamento
               </button>
             </div>
 
-            
+
             <div id="sub-rh-contratacoes" class="space-y-4">
               <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <div>
                   <h3 class="text-base font-bold text-slate-800">Processos Seletivos e Contratações</h3>
                   <p class="text-xs text-slate-500">Vagas abertas e triagem de currículos para recrutamento</p>
                 </div>
-                <button onclick="window.RHModule.openNewVagaModal()" class="px-4 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md shadow-purple-600/20">
+                <button onclick="window.RHModule.openNewVagaModal()"
+                  class="px-4 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md shadow-purple-600/20">
                   <i class="fas fa-briefcase"></i> Publicar Nova Vaga
                 </button>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="rh-vagas-grid">
-                
+
               </div>
             </div>
 
-            
+
             <div id="sub-rh-demissoes" class="space-y-4 hidden">
               <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <div>
                   <h3 class="text-base font-bold text-slate-800">Gestão de Demissões e Rescisões</h3>
-                  <p class="text-xs text-slate-500">Registro de desligamentos e acompanhamento de homologação rescisória</p>
+                  <p class="text-xs text-slate-500">Registro de desligamentos e acompanhamento de homologação rescisória
+                  </p>
                 </div>
-                <button onclick="window.RHModule.openNewDemissaoModal()" class="px-4 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md shadow-rose-600/20">
+                <button onclick="window.RHModule.openNewDemissaoModal()"
+                  class="px-4 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md shadow-rose-600/20">
                   <i class="fas fa-user-times"></i> Registrar Demissão
                 </button>
               </div>
@@ -574,51 +622,63 @@
                     </tr>
                   </thead>
                   <tbody id="tbl-demissoes-body" class="divide-y divide-slate-100 text-slate-700">
-                    
+
                   </tbody>
                 </table>
               </div>
             </div>
 
-            
+
             <div id="sub-rh-ferias" class="space-y-4 hidden">
               <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                
+
                 <div class="bg-white border border-slate-200 p-5 rounded-2xl space-y-4 shadow-sm">
                   <h3 class="font-bold text-slate-800 text-base flex items-center gap-2">
                     <i class="fas fa-calculator text-purple-600"></i> Calculadora de Férias CLT
                   </h3>
                   <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Salário Bruto Mensal (R$)</label>
-                    <input type="number" id="calc-salario" value="5500" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-purple-600 font-mono">
+                    <input type="number" id="calc-salario" value="5500"
+                      class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-purple-600 font-mono">
                   </div>
                   <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Dias de Férias Gozadas</label>
-                    <select id="calc-dias" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-purple-600">
+                    <select id="calc-dias"
+                      class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-purple-600">
                       <option value="30">30 Dias Integrais</option>
                       <option value="20">20 Dias (Com venda de 10 dias)</option>
                       <option value="15">15 Dias Fracionados</option>
                     </select>
                   </div>
                   <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Vender 1/3 (Abono Pecuniário)?</label>
-                    <select id="calc-abono" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-purple-600">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Vender 1/3 (Abono
+                      Pecuniário)?</label>
+                    <select id="calc-abono"
+                      class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-purple-600">
                       <option value="nao">Não vender</option>
                       <option value="sim">Sim (10 dias de abono)</option>
                     </select>
                   </div>
-                  <button onclick="window.RHModule.calcularFeriasSimulacao()" class="w-full py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold transition shadow-md">
+                  <button onclick="window.RHModule.calcularFeriasSimulacao()"
+                    class="w-full py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold transition shadow-md">
                     <i class="fas fa-calculator mr-1"></i> Calcular Férias
                   </button>
 
-                  <div id="calc-resultado" class="mt-4 p-4 bg-purple-50 border border-purple-200 rounded-xl text-xs space-y-2">
-                    <div class="flex justify-between"><span class="text-slate-600">Férias Base Proporcionais:</span> <span id="res-ferias-base" class="font-semibold text-slate-800">R$ 5.500,00</span></div>
-                    <div class="flex justify-between"><span class="text-slate-600">Adicional 1/3 Constitucional:</span> <span id="res-ferias-terco" class="font-semibold text-slate-800">R$ 1.833,33</span></div>
-                    <div class="flex justify-between border-t border-purple-200 pt-2"><span class="font-bold text-slate-900">Total Bruto Estimado:</span> <span id="res-ferias-total" class="font-bold text-emerald-600 text-sm">R$ 7.333,33</span></div>
+                  <div id="calc-resultado"
+                    class="mt-4 p-4 bg-purple-50 border border-purple-200 rounded-xl text-xs space-y-2">
+                    <div class="flex justify-between"><span class="text-slate-600">Férias Base Proporcionais:</span>
+                      <span id="res-ferias-base" class="font-semibold text-slate-800">R$ 5.500,00</span>
+                    </div>
+                    <div class="flex justify-between"><span class="text-slate-600">Adicional 1/3 Constitucional:</span>
+                      <span id="res-ferias-terco" class="font-semibold text-slate-800">R$ 1.833,33</span>
+                    </div>
+                    <div class="flex justify-between border-t border-purple-200 pt-2"><span
+                        class="font-bold text-slate-900">Total Bruto Estimado:</span> <span id="res-ferias-total"
+                        class="font-bold text-emerald-600 text-sm">R$ 7.333,33</span></div>
                   </div>
                 </div>
 
-                
+
                 <div class="lg:col-span-2 bg-white border border-slate-200 p-5 rounded-2xl space-y-4 shadow-sm">
                   <h3 class="font-bold text-slate-800 text-base">Programação de Férias da Equipe</h3>
                   <div class="overflow-x-auto rounded-xl border border-slate-200">
@@ -633,7 +693,7 @@
                         </tr>
                       </thead>
                       <tbody id="tbl-ferias-body" class="divide-y divide-slate-100 text-slate-700">
-                        
+
                       </tbody>
                     </table>
                   </div>
@@ -641,14 +701,16 @@
               </div>
             </div>
 
-            
+
             <div id="sub-rh-folha" class="space-y-4 hidden">
               <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <div>
                   <h3 class="text-base font-bold text-slate-800">Folha de Pagamento Mensal</h3>
-                  <p class="text-xs text-slate-500">Cálculo de proventos, descontos de INSS/IRRF e liquidação de holerites</p>
+                  <p class="text-xs text-slate-500">Cálculo de proventos, descontos de INSS/IRRF e liquidação de
+                    holerites</p>
                 </div>
-                <span class="px-3.5 py-1.5 bg-emerald-100 text-emerald-800 border border-emerald-200 rounded-xl text-xs font-bold">
+                <span
+                  class="px-3.5 py-1.5 bg-emerald-100 text-emerald-800 border border-emerald-200 rounded-xl text-xs font-bold">
                   <i class="fas fa-check-circle mr-1 text-emerald-600"></i> Folha Vigente Processada
                 </span>
               </div>
@@ -666,7 +728,7 @@
                     </tr>
                   </thead>
                   <tbody id="tbl-folha-body" class="divide-y divide-slate-100 text-slate-700">
-                    
+
                   </tbody>
                 </table>
               </div>
@@ -678,101 +740,23 @@
     </main>
   </div>
 
-  
-  <div id="devops-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white border border-slate-200 w-full max-w-4xl rounded-2xl p-6 space-y-6 max-h-[90vh] overflow-y-auto custom-scrollbar shadow-2xl">
-      <div class="flex justify-between items-center border-b border-slate-100 pb-4">
-        <div>
-          <h2 class="text-xl font-bold text-inova-blue flex items-center gap-2">
-            <i class="fas fa-sitemap text-inova-yellow"></i> Cronograma de Entregas & Sprints (DevOps Scrum)
-          </h2>
-          <p class="text-xs text-slate-500 mt-0.5">Planejamento de MVP incremental e investimento apresentado aos Stakeholders</p>
-        </div>
-        <button onclick="window.ModalsModule.closeDevopsModal()" class="p-2 text-slate-400 hover:text-slate-700 rounded-lg"><i class="fas fa-times text-lg"></i></button>
-      </div>
-
-      
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-3">
-          <div class="flex justify-between items-center">
-            <span class="px-2.5 py-0.5 bg-inova-blue-light text-inova-blue border border-inova-blue/20 text-xs rounded-full font-bold">Sprint 1 (Mês 1)</span>
-            <span class="text-xs text-slate-800 font-mono font-bold">R$ 25.000</span>
-          </div>
-          <h3 class="font-bold text-slate-800 text-sm">Arquitetura Base & Autenticação</h3>
-          <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
-            <li>Pipeline de CI/CD e estrutura do projeto</li>
-            <li>Telas de Login e Cadastro com Logo Inova</li>
-            <li>Matriz de Acessos por Perfil (RBAC)</li>
-            <li>Design System Modo Claro e Telas do Sistema</li>
-          </ul>
-          <span class="inline-block text-[11px] text-emerald-600 font-bold"><i class="fas fa-check-circle mr-1"></i> Concluído</span>
-        </div>
-
-        <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-3">
-          <div class="flex justify-between items-center">
-            <span class="px-2.5 py-0.5 bg-inova-yellow-light text-amber-800 border border-inova-yellow/30 text-xs rounded-full font-bold">Sprint 2 (Mês 2)</span>
-            <span class="text-xs text-slate-800 font-mono font-bold">R$ 35.000</span>
-          </div>
-          <h3 class="font-bold text-slate-800 text-sm">Módulo Financeiro & Comercial</h3>
-          <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
-            <li>Boletos, Contratos e Cobrança</li>
-            <li>Funil de Vendas CRM em Kanban</li>
-            <li>Central de Atendimento SAC</li>
-            <li>Gestão de Relacionamentos</li>
-          </ul>
-          <span class="inline-block text-[11px] text-emerald-600 font-bold"><i class="fas fa-check-circle mr-1"></i> Concluído</span>
-        </div>
-
-        <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-3">
-          <div class="flex justify-between items-center">
-            <span class="px-2.5 py-0.5 bg-purple-50 text-purple-700 border border-purple-200 text-xs rounded-full font-bold">Sprint 3 (Mês 3)</span>
-            <span class="text-xs text-slate-800 font-mono font-bold">R$ 30.000</span>
-          </div>
-          <h3 class="font-bold text-slate-800 text-sm">Módulo RH & Integração Total</h3>
-          <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
-            <li>Vagas de Contratação e Demissões</li>
-            <li>Simulador de Férias e Holerites</li>
-            <li>Validação de Usabilidade/UX Inova</li>
-            <li>Entrega do Produto Incremental Final</li>
-          </ul>
-          <span class="inline-block text-[11px] text-emerald-600 font-bold"><i class="fas fa-check-circle mr-1"></i> Concluído</span>
-        </div>
-      </div>
-
-      
-      <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-2">
-        <h4 class="text-xs font-bold uppercase text-slate-500">Resumo Financeiro da Implantação Inova</h4>
-        <div class="flex justify-between items-center text-sm py-1 border-b border-slate-200">
-          <span class="text-slate-700 font-medium">Valor Total do Projeto (3 Sprints):</span>
-          <span class="font-black text-emerald-600 text-base">R$ 90.000,00</span>
-        </div>
-        <div class="flex justify-between items-center text-sm py-1">
-          <span class="text-slate-700 font-medium">Metodologia Utilizada:</span>
-          <span class="text-inova-blue font-bold">Scrum com Entregas Incrementais Funcionais</span>
-        </div>
-      </div>
-
-      <div class="flex justify-end">
-        <button onclick="window.ModalsModule.closeDevopsModal()" class="px-5 py-2.5 bg-inova-blue hover:bg-inova-blue-hover text-white rounded-xl text-xs font-bold shadow">
-          Fechar Cronograma
-        </button>
-      </div>
-    </div>
-  </div>
-
-  
-  <div id="holerite-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white text-slate-900 border border-slate-300 w-full max-w-2xl rounded-2xl p-6 space-y-4 max-h-[90vh] overflow-y-auto shadow-2xl">
+  <div id="holerite-modal"
+    class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div
+      class="bg-white text-slate-900 border border-slate-300 w-full max-w-2xl rounded-2xl p-6 space-y-4 max-h-[90vh] overflow-y-auto shadow-2xl">
       <div id="printable-holerite" class="space-y-4">
         <div class="border-b-2 border-inova-blue pb-3 flex justify-between items-center">
           <div class="flex items-center gap-3">
-            <img src="img/icon.png" alt="Inova Logo" class="h-10 w-auto object-contain" onerror="this.style.display='none';">
+            <img src="img/icon.png" alt="Inova Logo" class="h-10 w-auto object-contain"
+              onerror="this.style.display='none';">
             <div>
               <h2 class="text-lg font-black text-inova-blue">INOVA SISTEMAS S.A.</h2>
               <p class="text-xs text-slate-500">CNPJ: 12.345.678/0001-90 - Demonstrativo Mensal de Pagamento</p>
             </div>
           </div>
-          <span class="text-xs font-bold text-slate-700 uppercase border border-slate-300 px-2.5 py-1 rounded-lg bg-slate-50">Holerite Mensal</span>
+          <span
+            class="text-xs font-bold text-slate-700 uppercase border border-slate-300 px-2.5 py-1 rounded-lg bg-slate-50">Holerite
+            Mensal</span>
         </div>
 
         <div class="grid grid-cols-2 gap-2 text-xs bg-slate-50 p-3 rounded-xl border border-slate-200">
@@ -804,24 +788,27 @@
           </tbody>
         </table>
 
-        <div class="flex justify-between items-center p-3.5 bg-inova-blue-light rounded-xl border border-inova-blue/20 text-sm font-bold">
+        <div
+          class="flex justify-between items-center p-3.5 bg-inova-blue-light rounded-xl border border-inova-blue/20 text-sm font-bold">
           <span class="text-inova-blue">VALOR LÍQUIDO A RECEBER:</span>
           <span class="text-emerald-700 text-base font-mono font-bold" id="holerite-liquido">R$ 0,00</span>
         </div>
       </div>
 
       <div class="flex justify-end gap-2 pt-2 border-t border-slate-200">
-        <button onclick="window.print()" class="px-4 py-2 bg-inova-blue hover:bg-inova-blue-hover text-white rounded-xl text-xs font-bold">
+        <button onclick="window.print()"
+          class="px-4 py-2 bg-inova-blue hover:bg-inova-blue-hover text-white rounded-xl text-xs font-bold">
           <i class="fas fa-print mr-1"></i> Imprimir / PDF
         </button>
-        <button onclick="window.ModalsModule.closeHoleriteModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold">
+        <button onclick="window.ModalsModule.closeHoleriteModal()"
+          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold">
           Fechar
         </button>
       </div>
     </div>
   </div>
 
-  
+
   <script src="js/state.js"></script>
   <script src="js/utils/helpers.js"></script>
   <script src="js/auth.js"></script>
@@ -830,4 +817,5 @@
   <script src="js/modules/rh.js"></script>
   <script src="js/modals/devops.js"></script>
 </body>
+
 </html>
