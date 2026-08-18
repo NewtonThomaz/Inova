@@ -55,21 +55,36 @@ function handleLogout() {
 
 
 function initApp() {
-  document.getElementById('auth-container').classList.add('hidden');
-  document.getElementById('main-app').classList.remove('hidden');
+  const authContainer = document.getElementById('auth-container');
+  if (authContainer) authContainer.classList.add('hidden');
 
-  
-  document.getElementById('user-display-name').textContent = window.AppState.currentUser.name;
-  document.getElementById('user-display-email').textContent = window.AppState.currentUser.email;
-  document.getElementById('user-avatar').textContent = window.AppState.currentUser.name.substring(0, 2).toUpperCase();
-  document.getElementById('active-user-badge').textContent = window.AppState.currentUser.role.toUpperCase();
+  const mainApp = document.getElementById('main-app');
+  if (mainApp) mainApp.classList.remove('hidden');
 
-  
+  // Atualizar dados do usuário no menu lateral
+  if (window.AppState.currentUser) {
+    const userDisplayName = document.getElementById('user-display-name');
+    if (userDisplayName) userDisplayName.textContent = window.AppState.currentUser.name;
+
+    const userDisplayEmail = document.getElementById('user-display-email');
+    if (userDisplayEmail) userDisplayEmail.textContent = window.AppState.currentUser.email;
+
+    const userAvatar = document.getElementById('user-avatar');
+    if (userAvatar) userAvatar.textContent = window.AppState.currentUser.name.substring(0, 2).toUpperCase();
+
+    const activeUserBadge = document.getElementById('active-user-badge');
+    if (activeUserBadge) activeUserBadge.textContent = window.AppState.currentUser.role.toUpperCase();
+  }
+
+  // Data atual no topo (com verificação segura)
   const now = new Date();
-  document.getElementById('current-date').textContent = now.toLocaleDateString('pt-BR');
+  const currentDateEl = document.getElementById('current-date');
+  if (currentDateEl) {
+    currentDateEl.textContent = now.toLocaleDateString('pt-BR');
+  }
 
-  
-  const role = window.AppState.currentUser.role;
+  // Ativação do módulo inicial baseado no perfil
+  const role = window.AppState.currentUser ? window.AppState.currentUser.role : 'admin';
   if (role === 'financeiro') switchModule('financeiro');
   else if (role === 'comercial') switchModule('comercial');
   else if (role === 'rh') switchModule('rh');
@@ -80,7 +95,7 @@ function initApp() {
 function switchModule(mod) {
   window.AppState.activeModule = mod;
 
-  
+  // Atualizar botões de navegação
   document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.classList.remove('bg-inova-blue-light', 'text-inova-blue');
     btn.classList.add('text-slate-600');
@@ -92,53 +107,78 @@ function switchModule(mod) {
     activeNavBtn.classList.add('bg-inova-blue-light', 'text-inova-blue');
   }
 
-  
+  // Ocultar todas as seções
   document.querySelectorAll('.module-section').forEach(sec => sec.classList.add('hidden'));
 
   const titleEl = document.getElementById('page-title');
   const subTitleEl = document.getElementById('page-subtitle');
 
-  
-  const isAllowed = window.AppState.currentUser.role === 'admin' || window.AppState.currentUser.role === mod;
+  // Validação de Permissão RBAC
+  const currentRole = window.AppState.currentUser ? window.AppState.currentUser.role : 'admin';
+  const isAllowed = currentRole === 'admin' || currentRole === mod;
 
   if (mod === 'financeiro') {
-    titleEl.innerHTML = `<i class="fas fa-wallet text-emerald-600"></i> Módulo Financeiro Inova`;
-    subTitleEl.textContent = `Gestão de boletos bancários, contratos vigentes e cobrança de inadimplentes`;
-    document.getElementById('module-financeiro').classList.remove('hidden');
+    if (titleEl) titleEl.innerHTML = `<i class="fas fa-wallet text-emerald-600"></i> Módulo Financeiro Inova`;
+    if (subTitleEl) subTitleEl.textContent = `Gestão de boletos bancários, contratos vigentes e cobrança de inadimplentes`;
+    const modEl = document.getElementById('module-financeiro');
+    if (modEl) modEl.classList.remove('hidden');
+
+    const finContent = document.getElementById('fin-content');
+    const finDenied = document.getElementById('fin-denied');
 
     if (!isAllowed) {
-      document.getElementById('fin-content').classList.add('hidden');
-      document.getElementById('fin-denied').classList.remove('hidden');
+      if (finContent) finContent.classList.add('hidden');
+      if (finDenied) finDenied.classList.remove('hidden');
     } else {
-      document.getElementById('fin-content').classList.remove('hidden');
-      document.getElementById('fin-denied').classList.add('hidden');
-      renderFinanceiro();
+      if (finContent) finContent.classList.remove('hidden');
+      if (finDenied) finDenied.classList.add('hidden');
+      if (window.FinanceiroModule && typeof window.FinanceiroModule.renderFinanceiro === 'function') {
+        window.FinanceiroModule.renderFinanceiro();
+      } else if (typeof renderFinanceiro === 'function') {
+        renderFinanceiro();
+      }
     }
   } else if (mod === 'comercial') {
-    titleEl.innerHTML = `<i class="fas fa-chart-line text-inova-blue"></i> Módulo Comercial & CRM Inova`;
-    subTitleEl.textContent = `Central de atendimento SAC, Funil de vendas CRM e Gestão de Relacionamentos`;
-    document.getElementById('module-comercial').classList.remove('hidden');
+    if (titleEl) titleEl.innerHTML = `<i class="fas fa-chart-line text-inova-blue"></i> Módulo Comercial & CRM Inova`;
+    if (subTitleEl) subTitleEl.textContent = `Central de atendimento SAC, Funil de vendas CRM e Gestão de Relacionamentos`;
+    const modEl = document.getElementById('module-comercial');
+    if (modEl) modEl.classList.remove('hidden');
+
+    const comContent = document.getElementById('com-content');
+    const comDenied = document.getElementById('com-denied');
 
     if (!isAllowed) {
-      document.getElementById('com-content').classList.add('hidden');
-      document.getElementById('com-denied').classList.remove('hidden');
+      if (comContent) comContent.classList.add('hidden');
+      if (comDenied) comDenied.classList.remove('hidden');
     } else {
-      document.getElementById('com-content').classList.remove('hidden');
-      document.getElementById('com-denied').classList.add('hidden');
-      renderComercial();
+      if (comContent) comContent.classList.remove('hidden');
+      if (comDenied) comDenied.classList.add('hidden');
+      if (window.ComercialModule && typeof window.ComercialModule.renderComercial === 'function') {
+        window.ComercialModule.renderComercial();
+      } else if (typeof renderComercial === 'function') {
+        renderComercial();
+      }
     }
   } else if (mod === 'rh') {
-    titleEl.innerHTML = `<i class="fas fa-users-gear text-purple-600"></i> Módulo de Recursos Humanos Inova`;
-    subTitleEl.textContent = `Gestão de contratações, demissões, calculadora de férias e folha salarial`;
-    document.getElementById('module-rh').classList.remove('hidden');
+    if (titleEl) titleEl.innerHTML = `<i class="fas fa-users-gear text-purple-600"></i> Módulo de Recursos Humanos Inova`;
+    if (subTitleEl) subTitleEl.textContent = `Gestão de contratações, demissões, calculadora de férias e folha salarial`;
+    const modEl = document.getElementById('module-rh');
+    if (modEl) modEl.classList.remove('hidden');
+
+    const rhContent = document.getElementById('rh-content');
+    const rhDenied = document.getElementById('rh-denied');
 
     if (!isAllowed) {
-      document.getElementById('rh-content').classList.add('hidden');
-      document.getElementById('rh-denied').classList.remove('hidden');
+      if (rhContent) rhContent.classList.add('hidden');
+      if (rhDenied) rhDenied.classList.remove('hidden');
     } else {
-      document.getElementById('rh-content').classList.remove('hidden');
-      document.getElementById('rh-denied').classList.add('hidden');
-      renderRH();
+      if (rhContent) rhContent.classList.remove('hidden');
+      if (rhDenied) rhDenied.classList.add('hidden');
+      if (window.RHModule && typeof window.RHModule.renderRH === 'function') {
+        window.RHModule.renderRH();
+      } else if (typeof renderRH === 'function') {
+        renderRH();
+      }
     }
   }
 }

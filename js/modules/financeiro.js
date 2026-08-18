@@ -2,9 +2,34 @@
 
 
 function renderFinanceiro() {
+  renderKPIs();
   renderBoletosTable();
   renderContratosGrid();
   renderInadimplentesTable();
+}
+
+function renderKPIs() {
+  const boletos = window.AppState.state.boletos || [];
+  const inadimplentes = window.AppState.state.inadimplentes || [];
+  const contratos = window.AppState.state.contratos || [];
+
+  const totalBoletos = boletos.reduce((sum, b) => sum + (Number(b.valor) || 0), 0);
+  const totalInadimplencia = inadimplentes.reduce((sum, i) => sum + (Number(i.valor) || 0), 0);
+
+  const totalBoletosEl = document.getElementById('fin-boletos-receber');
+  if (totalBoletosEl) totalBoletosEl.textContent = `R$ ${window.AppHelpers.formatBRL(totalBoletos)}`;
+
+  const boletosCountEl = document.getElementById('fin-boletos-count');
+  if (boletosCountEl) boletosCountEl.textContent = boletos.length;
+
+  const totalInadEl = document.getElementById('fin-inadimplencia');
+  if (totalInadEl) totalInadEl.textContent = `R$ ${window.AppHelpers.formatBRL(totalInadimplencia)}`;
+
+  const inadCountEl = document.getElementById('fin-inadimplentes-count');
+  if (inadCountEl) inadCountEl.textContent = inadimplentes.length;
+
+  const contratosCountEl = document.getElementById('fin-contratos-count');
+  if (contratosCountEl) contratosCountEl.textContent = `${contratos.length} Contratos`;
 }
 
 
